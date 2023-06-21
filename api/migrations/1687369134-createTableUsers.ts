@@ -1,4 +1,6 @@
-export async function up(sql: any) {
+import { Sql } from 'postgres';
+
+export async function up(sql: Sql) {
   await sql`
   CREATE TABLE users(
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -15,7 +17,7 @@ export async function up(sql: any) {
   )`;
 }
 
-export async function down(sql: any) {
+export async function down(sql: Sql) {
   await sql`
   DROP TABLE users
 `;

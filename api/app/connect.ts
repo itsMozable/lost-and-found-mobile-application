@@ -1,4 +1,4 @@
-import config from 'next/config';
+import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 
 config();
