@@ -23,6 +23,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "migrations/1687371844-insertUsers.ts", "mmigrations/1687369150-createTableSessions.ts, "migmigrations/1687369134-createTableUsers.ts
   "exclude": ["node_modules"]
 }

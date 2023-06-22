@@ -2,7 +2,7 @@ import { Sql } from 'postgres';
 
 export const logInData = [
   { id: 1, userName: 'admin', passwordHash: 'admin' },
-  { id: 2, userName: 'testuser1', passwordHash: 'testuser1' },
+  { id: 2, userName: 'testUser1', passwordHash: 'testUser1' },
 ];
 
 export async function up(sql: Sql) {
@@ -11,7 +11,7 @@ export async function up(sql: Sql) {
     INSERT INTO users
       (id, user_name, password_hash )
     VALUES
-      (${testUsers.userName}, ${testUsers.passwordHash})
+      (${testUsers.id}, ${testUsers.userName}, ${testUsers.passwordHash})
   `;
   }
 }
