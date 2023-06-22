@@ -1,12 +1,20 @@
-import { useFonts } from '@expo-google-fonts/pacifico';
-/* eslint-disable react/style-prop-object */
+import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { apiBaseUrl, colors } from '../globals/globalData';
+import { colors } from '../globals/globalData';
 import Header from './header';
+
+const manifest = Constants;
+/* const apiBaseUrl = 'http://192.168.1.169:3000/api'; */
+export const apiBaseUrl =
+  typeof manifest.packagerOpts === `object` && manifest.packagerOpts.dev
+    ? `http://${manifest.debuggerHost.split(`:`).shift()}:3000/api`
+    : 'https://192.168.0.323:19000';
+
+console.log(apiBaseUrl);
 
 type LoginDataResponseBody =
   | {
