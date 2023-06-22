@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const { manifest } = Constants;
+const manifest = Constants;
 /* const apiBaseUrl = 'http://192.168.1.169:3000/api'; */
 const apiBaseUrl =
   typeof manifest.packagerOpts === `object` && manifest.packagerOpts.dev

@@ -1,3 +1,4 @@
+InsertUser Datei:
 import { Sql } from 'postgres';
 
 export const logInData = [
@@ -9,9 +10,9 @@ export async function up(sql: Sql) {
   for (const testUsers of logInData) {
     await sql`
     INSERT INTO users
-      (id, user_name, password_hash )
+      (user_name, password_hash )
     VALUES
-      (${testUsers.id}, ${testUsers.userName}, ${testUsers.passwordHash})
+    (${testUsers.userName}, ${testUsers.passwordHash})
   `;
   }
 }

@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@types/react':
+    specifier: ~18.0.27
+    version: 18.0.38
   expo-constants:
     specifier: ^14.2.1
     version: 14.2.1(expo@48.0.19)
@@ -12,7 +15,7 @@ dependencies:
 devDependencies:
   eslint-config-upleveled:
     specifier: ^4.7.2
-    version: 4.7.2(@babel/eslint-parser@7.22.5)(@next/eslint-plugin-next@13.4.6)(@types/eslint@8.40.2)(@types/node@20.3.1)(@types/react-dom@18.2.6)(@types/react@18.2.13)(@typescript-eslint/eslint-plugin@5.60.0)(@typescript-eslint/parser@5.60.0)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-import@2.27.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-jsx-expressions@1.3.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint-plugin-security@1.7.1)(eslint-plugin-sonarjs@0.19.0)(eslint-plugin-testing-library@5.11.0)(eslint-plugin-unicorn@47.0.0)(eslint-plugin-upleveled@2.1.8)(eslint@8.43.0)(typescript@5.1.3)
+    version: 4.7.2(@babel/eslint-parser@7.22.5)(@next/eslint-plugin-next@13.4.6)(@types/eslint@8.40.2)(@types/node@20.3.1)(@types/react-dom@18.2.6)(@types/react@18.0.38)(@typescript-eslint/eslint-plugin@5.60.0)(@typescript-eslint/parser@5.60.0)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-import@2.27.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-jsx-expressions@1.3.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint-plugin-security@1.7.1)(eslint-plugin-sonarjs@0.19.0)(eslint-plugin-testing-library@5.11.0)(eslint-plugin-unicorn@47.0.0)(eslint-plugin-upleveled@2.1.8)(eslint@8.43.0)(typescript@5.1.3)
   typescript:
     specifier: ^5.1.3
     version: 5.1.3
@@ -2003,25 +2006,22 @@ packages:
 
   /@types/prop-types@15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
-    dev: true
 
   /@types/react-dom@18.2.6:
     resolution: {integrity: sha512-2et4PDvg6PVCyS7fuTc4gPoksV58bW0RwSxWKcPRcHZf0PRUGq03TKcD/rUHe3azfV6/5/biUBJw+HhCQjaP0A==}
     dependencies:
-      '@types/react': 18.2.13
+      '@types/react': 18.0.38
     dev: true
 
-  /@types/react@18.2.13:
-    resolution: {integrity: sha512-vJ+zElvi/Zn9cVXB5slX2xL8PZodPCwPRDpittQdw43JR2AJ5k3vKdgJJyneV/cYgIbLQUwXa9JVDvUZXGba+Q==}
+  /@types/react@18.0.38:
+    resolution: {integrity: sha512-ExsidLLSzYj4cvaQjGnQCk4HFfVT9+EZ9XZsQ8Hsrcn8QNgXtpZ3m9vSIC2MWtx7jHictK6wYhQgGh6ic58oOw==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.2
-    dev: true
 
   /@types/scheduler@0.16.3:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
-    dev: true
 
   /@types/semver@7.5.0:
     resolution: {integrity: sha512-G8hZ6XJiHnuhQKR7ZmysCeJWE08o8T0AXtk5darsCaTVsYZhhgUrq53jizaR2FvsoeCwJhlmwTjkXBY5Pn/ZHw==}
@@ -2805,7 +2805,6 @@ packages:
 
   /csstype@3.1.2:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
-    dev: true
 
   /dag-map@1.0.2:
     resolution: {integrity: sha512-+LSAiGFwQ9dRnRdOeaj7g47ZFJcOUPukAP8J3A3fuZ1g9Y44BG+P1sgApjLXTQPOzC4+7S9Wr8kXsfpINM4jpw==}
@@ -3090,7 +3089,7 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /eslint-config-upleveled@4.7.2(@babel/eslint-parser@7.22.5)(@next/eslint-plugin-next@13.4.6)(@types/eslint@8.40.2)(@types/node@20.3.1)(@types/react-dom@18.2.6)(@types/react@18.2.13)(@typescript-eslint/eslint-plugin@5.60.0)(@typescript-eslint/parser@5.60.0)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-import@2.27.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-jsx-expressions@1.3.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint-plugin-security@1.7.1)(eslint-plugin-sonarjs@0.19.0)(eslint-plugin-testing-library@5.11.0)(eslint-plugin-unicorn@47.0.0)(eslint-plugin-upleveled@2.1.8)(eslint@8.43.0)(typescript@5.1.3):
+  /eslint-config-upleveled@4.7.2(@babel/eslint-parser@7.22.5)(@next/eslint-plugin-next@13.4.6)(@types/eslint@8.40.2)(@types/node@20.3.1)(@types/react-dom@18.2.6)(@types/react@18.0.38)(@typescript-eslint/eslint-plugin@5.60.0)(@typescript-eslint/parser@5.60.0)(eslint-import-resolver-typescript@3.5.5)(eslint-plugin-import@2.27.5)(eslint-plugin-jsx-a11y@6.7.1)(eslint-plugin-jsx-expressions@1.3.1)(eslint-plugin-react-hooks@4.6.0)(eslint-plugin-react@7.32.2)(eslint-plugin-security@1.7.1)(eslint-plugin-sonarjs@0.19.0)(eslint-plugin-testing-library@5.11.0)(eslint-plugin-unicorn@47.0.0)(eslint-plugin-upleveled@2.1.8)(eslint@8.43.0)(typescript@5.1.3):
     resolution: {integrity: sha512-Z//s4q+gd6ZOGnfblV8mF6BQoS1ZjEFVEt+CGRbWoVGxm2kDJYAFA2JUzbEkjAyt3dnLpDIwyA3CITh9rixzkQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
@@ -3121,7 +3120,7 @@ packages:
       '@next/eslint-plugin-next': 13.4.6
       '@types/eslint': 8.40.2
       '@types/node': 20.3.1
-      '@types/react': 18.2.13
+      '@types/react': 18.0.38
       '@types/react-dom': 18.2.6
       '@typescript-eslint/eslint-plugin': 5.60.0(@typescript-eslint/parser@5.60.0)(eslint@8.43.0)(typescript@5.1.3)
       '@typescript-eslint/parser': 5.60.0(eslint@8.43.0)(typescript@5.1.3)

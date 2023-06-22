@@ -13,7 +13,7 @@ export async function up(sql: Sql) {
     user_addr_house_no varchar(80)NOT NULL,
     user_post_code varchar(8)NOT NULL,
     user_location_city varchar(30)NOT NULL,
-    user_email varchar(80)NOT NULL UNIQUE,
+    user_email varchar(80)NOT NULL UNIQUE
   )`;
 }
 
