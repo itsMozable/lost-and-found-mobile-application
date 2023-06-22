@@ -10,8 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-
-import { apiBAseUrl, colors } from
+import { apiBaseUrl, colors } from '../globals/globalData';
 
 type RegDataResponseBody =
   | {

@@ -11,7 +11,6 @@ export default function AuthWrap() {
   const [messageText, setMessageText] = useState<string>(
     'This Webpage is loading ...',
   );
-  // const [redirect, setRedirect] = useState<string>('');
 
   useEffect(() => {
     if (home) {
