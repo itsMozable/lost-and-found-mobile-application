@@ -1,11 +1,12 @@
-import 'expo-router/entry';
+import { useFonts } from '@expo-google-fonts/pacifico';
+/* eslint-disable react/style-prop-object */
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import Header from './components/header';
-import { apiBaseUrl, colors } from './globals/globalData';
+import { apiBaseUrl, colors } from '../globals/globalData';
+import Header from './header';
 
 type LoginDataResponseBody =
   | {
@@ -99,11 +100,12 @@ export default function Index() {
         style={styles.registerButton}
         onPress={() => router.push('/loginAndAuth/registration')}
       >
-        <Text style={styles.registerText}>Sign up as new user</Text>
+        <Text style={styles.registerText}>New User Sign - Up</Text>
       </Pressable>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loginTextInput: {
-    fontFamily: 'Pacifica_400Regular',
+    /* fontFamily: '', */
     flex: 1,
     height: 50,
   },
@@ -135,7 +137,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loginText: {
-    fontFamily: 'Pacifica_400Regular',
+    /* fontFamily: '', */
     color: '#FFF',
     fontSize: 20,
   },
@@ -148,12 +150,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   registerText: {
-    fontFamily: 'Pacifica_400Regular',
+    /*  fontFamily: '', */
     fontSize: 15,
     color: '#FFF',
   },
   errorMessageText: {
-    fontFamily: 'Pacifica_400Regular',
+    /* fontFamily: '', */
     color: '#9e3030',
     fontSize: 15,
     textAlign: 'center',

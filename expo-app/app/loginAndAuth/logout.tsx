@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { apiBaseUrl, colors } from '../globals/globalData';
+import { apiBaseUrl, colors } from '../../globals/globalData';
 
 export default function Logout() {
   const router = useRouter();

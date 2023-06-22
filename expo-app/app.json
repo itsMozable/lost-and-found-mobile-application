@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "expo-app",
-    "slug": "expo-app",
+    "name": "lost-and-found",
+    "slug": "lost-and-found",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

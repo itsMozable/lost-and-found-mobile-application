@@ -2,7 +2,7 @@ import { useRouter, useSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { apiBaseUrl, colors } from '../globals/globalData';
+import { apiBaseUrl, colors } from '../../globals/globalData';
 
 export default function AuthWrap() {
   const router = useRouter();

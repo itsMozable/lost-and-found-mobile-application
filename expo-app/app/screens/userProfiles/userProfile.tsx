@@ -10,7 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { apiBaseUrl, colors } from '../../globals/globalData';
+import { apiBaseUrl, colors } from '../../../globals/globalData';
 
 type GetUserDataResponseBody =
   | {

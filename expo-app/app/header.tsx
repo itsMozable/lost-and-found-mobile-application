@@ -29,6 +29,6 @@ const styles = StyleSheet.create({
     color: colors.patternColorA,
     fontSize: 40,
     textAlign: 'center',
-    fontFamily: 'Pacifico_400Regular',
+    /*     fontFamily: '', */
   },
 });

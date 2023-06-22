@@ -10,8 +10,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import Header from '../components/header';
-import { colors } from '../globals/globalData';
+import { colors } from '../../globals/globalData';
+import Header from '../header';
 
 export default function Home() {
   const router = useRouter();

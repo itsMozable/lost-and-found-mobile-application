@@ -1,7 +1,7 @@
 {
-  "name": "expo-app",
+  "name": "lost-and-found-final",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "main": "index.tsx",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.0.38",
+    "eslint-config-upleveled": "^4.7.2",
     "typescript": "^4.9.4"
   },
   "private": true

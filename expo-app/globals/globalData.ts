@@ -10,10 +10,10 @@ export const apiBaseUrl =
 console.log(apiBaseUrl);
 
 export const colors = {
-  patternColorA: '#4761C2',
-  patternColorB: '#DDE6FF',
-  patternColorC: '#C2D3F2',
-  patternColorD: '#273774',
-  patternColorE: '#E3E9FF',
-  patternColorF: '#f2f4fd',
+  patternColorA: 'blue',
+  patternColorB: 'orange',
+  patternColorC: 'pink',
+  patternColorD: 'purple',
+  patternColorE: 'yellow',
+  patternColorF: 'cyan',
 };
