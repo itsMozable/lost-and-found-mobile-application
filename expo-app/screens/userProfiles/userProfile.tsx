@@ -10,7 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { apiUrl, colors } from '../../globals/globalData';
+import { apiBaseUrl, colors } from '../../globals/globalData';
 
 type GetUserDataResponseBody =
   | {
@@ -29,6 +29,7 @@ type GetUserDataResponseBody =
         userPostCode: string;
         userLocationCity: string;
         userEmail: string;
+        userPassword: string;
       };
     };
 
@@ -65,7 +66,7 @@ export default function UserProfile() {
         keyB: sessionSecret,
       });
 
-      const response = await fetch(`${apiUrl}/getUser`, {
+      const response = await fetch(`${apiBaseUrl}/getUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,6 +93,7 @@ export default function UserProfile() {
       setUserPostCode(data.userData.userPostCode);
       setUserLocationCity(data.userData.userLocationCity);
       setUserEmail(data.userData.userEmail);
+      setUserPassword(data.userData.userPassword);
     }
     getUserData().catch((error) => console.error(error));
   }, []);
@@ -104,7 +106,7 @@ export default function UserProfile() {
       keyB: sessionSecret,
     });
 
-    const response = await fetch(`${apiUrl}/editUser`, {
+    const response = await fetch(`${apiBaseUrl}/editUser`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -120,6 +122,7 @@ export default function UserProfile() {
         userPostCode: userPostCode,
         userLocationCity: userLocationCity,
         userEmail: userEmail,
+        userPassword: userPassword,
       }),
     });
     const data: EditUserDataResponseBody = await response.json();
@@ -229,6 +232,17 @@ export default function UserProfile() {
             placeholder="Email"
             onChangeText={setUserEmail}
             value={userEmail}
+          />
+        </View>
+        <View style={styles.singleInputContainer}>
+          <View style={styles.inputLabelContainer}>
+            <Text style={styles.inputLabelText}>password</Text>
+          </View>
+          <TextInput
+            style={styles.textInputField}
+            placeholder="password"
+            onChangeText={setUserPassword}
+            value={userPassword}
           />
         </View>
         <View style={styles.singleInputContainer}>

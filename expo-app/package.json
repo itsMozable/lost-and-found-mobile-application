@@ -9,6 +9,7 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo-google-fonts/pacifico": "^0.2.3",
     "expo": "~48.0.18",
     "expo-constants": "~14.2.1",
     "expo-linking": "~4.0.1",

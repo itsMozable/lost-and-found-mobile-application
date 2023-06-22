@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { colors } from './globals/globalData';
+import { colors } from '../globals/globalData';
 
 type Props = {
   label: string;
@@ -16,7 +16,6 @@ export default function Header(props: Props) {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: 'white',
@@ -30,6 +29,6 @@ const styles = StyleSheet.create({
     color: colors.patternColorA,
     fontSize: 40,
     textAlign: 'center',
-    fontFamily: 'FredokaOne_400Regular',
+    fontFamily: 'Pacifico_400Regular',
   },
 });

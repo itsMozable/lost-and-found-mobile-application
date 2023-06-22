@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 
-import { apiUrl, colors } from
+import { apiBAseUrl, colors } from
 
 type RegDataResponseBody =
   | {
@@ -52,7 +52,7 @@ export default function Registration() {
     email: string,
     password: string,
   ) {
-    const response = await fetch(`${apiUrl}/register`, {
+    const response = await fetch(`${apiBaseUrl}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -1,12 +1,11 @@
-/* eslint-disable react/style-prop-object */
 import 'expo-router/entry';
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { apiUrl, colors } from './globals/globalData';
-import Header from './header';
+import Header from './components/header';
+import { apiBaseUrl, colors } from './globals/globalData';
 
 type LoginDataResponseBody =
   | {
@@ -22,8 +21,8 @@ export default function Index() {
   const [logPassword, setLogPassword] = useState<string>('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
-  async function attemtLogin(userName: string, password: string) {
-    const response = await fetch(`${apiUrl}/login`, {
+  async function attemptLogin(userName: string, password: string) {
+    const response = await fetch(`${apiBaseUrl}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +65,7 @@ export default function Index() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.logo}>
-        <Header label="POCKET OFFER" />
+        <Header label="FoundLink" />
       </View>
       <View style={styles.loginInputView}>
         <TextInput
@@ -92,7 +91,7 @@ export default function Index() {
       ))}
       <Pressable
         style={styles.loginButton}
-        onPress={() => attemtLogin(logUserName, logPassword)}
+        onPress={() => attemptLogin(logUserName, logPassword)}
       >
         <Text style={styles.loginText}>LOGIN</Text>
       </Pressable>
@@ -105,7 +104,6 @@ export default function Index() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -124,7 +122,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loginTextInput: {
-    fontFamily: 'NotoSans_400Regular',
+    fontFamily: 'Pacifica_400Regular',
     flex: 1,
     height: 50,
   },
@@ -137,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loginText: {
-    fontFamily: 'NotoSans_600SemiBold',
+    fontFamily: 'Pacifica_400Regular',
     color: '#FFF',
     fontSize: 20,
   },
@@ -150,12 +148,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   registerText: {
-    fontFamily: 'NotoSans_600SemiBold',
+    fontFamily: 'Pacifica_400Regular',
     fontSize: 15,
     color: '#FFF',
   },
   errorMessageText: {
-    fontFamily: 'NotoSans_600SemiBold',
+    fontFamily: 'Pacifica_400Regular',
     color: '#9e3030',
     fontSize: 15,
     textAlign: 'center',
