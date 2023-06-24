@@ -1,4 +1,25 @@
 import { Sql } from 'postgres';
+import { use } from 'react';
+
+export type User = {
+  id: number;
+  userName: string;
+  passwordHash: string;
+  userFirstName: string;
+  userMiddleName: string;
+  userLastName: string;
+  userAddrStreet: string;
+  userAddrHouseNo: string;
+  userPostCode: string;
+  userLocationCity: string;
+  userEmail: string;
+};
+
+export type UserLogin = {
+  id: number;
+  userName: string;
+  // omit passwordHash: string;
+};
 
 export async function up(sql: Sql) {
   await sql`
@@ -22,3 +43,5 @@ export async function down(sql: Sql) {
   DROP TABLE users
 `;
 }
+
+/* INSERT INTO users (user_name, password_hash, user_first_name, user_middle_name, user_last_name, user_addr_street, user_addr_house_no, user_post_code, user_location_city, user_email)  VALUES ('admin','admin','admin','admin','admin','admin','admin','admin','admin','admin@admin'); */
