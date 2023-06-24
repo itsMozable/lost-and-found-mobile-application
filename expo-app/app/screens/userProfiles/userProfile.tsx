@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
+import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {
   Pressable,
@@ -10,7 +11,10 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { apiBaseUrl, colors } from '../../../globals/globalData';
+import { User } from '../../../../api/migrations/1687369134-createTableUsers';
+import { colors } from '../../../globals/globalData';
+import Header from '../../header';
+import { apiBaseUrl } from '../../index';
 
 type GetUserDataResponseBody =
   | {
@@ -19,18 +23,7 @@ type GetUserDataResponseBody =
       }[];
     }
   | {
-      userData: {
-        userName: string;
-        userFirstName: string;
-        userMiddleName: string;
-        userLastName: string;
-        userAddrStreet: string;
-        userAddrHouseNo: string;
-        userPostCode: string;
-        userLocationCity: string;
-        userEmail: string;
-        userPassword: string;
-      };
+      userData: User;
     };
 
 type EditUserDataResponseBody =
@@ -42,7 +35,7 @@ type EditUserDataResponseBody =
   | {
       isEdited: boolean;
     };
-//get User ???
+// get User ???
 export default function UserProfile() {
   const router = useRouter();
   const [errors, setErrors] = useState<{ message: string }[]>([]);
@@ -93,7 +86,7 @@ export default function UserProfile() {
       setUserPostCode(data.userData.userPostCode);
       setUserLocationCity(data.userData.userLocationCity);
       setUserEmail(data.userData.userEmail);
-      setUserPassword(data.userData.userPassword);
+      setUserPassword(data.userData.passwordHash);
     }
     getUserData().catch((error) => console.error(error));
   }, []);
@@ -136,11 +129,120 @@ export default function UserProfile() {
       console.log('Failed to update position');
     }
   }
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      backgroundColor: '#fff',
+    },
+    logoContainer: {
+      flex: 1,
+      marginTop: 30,
+      marginBottom: 10,
+    },
+    titleContainer: {
+      height: 10,
+      width: '80%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    titleText: {
+      /*    fontFamily: '', */
+      fontSize: 18,
+      color: colors.patternColorD,
+      textAlign: 'center',
+    },
 
+    inputsScrollview: {
+      flex: 6.5,
+      width: '80%',
+    },
+    doubleInputContainer: {
+      height: 120,
+      width: '100%',
+      justifyContent: 'center',
+    },
+    singleInputContainer: {
+      height: 65,
+      width: '100%',
+      justifyContent: 'center',
+    },
+    inputLabelContainer: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+    },
+    inputLabelText: {
+      /*     fontFamily: '', */
+      fontSize: 15,
+      color: colors.patternColorD,
+      marginLeft: 5,
+    },
+    textInputField: {
+      height: 40,
+      width: '100%',
+      backgroundColor: colors.patternColorB,
+      paddingLeft: 5,
+      textAlign: 'left',
+    },
+    bottomMenuButtonContainer: {
+      height: 3,
+      paddingTop: 15,
+      backgroundColor: '#fff',
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      justifyContent: 'space-between',
+      columnGap: 3,
+    },
+    bottomMenuPosButton: {
+      flex: 0.7,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.patternColorC,
+    },
+    bottomMenuNegButton: {
+      flex: 0.3,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.patternColorC,
+    },
+    bottomMenuButtonText: {
+      textAlign: 'center',
+      color: colors.patternColorD,
+      /*     fontFamily: '', */
+      fontSize: 20,
+    },
+    menuLinks: {
+      color: colors.patternColorB,
+      fontSize: 12,
+      fontWeight: 'bold',
+      marginHorizontal: 20,
+    },
+    navigationBar: {
+      flex: 1,
+      flexDirection: 'row',
+      alignContent: 'center',
+    },
+  });
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.titleText}>User Data:</Text>
+      <StatusBar style="auto" />
+      <View style={styles.logoContainer}>
+        <Header label="User Profil" content={userName} />
+      </View>
+      <View style={styles.navigationBar}>
+        <Pressable onPress={() => router.push('../home')}>
+          <Text style={styles.menuLinks}>Back</Text>
+        </Pressable>
+        <Pressable onPress={() => router.push('./messages/messages')}>
+          <Text style={styles.menuLinks}>Messages</Text>
+        </Pressable>
+        <Pressable onPress={() => router.push('./map/map')}>
+          <Text style={styles.menuLinks}>Items</Text>
+        </Pressable>
+        <Pressable onPress={() => router.push('./userProfiles/userProfile')}>
+          <Text style={styles.menuLinks}>Profil</Text>
+        </Pressable>
       </View>
       <ScrollView style={styles.inputsScrollview}>
         <View style={styles.doubleInputContainer}>
@@ -268,83 +370,3 @@ export default function UserProfile() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  titleContainer: {
-    height: 90,
-    width: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  titleText: {
-    /*    fontFamily: '', */
-    fontSize: 18,
-    color: colors.patternColorD,
-    textAlign: 'center',
-  },
-
-  inputsScrollview: {
-    flex: 6.5,
-    width: '80%',
-  },
-  doubleInputContainer: {
-    height: 120,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  singleInputContainer: {
-    height: 65,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  inputLabelContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  inputLabelText: {
-    /*     fontFamily: '', */
-    fontSize: 15,
-    color: colors.patternColorD,
-    marginLeft: 5,
-  },
-  textInputField: {
-    height: 40,
-    width: '100%',
-    backgroundColor: colors.patternColorB,
-    paddingLeft: 5,
-    textAlign: 'left',
-  },
-  bottomMenuButtonContainer: {
-    height: 115,
-    paddingTop: 15,
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    justifyContent: 'space-between',
-    columnGap: 3,
-  },
-  bottomMenuPosButton: {
-    flex: 0.7,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.patternColorC,
-  },
-  bottomMenuNegButton: {
-    flex: 0.3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.patternColorC,
-  },
-  bottomMenuButtonText: {
-    textAlign: 'center',
-    color: colors.patternColorD,
-    /*     fontFamily: '', */
-    fontSize: 20,
-  },
-});
