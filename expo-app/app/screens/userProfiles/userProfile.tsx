@@ -241,13 +241,13 @@ export default function UserProfile() {
           <Text style={styles.menuLinks}>Items</Text>
         </Pressable>
         <Pressable onPress={() => router.push('./userProfiles/userProfile')}>
-          <Text style={styles.menuLinks}>Profil</Text>
+          <Text style={styles.menuLinks}>Profile</Text>
         </Pressable>
       </View>
       <ScrollView style={styles.inputsScrollview}>
         <View style={styles.doubleInputContainer}>
           <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}> User Name ? :</Text>
+            <Text style={styles.inputLabelText}>User Name</Text>
           </View>
           <TextInput
             style={styles.textInputField}

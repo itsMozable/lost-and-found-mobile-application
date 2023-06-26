@@ -55,23 +55,23 @@ export default function Logout() {
     LogoutOnRoute();
   }, []);
 
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    loadingText: {
+      /*   fontFamily: '', */
+      fontSize: 30,
+      color: colors.patternColorA,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.loadingText}>Logging you out</Text>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  loadingText: {
-    /*   fontFamily: '', */
-    fontSize: 30,
-    color: colors.patternColorA,
-  },
-});

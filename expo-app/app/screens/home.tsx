@@ -118,7 +118,7 @@ export default function Home() {
         <Pressable onPress={() => router.push('./messages/messages')}>
           <Text style={styles.menuLinks}>Messages</Text>
         </Pressable>
-        <Pressable onPress={() => router.push('./items/item')}>
+        <Pressable onPress={() => router.push('./userItems/userItems')}>
           <Text style={styles.menuLinks}>Items</Text>
         </Pressable>
         <Pressable onPress={() => router.push('./userProfiles/userProfile')}>

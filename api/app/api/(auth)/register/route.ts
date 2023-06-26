@@ -3,10 +3,13 @@ import bcrypt from 'bcrypt';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { createSession } from '../../../database/sessionsDatabase';
-import { createUser, getUserByUsername } from '../../../database/usersDatabase';
-import { User } from '../../../migrations/1687369134-createTableUsers';
-import { secureCookieOptions } from '../../../utils/cookies';
+import { createSession } from '../../../../database/sessionsDatabase';
+import {
+  createUser,
+  getUserByUsername,
+} from '../../../../database/usersDatabase';
+import { User } from '../../../../migrations/1687369134-createTableUsers';
+import { secureCookieOptions } from '../../../../utils/cookies';
 
 type Error = {
   error: string;
@@ -30,6 +33,16 @@ const addUserSchema = z.object({
   email: z.string().min(1),
   password: z.string().min(1),
 });
+
+export const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
+export async function OPTIONS(req: NextRequest) {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
 
 export async function POST(
   request: NextRequest,

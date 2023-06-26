@@ -5,7 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { colors } from '../../globals/globalData';
-import { apiBaseUrl } from '../../index';
+import { apiBaseUrl } from '../index';
 
 export default function AuthWrap() {
   const router = useRouter();

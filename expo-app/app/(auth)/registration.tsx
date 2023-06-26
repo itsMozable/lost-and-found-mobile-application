@@ -10,7 +10,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { RegisterResponseBodyPost } from '../../../api/app/(auth)/register/route';
+import { RegisterResponseBodyPost } from '../../../api/app/api/(auth)/register/route';
 import { colors } from '../../globals/globalData';
 import { apiBaseUrl } from '../index';
 
@@ -92,7 +92,7 @@ export default function RegisterForm() {
     email: string,
     password: string,
   ) {
-    const response = await fetch(`${apiBaseUrl}/register`, {
+    const response = await fetch(`${apiBaseUrl}/api/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -110,6 +110,9 @@ export default function RegisterForm() {
         password: userPassword,
       }),
     });
+
+    console.log(response);
+
     const data: RegDataResponseBody = await response.json();
     if ('errors' in data) {
       setErrors(data.errors);

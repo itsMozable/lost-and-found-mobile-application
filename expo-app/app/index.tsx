@@ -8,13 +8,13 @@ import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { colors } from '../globals/globalData';
 import Header from './header';
 
-/* export const apiBaseUrl = 'http://localhost:3000';
-const apiBaseUrl = 'http://192.168.0.323:19000/api'; */
+/* export const apiBaseUrl = 'http://localhost:3000'; */
+/* export const apiBaseUrl = 'http://192.168.0.323:19000/api'; */
 
 const manifest = Constants;
 export const apiBaseUrl =
   typeof manifest.packagerOpts === `object` && manifest.packagerOpts.dev
-    ? `http://${manifest.debuggerHost.split(`:`).shift()}:3000/api`
+    ? `http://${manifest.debuggerHost.split(`:`).shift()}:3000`
     : 'http://localhost:3000';
 
 console.log(apiBaseUrl);
@@ -34,7 +34,7 @@ export default function Index() {
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
   async function attemptLogin(userName: string, password: string) {
-    const response = await fetch(`${apiBaseUrl}/login`, {
+    const response = await fetch(`${apiBaseUrl}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
