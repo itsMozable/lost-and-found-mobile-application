@@ -7,6 +7,7 @@ import { createSession } from '../../../../database/sessionsDatabase';
 import { getUserWithPasswordHashByUsername } from '../../../../database/usersDatabase';
 import { UserLogin } from '../../../../migrations/1687369134-createTableUsers';
 import { secureCookieOptions } from '../../../../utils/cookies';
+import { createCsrfSecret } from '../../../../utils/csrf';
 
 type Error = {
   error: string;
@@ -23,6 +24,7 @@ const userSchema = z.object({
   password: z.string().min(1),
 });
 
+// special code snippet
 export const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -30,11 +32,13 @@ export const corsHeaders = {
 };
 
 export async function OPTIONS(req: NextRequest) {
-  return NextResponse.json({}, { headers: corsHeaders });
+  return await NextResponse.json({}, { headers: corsHeaders });
 }
+// special code snippet
 
 export async function POST(
   request: NextRequest,
+  // only for Jose not for pocket-offer
 ): Promise<NextResponse<LoginResponseBodyPost>> {
   const body = await request.json();
 
@@ -44,7 +48,7 @@ export async function POST(
   // 2. verify the user data and check that the name is not taken
   if (!result.success) {
     // zod send you details about the error
-    // console.log(result.error);
+    console.log(result.error.issues);
     return NextResponse.json(
       {
         error: 'username or password missing',
@@ -90,7 +94,12 @@ export async function POST(
   const token = crypto.randomBytes(100).toString('base64');
   // 5. Create the session record
 
-  const session = await createSession(token, userWithPasswordHash.id);
+  const csrfSecret = createCsrfSecret();
+  const session = await createSession(
+    token,
+    csrfSecret,
+    userWithPasswordHash.id,
+  );
 
   if (!session) {
     return NextResponse.json(

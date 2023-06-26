@@ -11,23 +11,37 @@ export const deleteExpiredSessions = cache(async () => {
   `;
 });
 
-export const createSession = cache(async (token: string, userId: number) => {
-  const [session] = await sql<Session[]>`
+export async function deleteSessionsBytokenAndCleanAllExpired(token: string) {
+  await sql`
+    DELETE FROM
+      sessions
+    WHERE
+      token=${token}
+    OR
+      sessions.expiry_timestamp < NOW()
+    `;
+  return 'done';
+}
+
+export const createSession = cache(
+  async (token: string, csrf_secret: string, userId: number) => {
+    const [session] = await sql<Session[]>`
     INSERT INTO sessions
-      (token, user_id)
+      (token, csrf_secret, user_id)
     VALUES
-      (${token},${userId})
+      (${token},${csrf_secret},${userId})
     RETURNING
       id,
       token,
       user_id
     `;
 
-  // delete all sessions that are expired
-  await deleteExpiredSessions();
+    // delete all sessions that are expired
+    await deleteExpiredSessions();
 
-  return session;
-});
+    return session;
+  },
+);
 
 export const deleteSessionByToken = cache(async (token: string) => {
   const [session] = await sql<{ id: number; token: string }[]>`
@@ -45,10 +59,12 @@ export const deleteSessionByToken = cache(async (token: string) => {
 
 export const getValidSessionByToken = cache(async (token: string) => {
   // Get the session if match the token AND is not expired
-  const [session] = await sql<{ id: number; token: string }[]>`
+  const [session] = await sql<Session[]>`
     SELECT
       sessions.id,
-      sessions.token
+      sessions.token,
+      sessions.csrf_secret,
+      sessions.user_id
     FROM
       sessions
     WHERE
@@ -60,7 +76,7 @@ export const getValidSessionByToken = cache(async (token: string) => {
   return session;
 });
 
-/* export async function deleteSessionsByUserId(userId: number) {
+export async function deleteSessionsByUserId(userId: number) {
   await sql`
     DELETE FROM
       sessions
@@ -68,4 +84,4 @@ export const getValidSessionByToken = cache(async (token: string) => {
       user_id=${userId}
     `;
   return `Session for User Id ${userId} cleaned up`;
-} */
+}
