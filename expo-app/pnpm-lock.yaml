@@ -35,6 +35,9 @@ dependencies:
   react-native:
     specifier: 0.71.8
     version: 0.71.8(@babel/core@7.20.2)(@babel/preset-env@7.22.5)(react@18.2.0)
+  react-native-element-dropdown:
+    specifier: ^2.9.0
+    version: 2.9.0(react-native@0.71.8)(react@18.2.0)
   react-native-safe-area-context:
     specifier: 4.5.0
     version: 4.5.0(react-native@0.71.8)(react@18.2.0)
@@ -8074,6 +8077,18 @@ packages:
     transitivePeerDependencies:
       - '@babel/preset-env'
       - supports-color
+    dev: false
+
+  /react-native-element-dropdown@2.9.0(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-2Y/bmoFPTdKOUXbYloEKpMTWYE2VHrvva/5tgEuHqAlfAtGGr3r/ob0L0YYH1am5N0n1PKo3+eLf0c79QUSzYw==}
+    engines: {node: '>= 16.0.0'}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      lodash: 4.17.21
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.20.2)(@babel/preset-env@7.22.5)(react@18.2.0)
     dev: false
 
   /react-native-gesture-handler@2.12.0(react-native@0.71.8)(react@18.2.0):

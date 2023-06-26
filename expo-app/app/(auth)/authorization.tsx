@@ -10,7 +10,6 @@ import { apiBaseUrl } from '../index';
 export default function AuthWrap() {
   const router = useRouter();
   const { home } = useSearchParams();
-  const { offer } = useSearchParams();
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const [messageText, setMessageText] = useState<string>('LOADING');
   // const [redirect, setRedirect] = useState<string>('');
@@ -18,8 +17,6 @@ export default function AuthWrap() {
   useEffect(() => {
     if (home) {
       setMessageText('WELCOME');
-    } else if (offer) {
-      setMessageText('LOADING OFFER');
     }
     async function revalidateOnRoute() {
       const tokenForValidation = await SecureStore.getItemAsync('sessionToken');
@@ -48,10 +45,6 @@ export default function AuthWrap() {
         } else {
           if (home) {
             router.replace(`../${home}`);
-          } else if (offer) {
-            router.replace(
-              `../screens/processOffer/mainOffer?offerDefinedId=${offer}`,
-            );
           }
         }
       } else {

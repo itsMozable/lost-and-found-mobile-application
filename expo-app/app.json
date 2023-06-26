@@ -21,7 +21,7 @@
         "backgroundColor": "#ffffff"
       }
     },
-    "scheme": "lost-and-found",
+    "scheme": "lost-and-found-final",
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"

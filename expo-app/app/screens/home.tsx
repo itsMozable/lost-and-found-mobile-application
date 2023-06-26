@@ -1,4 +1,5 @@
 /* eslint-disable react/style-prop-object */
+import * as Linking from 'expo-linking';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
@@ -122,21 +123,22 @@ export default function Home() {
           <Text style={styles.menuLinks}>Items</Text>
         </Pressable>
         <Pressable onPress={() => router.push('./userProfiles/userProfile')}>
-          <Text style={styles.menuLinks}>Profil</Text>
+          <Text style={styles.menuLinks}>Profile</Text>
         </Pressable>
       </View>
       <View style={styles.squareButtonContainer}>
         <Pressable
-          onPress={() => router.push('./newOffer/newOffer')}
+          onPress={() => router.push('./lostSomething/lostSomething')}
           style={styles.squareButton}
         >
-          <Text style={styles.squareButtonText}>I have something lost</Text>
+          <Text style={styles.squareButtonText}>I have lost something</Text>
         </Pressable>
+
         <Pressable
-          onPress={() => router.push('./openExistingOffer/openOffer')}
+          onPress={() => router.push('./foundSomething/foundSomething')}
           style={styles.squareButton}
         >
-          <Text style={styles.squareButtonText}>i found something</Text>
+          <Text style={styles.squareButtonText}>I have found something</Text>
         </Pressable>
       </View>
       <View style={styles.bottomMenuButtonContainer}>
@@ -144,16 +146,16 @@ export default function Home() {
           style={styles.bottomMenuNegButton}
           onPress={() => router.replace('../loginAndAuth/logout')}
         >
-          <Text style={styles.bottomMenuButtonText}>Logout</Text>
+          <Text style={styles.bottomMenuButtonText}>Door 1</Text>
         </Pressable>
 
         <Pressable
           style={styles.bottomMenuPosButton}
-          onPress={() => router.push('./userProfile/userProfile')}
+          onPress={() =>
+            Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+          }
         >
-          <Text style={styles.bottomMenuButtonText}>
-            User Profile / Settings
-          </Text>
+          <Text style={styles.bottomMenuButtonText}>Door 2</Text>
         </Pressable>
       </View>
     </View>
