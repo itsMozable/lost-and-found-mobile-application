@@ -14,6 +14,69 @@ import {
 import { colors } from '../../globals/globalData';
 import Header from '../header';
 
+// Styling
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+    flexdirection: 'column',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  logoContainer: {
+    flex: 1,
+    marginTop: 30,
+    marginBottom: 10,
+  },
+  squareButtonContainer: {
+    flex: 20,
+    justifyContent: 'space-evenly',
+  },
+  squareButton: {
+    width: '90%',
+    aspectRatio: 2 / 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorA,
+  },
+  squareButtonText: {
+    textAlign: 'center',
+    color: '#FFF',
+    /*   fontFamily: '', */
+    fontSize: 20,
+  },
+  bottomMenuButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
+    columnGap: 3,
+  },
+  bottomMenuPosButton: {
+    flex: 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorC,
+  },
+  bottomMenuNegButton: {
+    flex: 0.3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorC,
+  },
+  bottomMenuButtonText: {
+    textAlign: 'center',
+    color: colors.patternColorD,
+    /*  fontFamily: '', */
+    fontSize: 20,
+  },
+  menuLinks: {
+    color: colors.patternColorB,
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginHorizontal: 20,
+  },
+});
+
 export default function Home() {
   const router = useRouter();
   useEffect(() => {
@@ -40,69 +103,6 @@ export default function Home() {
 
     return () => backHandler.remove();
   }, []);
-
-  // Styling
-  const styles = StyleSheet.create({
-    container: {
-      flex: 2,
-      flexdirection: 'column',
-      alignItems: 'center',
-      backgroundColor: 'white',
-    },
-    logoContainer: {
-      flex: 1,
-      marginTop: 30,
-      marginBottom: 10,
-    },
-    squareButtonContainer: {
-      flex: 20,
-      justifyContent: 'space-evenly',
-    },
-    squareButton: {
-      width: '90%',
-      aspectRatio: 2 / 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.patternColorA,
-    },
-    squareButtonText: {
-      textAlign: 'center',
-      color: '#FFF',
-      /*   fontFamily: '', */
-      fontSize: 20,
-    },
-    bottomMenuButtonContainer: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'stretch',
-      justifyContent: 'space-between',
-      columnGap: 3,
-    },
-    bottomMenuPosButton: {
-      flex: 0.7,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.patternColorC,
-    },
-    bottomMenuNegButton: {
-      flex: 0.3,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.patternColorC,
-    },
-    bottomMenuButtonText: {
-      textAlign: 'center',
-      color: colors.patternColorD,
-      /*  fontFamily: '', */
-      fontSize: 20,
-    },
-    menuLinks: {
-      color: colors.patternColorB,
-      fontSize: 12,
-      fontWeight: 'bold',
-      marginHorizontal: 20,
-    },
-  });
 
   // App Page
 

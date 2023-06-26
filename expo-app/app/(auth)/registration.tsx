@@ -98,7 +98,7 @@ export default function RegisterForm() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        user: userName,
+        userName: userName,
         firstName: userFirstName,
         middleName: userMiddleName,
         lastName: userLastName,
@@ -121,6 +121,8 @@ export default function RegisterForm() {
     console.log(data);
     successfulRegistrationAlert();
   }
+
+  console.log(userName);
 
   const styles = StyleSheet.create({
     container: {

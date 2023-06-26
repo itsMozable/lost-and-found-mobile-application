@@ -53,11 +53,12 @@ export async function POST(
 
   // 1. get the credentials from the body
   const result = addUserSchema.safeParse(body);
-
+  console.log(result);
   // 2. verify the user data and check that the name is not taken
   if (!result.success) {
     // zod send you details about the error
-    // console.log(result.error);
+    console.log(result.error);
+
     return NextResponse.json(
       {
         error: `Test ${result}`,
@@ -81,7 +82,19 @@ export async function POST(
   const passwordHash = await bcrypt.hash(result.data.password, 10);
 
   // 4. store the credentials in the db
-  const newUser = await createUser(result.data.userName, passwordHash);
+  const newUser = await createUser(
+    result.data.userName,
+    result.data.firstName,
+    result.data.middleName,
+    result.data.lastName,
+    result.data.addrStreet,
+    result.data.addrHouseNo,
+    result.data.postCode,
+    result.data.locationCity,
+    result.data.email,
+    passwordHash,
+  );
+  console.log(newUser);
 
   if (!newUser) {
     // zod send you details about the error
@@ -100,7 +113,8 @@ export async function POST(
   const token = crypto.randomBytes(100).toString('base64');
   // 6. Create the session record
 
-  const session = await createSession(token, newUser.id);
+  /*  const session = await createSession(token
+    newUser.id);
 
   if (!session) {
     return NextResponse.json(
@@ -109,14 +123,14 @@ export async function POST(
       },
       { status: 500 },
     );
-  }
+  } */
 
   // 7. Send the new cookie in the headers
-  cookies().set({
+  /*  cookies().set({
     name: 'sessionToken',
     value: session.token,
     ...secureCookieOptions,
-  });
+  }); */
 
   // 7. return the new user to the client
   return NextResponse.json({ user: newUser });

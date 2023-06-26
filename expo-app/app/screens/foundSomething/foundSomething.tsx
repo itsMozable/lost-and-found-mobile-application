@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../globals/globalData';
+import DropdownComponent from '../../components/dropdown';
 import Header from '../../header';
 
 export const metadata = {
@@ -42,6 +43,7 @@ export default function MessageScreen() {
       <View style={styles.logoContainer}>
         <Header font-size="1em" label="FoundLink" content="Messages" />
       </View>
+      <DropdownComponent />
       <View style={styles.navigationBar}>
         <Pressable onPress={() => router.push('../home')}>
           <Text style={styles.menuLinks}>Back</Text>

@@ -9,6 +9,7 @@ import { UserLogin } from '../../../../migrations/1687369134-createTableUsers';
 import { secureCookieOptions } from '../../../../utils/cookies';
 import { createCsrfSecret } from '../../../../utils/csrf';
 
+console.log('Hello');
 type Error = {
   error: string;
 };
@@ -41,10 +42,10 @@ export async function POST(
   // only for Jose not for pocket-offer
 ): Promise<NextResponse<LoginResponseBodyPost>> {
   const body = await request.json();
-
+  console.log(body);
   // 1. get the credentials from the body
   const result = userSchema.safeParse(body);
-
+  console.log(result);
   // 2. verify the user data and check that the name is not taken
   if (!result.success) {
     // zod send you details about the error
@@ -61,7 +62,7 @@ export async function POST(
   const userWithPasswordHash = await getUserWithPasswordHashByUsername(
     result.data.userName,
   );
-
+  console.log(userWithPasswordHash);
   if (!userWithPasswordHash) {
     // zod send you details about the error
     // console.log(result.error);
