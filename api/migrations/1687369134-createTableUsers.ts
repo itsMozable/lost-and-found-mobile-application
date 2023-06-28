@@ -1,5 +1,4 @@
 import { Sql } from 'postgres';
-import { use } from 'react';
 
 export type User = {
   id: number;
@@ -18,7 +17,7 @@ export type User = {
 export type UserLogin = {
   id: number;
   userName: string;
-  // omit passwordHash: string;
+  passwordHash: string;
 };
 
 export async function up(sql: Sql) {
@@ -28,7 +27,7 @@ export async function up(sql: Sql) {
     user_name varchar(50) NOT NULL UNIQUE,
     password_hash varchar(70) NOT NULL,
     user_first_name varchar(80)NOT NULL,
-    user_middle_name varchar(80)NOT NULL,
+    user_middle_name varchar(80),
     user_last_name varchar(80)NOT NULL,
     user_addr_street varchar(80)NOT NULL,
     user_addr_house_no varchar(80)NOT NULL,

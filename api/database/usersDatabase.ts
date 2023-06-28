@@ -1,9 +1,9 @@
 import { cache } from 'react';
-import { User } from '../migrations/1687369134-createTableUsers';
+import { User, UserLogin } from '../migrations/1687369134-createTableUsers';
 import { sql } from './connect';
 
-type UserWithPasswordHash = User & {
-  passwordHash: string;
+type UserWithPasswordHash = UserLogin & {
+  password_hash: string;
 };
 
 export const getUserWithPasswordHashByUsername = cache(
@@ -23,6 +23,7 @@ export const getUserWithPasswordHashByUsername = cache(
   },
 );
 
+// used for register to check if Username already exists
 export const getUserByUsername = cache(async (userName: string) => {
   const [user] = await sql<User[]>`
     SELECT
@@ -37,6 +38,7 @@ export const getUserByUsername = cache(async (userName: string) => {
   return user;
 });
 
+// used for register new user
 export const createUser = cache(
   async (
     userName: string,
@@ -77,8 +79,6 @@ ${userName},
 ${userEmail}
 )
 
-
-
     RETURNING
       id,
       user_name
@@ -88,6 +88,7 @@ ${userEmail}
   },
 );
 
+// not included in pocket offers but maybe necessary
 export const getUserBySessionToken = cache(async (token: string) => {
   const [user] = await sql<User[]>`
   SELECT
@@ -106,7 +107,8 @@ export const getUserBySessionToken = cache(async (token: string) => {
   return user;
 });
 
-/* export async function updateUserById(userId: number, userData: UserData) {
+// function not included by Jose but by pocket offers
+export async function updateUserById(userId: number, userData: User) {
   await sql`
     UPDATE users
     SET
@@ -122,11 +124,11 @@ export const getUserBySessionToken = cache(async (token: string) => {
         id=${userId}
     `;
   return `User Log / Data of user ${userId} has been updated successfully `;
-} */
+}
 
-/*
+// could be used for userprofil
 export async function getUserDatabyId(userId: number) {
-  const [user] = await sql<UserData[]>`
+  const [user] = await sql<User[]>`
     SELECT
       user_first_name,
       user_middle_name,
@@ -142,7 +144,7 @@ export async function getUserDatabyId(userId: number) {
       id=${userId}
     `;
   return user;
-}*/
+}
 
 /* export async function getUserAndIdByName(userName: string) {
   const [user] = await sql<{ id: number; userName: string }[]>`

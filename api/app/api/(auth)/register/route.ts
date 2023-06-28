@@ -61,7 +61,7 @@ export async function POST(
 
     return NextResponse.json(
       {
-        error: `Test ${result}`,
+        error: 'username or password missing*',
       },
       { status: 400 },
     );
@@ -113,8 +113,7 @@ export async function POST(
   const token = crypto.randomBytes(100).toString('base64');
   // 6. Create the session record
 
-  /*  const session = await createSession(token
-    newUser.id);
+  /*   const session = await createSession(token, csrf_secret, newUser.id);
 
   if (!session) {
     return NextResponse.json(

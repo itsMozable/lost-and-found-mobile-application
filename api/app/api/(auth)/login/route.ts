@@ -20,7 +20,7 @@ export type LoginResponseBodyPost =
     }
   | Error;
 
-const userSchema = z.object({
+const userLoginSchema = z.object({
   userName: z.string().min(1),
   password: z.string().min(1),
 });
@@ -42,14 +42,18 @@ export async function POST(
   // only for Jose not for pocket-offer
 ): Promise<NextResponse<LoginResponseBodyPost>> {
   const body = await request.json();
+
   console.log(body);
+  console.log('Check User Schema');
+
   // 1. get the credentials from the body
-  const result = userSchema.safeParse(body);
+  const result = userLoginSchema.safeParse(body);
   console.log(result);
   // 2. verify the user data and check that the name is not taken
   if (!result.success) {
     // zod send you details about the error
-    console.log(result.error.issues);
+    console.log(result.error);
+
     return NextResponse.json(
       {
         error: 'username or password missing',
@@ -58,6 +62,7 @@ export async function POST(
     );
   }
 
+  console.log(result.data);
   // 3. verify the user credentials
   const userWithPasswordHash = await getUserWithPasswordHashByUsername(
     result.data.userName,
@@ -112,6 +117,7 @@ export async function POST(
   }
 
   // 6. Send the new cookie in the headers
+
   cookies().set({
     name: 'sessionToken',
     value: session.token,
