@@ -34,7 +34,8 @@ const addUserSchema = z.object({
   email: z.string().min(1),
   password: z.string().min(1),
 });
-
+/*
+// CORS code for browser testing
 export const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -44,6 +45,7 @@ export const corsHeaders = {
 export async function OPTIONS(req: NextRequest) {
   return NextResponse.json({}, { headers: corsHeaders });
 }
+ */
 
 export async function POST(
   request: NextRequest,
@@ -110,12 +112,13 @@ export async function POST(
 
   // We are sure the user is authenticated
 
-  // 5. Create a token
-  const token = crypto.randomBytes(100).toString('base64');
-  const csrf_secret = createCsrfSecret();
-
+  // 5. Create a token (changed to 50 due to Postgres error)
+  const token = crypto.randomBytes(50).toString('base64');
+  console.log({ token: token });
+  const csrfSecret = createCsrfSecret();
+  console.log({ secret: csrfSecret });
   // 6. Create the session record
-  const session = await createSession(token, csrf_secret, newUser.id);
+  const session = await createSession(token, csrfSecret, newUser.id);
 
   if (!session) {
     return NextResponse.json(

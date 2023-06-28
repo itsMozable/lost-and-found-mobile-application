@@ -1,3 +1,4 @@
+import * as Linking from 'expo-linking';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
@@ -69,6 +70,31 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     width: '70%',
+  },
+  bottomMenuButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
+    columnGap: 3,
+  },
+  bottomMenuPosButton: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorB,
+  },
+  bottomMenuNegButton: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorC,
+  },
+  bottomMenuButtonText: {
+    textAlign: 'center',
+    color: colors.patternColorD,
+    /*  fontFamily: '', */
+    fontSize: 15,
   },
 });
 
@@ -302,6 +328,23 @@ export default function RegisterForm() {
       >
         <Text style={styles.signUpButtonText}>New User Sign - Up</Text>
       </Pressable>
+      <View style={styles.bottomMenuButtonContainer}>
+        <Pressable
+          style={styles.bottomMenuNegButton}
+          onPress={() => router.replace('../')}
+        >
+          <Text style={styles.bottomMenuButtonText}>Home</Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.bottomMenuPosButton}
+          onPress={() =>
+            Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+          }
+        >
+          <Text style={styles.bottomMenuButtonText}>Red Pill</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
