@@ -12,7 +12,7 @@ export const deleteExpiredSessions = cache(async () => {
 });
 
 // not included in Jose's code
-export async function deleteSessionsBytokenAndCleanAllExpired(token: string) {
+/* export async function deleteSessionsBytokenAndCleanAllExpired(token: string) {
   await sql`
     DELETE FROM
       sessions
@@ -22,7 +22,7 @@ export async function deleteSessionsBytokenAndCleanAllExpired(token: string) {
       sessions.expiry_timestamp < NOW()
     `;
   return 'done';
-}
+} */
 
 export const createSession = cache(
   async (token: string, csrf_secret: string, userId: number) => {
@@ -81,7 +81,7 @@ export const getValidSessionByToken = cache(async (token: string) => {
 });
 
 // only at Jose
-export async function deleteSessionsByUserId(userId: number) {
+/* export async function deleteSessionsByUserId(userId: number) {
   await sql`
     DELETE FROM
       sessions
@@ -89,4 +89,4 @@ export async function deleteSessionsByUserId(userId: number) {
       user_id=${userId}
     `;
   return `Session for User Id ${userId} cleaned up`;
-}
+} */

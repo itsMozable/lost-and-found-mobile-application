@@ -10,6 +10,7 @@ import {
 } from '../../../../database/usersDatabase';
 import { User } from '../../../../migrations/1687369134-createTableUsers';
 import { secureCookieOptions } from '../../../../utils/cookies';
+import { createCsrfSecret } from '../../../../utils/csrf';
 
 type Error = {
   error: string;
@@ -111,9 +112,10 @@ export async function POST(
 
   // 5. Create a token
   const token = crypto.randomBytes(100).toString('base64');
-  // 6. Create the session record
+  const csrf_secret = createCsrfSecret();
 
-  /*   const session = await createSession(token, csrf_secret, newUser.id);
+  // 6. Create the session record
+  const session = await createSession(token, csrf_secret, newUser.id);
 
   if (!session) {
     return NextResponse.json(
@@ -122,14 +124,14 @@ export async function POST(
       },
       { status: 500 },
     );
-  } */
+  }
 
   // 7. Send the new cookie in the headers
-  /*  cookies().set({
+  cookies().set({
     name: 'sessionToken',
     value: session.token,
     ...secureCookieOptions,
-  }); */
+  });
 
   // 7. return the new user to the client
   return NextResponse.json({ user: newUser });

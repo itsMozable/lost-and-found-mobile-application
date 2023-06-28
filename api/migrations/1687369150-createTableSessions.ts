@@ -2,8 +2,8 @@ import { Sql } from 'postgres';
 
 export type Session = {
   id: number;
-  csrfSecret: string;
   token: string;
+  csrfSecret: string;
   userId: number;
 };
 
