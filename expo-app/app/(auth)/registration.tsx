@@ -14,6 +14,64 @@ import { RegisterResponseBodyPost } from '../../../api/app/api/(auth)/register/r
 import { colors } from '../../globals/globalData';
 import { apiBaseUrl } from '../index';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    marginTop: 60,
+    alignItems: 'center',
+  },
+  logo: {
+    marginBottom: 5,
+  },
+  welcomeContainer: {
+    alignItems: 'center',
+    marginTop: 30,
+    marginBottom: 50,
+  },
+  inputsScrollview: {
+    flex: 6.5,
+    width: '80%',
+  },
+  registrationText: {
+    /*  fontFamily: '', */
+    fontSize: 30,
+    color: colors.patternColorD,
+  },
+  regInputView: {
+    backgroundColor: colors.patternColorB,
+    width: '70%',
+    height: 30,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  regTextInput: {
+    /* fontFamily: '', */
+    flex: 1,
+    height: 50,
+  },
+  signUpButton: {
+    marginTop: 40,
+    width: '60%',
+    height: 40,
+    backgroundColor: colors.patternColorA,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  signUpButtonText: {
+    /*     fontFamily: '', */
+    color: '#FFF',
+    fontSize: 20,
+  },
+  errorMessageText: {
+    /*     fontFamily: '', */
+    color: '#9e3030',
+    fontSize: 15,
+    textAlign: 'center',
+    width: '70%',
+  },
+});
+
 type RegDataResponseBody =
   | {
       errors: {
@@ -123,64 +181,6 @@ export default function RegisterForm() {
   }
 
   console.log(userName);
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      marginTop: 60,
-      alignItems: 'center',
-    },
-    logo: {
-      marginBottom: 5,
-    },
-    welcomeContainer: {
-      alignItems: 'center',
-      marginTop: 30,
-      marginBottom: 50,
-    },
-    inputsScrollview: {
-      flex: 6.5,
-      width: '80%',
-    },
-    registrationText: {
-      /*  fontFamily: '', */
-      fontSize: 30,
-      color: colors.patternColorD,
-    },
-    regInputView: {
-      backgroundColor: colors.patternColorB,
-      width: '70%',
-      height: 30,
-      marginBottom: 10,
-      alignItems: 'center',
-    },
-    regTextInput: {
-      /* fontFamily: '', */
-      flex: 1,
-      height: 50,
-    },
-    signUpButton: {
-      marginTop: 40,
-      width: '60%',
-      height: 40,
-      backgroundColor: colors.patternColorA,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    signUpButtonText: {
-      /*     fontFamily: '', */
-      color: '#FFF',
-      fontSize: 20,
-    },
-    errorMessageText: {
-      /*     fontFamily: '', */
-      color: '#9e3030',
-      fontSize: 15,
-      textAlign: 'center',
-      width: '70%',
-    },
-  });
 
   return (
     <View style={styles.container}>

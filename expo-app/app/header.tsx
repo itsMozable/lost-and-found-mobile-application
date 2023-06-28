@@ -10,27 +10,26 @@ type Props = {
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: 'white',
+    backgroundColor: colors.patternColorE,
     width: '100%',
   },
   container: {
-    flexDirection: 'row',
-    paddingTop: Constants.statusBarHeight + 10,
-    paddingBottom: 20,
+    flexDirection: 'column',
+    paddingTop: Constants.statusBarHeight + 5,
+    paddingBottom: 10,
   },
   headerLabel: {
     color: colors.patternColorA,
     fontSize: 40,
-    textAlign: 'left',
+    textAlign: 'center',
     paddingHorizontal: 20,
     /*     fontFamily: '', */
   },
   headerContent: {
     color: colors.patternColorA,
     fontSize: 15,
-    textAlign: 'right',
-    paddingHorizontal: 20,
-    paddingTop: 25,
+    textAlign: 'center',
+    paddingTop: 20,
     /*     fontFamily: '', */
   },
 });

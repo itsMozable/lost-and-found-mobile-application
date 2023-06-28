@@ -4,12 +4,16 @@ import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  Alert,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import { colors } from '../globals/globalData';
 import Header from './header';
-
-/* export const apiBaseUrl = 'http://localhost:3000'; */
-/* export const apiBaseUrl = 'http://192.168.0.323:19000/api'; */
 
 const manifest = Constants;
 export const apiBaseUrl =
@@ -33,15 +37,18 @@ export default function Index() {
   const [logPassword, setLogPassword] = useState<string>('');
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
+  const successfulLogInAlert = () => router.push('../screens/home');
+
   async function attemptLogin(userName: string, password: string) {
     const response = await fetch(`${apiBaseUrl}/api/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userName, password }),
+      body: JSON.stringify({ userName: logUserName, password: logPassword }),
     });
     console.log(response);
+
     const data: LoginDataResponseBody = await response.json();
     if ('errors' in data) {
       setErrors(data.errors);
@@ -59,12 +66,7 @@ export default function Index() {
     const sessionToken = await SecureStore.getItemAsync('sessionToken');
 
     if (loggedInAs === data.user.userName && sessionToken === data.user.token) {
-      router.replace({
-        pathname: '/(auth)/authorization',
-        params: {
-          home: '../screens/home',
-        },
-      });
+      successfulLogInAlert();
     } else {
       console.log('failed to create client side session');
       return;
@@ -73,29 +75,30 @@ export default function Index() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#fff',
-      marginTop: 140,
+      backgroundColor: '#009877',
       alignItems: 'center',
+      justifyContent: 'center',
     },
     logo: {
-      marginBottom: 80,
+      marginBottom: 35,
     },
     loginInputView: {
-      backgroundColor: colors.patternColorB,
-      width: '70%',
-      height: 50,
-      marginBottom: 30,
+      backgroundColor: colors.patternColorC,
+      width: '50%',
+      height: 30,
+      marginBottom: 10,
       alignItems: 'center',
+      justifyContent: 'center',
     },
     loginTextInput: {
       /* fontFamily: '', */
       flex: 1,
-      height: 50,
+      height: 30,
     },
     loginButton: {
-      marginTop: 50,
-      width: '60%',
-      height: 50,
+      width: '50%',
+      height: 30,
+      marginBottom: 10,
       backgroundColor: colors.patternColorA,
       alignItems: 'center',
       justifyContent: 'center',
@@ -103,12 +106,12 @@ export default function Index() {
     loginText: {
       /* fontFamily: '', */
       color: '#FFF',
-      fontSize: 20,
+      fontSize: 15,
     },
     registerButton: {
-      marginTop: 50,
-      width: '60%',
+      width: '50%',
       height: 30,
+      marginBottom: 10,
       backgroundColor: colors.patternColorA,
       alignItems: 'center',
       justifyContent: 'center',
@@ -123,7 +126,7 @@ export default function Index() {
       color: '#9e3030',
       fontSize: 15,
       textAlign: 'center',
-      width: '70%',
+      width: '50%',
     },
   });
 
@@ -131,7 +134,7 @@ export default function Index() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.logo}>
-        <Header label="FoundLink" content="" />
+        <Header label="FoundLink" content="by Mozi since 1984" />
       </View>
       <View style={styles.loginInputView}>
         <TextInput
@@ -157,13 +160,9 @@ export default function Index() {
       ))}
       <Pressable
         style={styles.loginButton}
-        onPress={() =>
-          attemptLogin(logUserName, logPassword).then(() =>
-            console.log('login attempt'),
-          )
-        }
+        onPress={() => attemptLogin(logUserName, logPassword)}
       >
-        <Text style={styles.loginText}>LOGIN</Text>
+        <Text style={styles.loginText}>Login existing User</Text>
       </Pressable>
       <Pressable
         style={styles.registerButton}

@@ -64,7 +64,7 @@ export default function AuthWrap() {
       justifyContent: 'center',
     },
     loadingText: {
-      fontFamily: 'NotoSans_600SemiBold',
+      fontFamily: '',
       fontSize: 30,
       color: colors.patternColorA,
     },

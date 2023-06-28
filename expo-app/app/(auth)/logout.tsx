@@ -30,7 +30,7 @@ export default function Logout() {
         }
       }
       if (tokenToClearSession) {
-        const response = await fetch(`${apiBaseUrl}/logout`, {
+        const response = await fetch(`${apiBaseUrl}/api/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
