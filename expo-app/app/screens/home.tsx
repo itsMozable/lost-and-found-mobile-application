@@ -17,30 +17,29 @@ import Header from '../header';
 // Styling
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     flexdirection: 'column',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: '#19be9b',
   },
-  logoContainer: {
-    flex: 1,
-    marginTop: 30,
-    marginBottom: 10,
-  },
+  logoContainer: {},
+
   squareButtonContainer: {
-    flex: 20,
-    justifyContent: 'space-evenly',
+    flex: 10,
+    justifyContent: 'center',
   },
   squareButton: {
-    width: '90%',
-    aspectRatio: 2 / 1,
+    width: 200,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.patternColorA,
+    margin: 10,
+    padding: 10,
   },
   squareButtonText: {
     textAlign: 'center',
-    color: '#FFF',
+    color: '#e9e2ef',
     /*   fontFamily: '', */
     fontSize: 20,
   },
@@ -52,13 +51,13 @@ const styles = StyleSheet.create({
     columnGap: 3,
   },
   bottomMenuPosButton: {
-    flex: 0.7,
+    flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.patternColorC,
+    backgroundColor: colors.patternColorB,
   },
   bottomMenuNegButton: {
-    flex: 0.3,
+    flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.patternColorC,
@@ -67,13 +66,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.patternColorD,
     /*  fontFamily: '', */
-    fontSize: 20,
+    fontSize: 15,
   },
   menuLinks: {
-    color: colors.patternColorB,
-    fontSize: 12,
+    color: colors.patternColorE,
+    fontSize: 15,
     fontWeight: 'bold',
-    marginHorizontal: 20,
+    marginHorizontal: 15,
   },
 });
 
@@ -110,7 +109,7 @@ export default function Home() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.logoContainer}>
-        <Header label="FoundLink" content="" />
+        <Header label="FoundLink" content="by Mozi since 1984" />
       </View>
       <View style={{ flexDirection: 'row' }}>
         <Pressable onPress={() => router.push('../(auth)/logout')}>
@@ -131,22 +130,22 @@ export default function Home() {
           onPress={() => router.push('./lostSomething/lostSomething')}
           style={styles.squareButton}
         >
-          <Text style={styles.squareButtonText}>I have lost something</Text>
+          <Text style={styles.squareButtonText}>I lost something</Text>
         </Pressable>
 
         <Pressable
           onPress={() => router.push('./foundSomething/foundSomething')}
           style={styles.squareButton}
         >
-          <Text style={styles.squareButtonText}>I have found something</Text>
+          <Text style={styles.squareButtonText}>I found something</Text>
         </Pressable>
       </View>
       <View style={styles.bottomMenuButtonContainer}>
         <Pressable
           style={styles.bottomMenuNegButton}
-          onPress={() => router.replace('../loginAndAuth/logout')}
+          onPress={() => router.replace('../(auth)/logout')}
         >
-          <Text style={styles.bottomMenuButtonText}>Door 1</Text>
+          <Text style={styles.bottomMenuButtonText}>Blue Pill</Text>
         </Pressable>
 
         <Pressable
@@ -155,7 +154,7 @@ export default function Home() {
             Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
           }
         >
-          <Text style={styles.bottomMenuButtonText}>Door 2</Text>
+          <Text style={styles.bottomMenuButtonText}>Red Pill</Text>
         </Pressable>
       </View>
     </View>

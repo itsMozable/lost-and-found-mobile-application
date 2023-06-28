@@ -59,7 +59,7 @@ export default function UserProfile() {
         keyB: sessionSecret,
       });
 
-      const response = await fetch(`${apiBaseUrl}/getUser`, {
+      const response = await fetch(`${apiBaseUrl}/api/userProfile`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -208,7 +208,7 @@ export default function UserProfile() {
     },
     bottomMenuButtonText: {
       textAlign: 'center',
-      color: colors.patternColorD,
+      color: colors.patternColorC,
       /*     fontFamily: '', */
       fontSize: 20,
     },
@@ -237,7 +237,7 @@ export default function UserProfile() {
         <Pressable onPress={() => router.push('./messages/messages')}>
           <Text style={styles.menuLinks}>Messages</Text>
         </Pressable>
-        <Pressable onPress={() => router.push('./map/map')}>
+        <Pressable onPress={() => router.push('./userItems/userItems')}>
           <Text style={styles.menuLinks}>Items</Text>
         </Pressable>
         <Pressable onPress={() => router.push('./userProfiles/userProfile')}>

@@ -46,10 +46,10 @@ export default function UserItemsScreen() {
         <Pressable onPress={() => router.push('../home')}>
           <Text style={styles.menuLinks}>Back</Text>
         </Pressable>
-        <Pressable onPress={() => router.push('./userItems/userItems')}>
+        <Pressable onPress={() => router.push('./messages/messages')}>
           <Text style={styles.menuLinks}>Messages</Text>
         </Pressable>
-        <Pressable onPress={() => router.push('./map/map')}>
+        <Pressable onPress={() => router.push('./userItems/userItems')}>
           <Text style={styles.menuLinks}>Items</Text>
         </Pressable>
         <Pressable onPress={() => router.push('./userProfiles/userProfile')}>

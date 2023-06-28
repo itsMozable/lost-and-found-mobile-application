@@ -40,7 +40,7 @@ export default function MessageScreen() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.logoContainer}>
-        <Header font-size="1em" label="FoundLink" content="Messages" />
+        <Header font-size="1em" label="FoundLink" content="Mozi" />
       </View>
       <View style={styles.navigationBar}>
         <Pressable onPress={() => router.push('../home')}>
@@ -49,7 +49,7 @@ export default function MessageScreen() {
         <Pressable onPress={() => router.push('./messages/messages')}>
           <Text style={styles.menuLinks}>Messages</Text>
         </Pressable>
-        <Pressable onPress={() => router.push('./map/map')}>
+        <Pressable onPress={() => router.push('./userItems/userItems')}>
           <Text style={styles.menuLinks}>Items</Text>
         </Pressable>
         <Pressable onPress={() => router.push('./userProfiles/userProfile')}>

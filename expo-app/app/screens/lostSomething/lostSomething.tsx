@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../globals/globalData';
-import DropdownComponent from '../../components/dropdown';
+import MultiSelectComponent from '../../components/dropdown';
 import Header from '../../header';
 
 export const metadata = {
@@ -12,15 +12,12 @@ export const metadata = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 7,
+    flex: 1,
     flexdirection: 'column',
-    alignItems: 'center',
-    backgroundColor: 'white',
   },
   logoContainer: {
     flex: 1,
-    marginTop: 30,
-    marginBottom: 10,
+    justifyContent: 'center',
   },
   menuLinks: {
     color: colors.patternColorB,
@@ -41,9 +38,13 @@ export default function MessageScreen() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.logoContainer}>
-        <Header font-size="1em" label="FoundLink" content="Messages" />
+        <Header
+          font-size="1em"
+          label="FoundLink"
+          content="by Mozi since 1984"
+        />
       </View>
-      <DropdownComponent />
+      <MultiSelectComponent />
       <View style={styles.navigationBar}>
         <Pressable onPress={() => router.push('../home')}>
           <Text style={styles.menuLinks}>Back</Text>
@@ -51,14 +52,13 @@ export default function MessageScreen() {
         <Pressable onPress={() => router.push('./messages/messages')}>
           <Text style={styles.menuLinks}>Messages</Text>
         </Pressable>
-        <Pressable onPress={() => router.push('./map/map')}>
+        <Pressable onPress={() => router.push('./userItems/userItems')}>
           <Text style={styles.menuLinks}>Items</Text>
         </Pressable>
         <Pressable onPress={() => router.push('./userProfiles/userProfile')}>
-          <Text style={styles.menuLinks}>Profil</Text>
+          <Text style={styles.menuLinks}>Profile</Text>
         </Pressable>
       </View>
-      <Text>Messages</Text>
     </View>
   );
 }
