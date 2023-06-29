@@ -3,7 +3,7 @@ import { User, UserLogin } from '../migrations/1687369134-createTableUsers';
 import { sql } from './connect';
 
 type UserWithPasswordHash = UserLogin & {
-  password_hash: string;
+  passwordHash: string;
 };
 
 export const getUserWithPasswordHashByUsername = cache(
@@ -16,7 +16,7 @@ export const getUserWithPasswordHashByUsername = cache(
     FROM
       users
     WHERE
-      users.user_name = ${userName.toLowerCase()}
+      users.user_name = ${userName}
  `;
 
     return user;
@@ -32,7 +32,7 @@ export const getUserByUsername = cache(async (userName: string) => {
     FROM
       users
     WHERE
-      users.user_name = ${userName.toLowerCase()}
+      users.user_name = ${userName}
  `;
 
   return user;
@@ -42,7 +42,6 @@ export const getUserByUsername = cache(async (userName: string) => {
 export const createUser = cache(
   async (
     userName: string,
-    passwordHash: string,
     userFirstName: string,
     userMiddleName: string,
     userLastName: string,
@@ -51,24 +50,25 @@ export const createUser = cache(
     userPostCode: string,
     userLocationCity: string,
     userEmail: string,
+    passwordHash: string,
   ) => {
     console.log(passwordHash);
 
     const [user] = await sql<User[]>`
     INSERT INTO users
       (user_name,
-      password_hash,
       user_first_name,
       user_middle_name,
-      user_last_name, user_addr_street,
+      user_last_name,
+      user_addr_street,
       user_addr_house_no,
       user_post_code,
        user_location_city,
-       user_email)
+       user_email,
+       password_hash)
 
     VALUES(
-${userName},
-    ${passwordHash},
+    ${userName},
     ${userFirstName},
     ${userMiddleName},
     ${userLastName},
@@ -76,8 +76,8 @@ ${userName},
     ${userAddrHouseNo},
     ${userPostCode},
     ${userLocationCity},
-${userEmail}
-)
+    ${userEmail},
+    ${passwordHash})
 
     RETURNING
       id,

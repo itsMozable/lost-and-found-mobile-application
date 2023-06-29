@@ -164,18 +164,7 @@ export default function RegisterForm() {
     successfulRegistrationAlert();
   }*/
 
-  async function createNewUser(
-    user: string,
-    firstName: string,
-    middleName: string,
-    lastName: string,
-    addrStreet: string,
-    addrHouseNo: string,
-    postCode: string,
-    locationCity: string,
-    email: string,
-    password: string,
-  ) {
+  async function createNewUser() {
     const response = await fetch(`${apiBaseUrl}/api/register`, {
       method: 'POST',
       headers: {
@@ -310,9 +299,8 @@ export default function RegisterForm() {
       <Pressable
         style={styles.signUpButton}
         onPress={
-          () =>
-            createNewUser(
-              userName,
+          () => createNewUser()
+          /*               userName,
               userFirstName,
               userMiddleName,
               userLastName,
@@ -321,8 +309,7 @@ export default function RegisterForm() {
               userPostCode,
               userLocationCity,
               userEmail,
-              userPassword,
-            )
+              userPassword, */
           /*register()*/
         }
       >

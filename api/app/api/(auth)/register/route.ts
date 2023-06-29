@@ -70,6 +70,8 @@ export async function POST(
     );
   }
 
+  console.log({ 'check username': result.data.userName });
+
   if (await getUserByUsername(result.data.userName)) {
     // zod send you details about the error
     // console.log(result.error);

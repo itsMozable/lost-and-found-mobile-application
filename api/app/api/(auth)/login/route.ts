@@ -9,7 +9,6 @@ import { UserLogin } from '../../../../migrations/1687369134-createTableUsers';
 import { secureCookieOptions } from '../../../../utils/cookies';
 import { createCsrfSecret } from '../../../../utils/csrf';
 
-console.log('Hello');
 type Error = {
   error: string;
 };
@@ -25,7 +24,7 @@ const userLoginSchema = z.object({
   password: z.string().min(1),
 });
 
-// special code snippet
+/* // special code snippet
 export const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -35,7 +34,7 @@ export const corsHeaders = {
 export async function OPTIONS(req: NextRequest) {
   return await NextResponse.json({}, { headers: corsHeaders });
 }
-// special code snippet
+// special code snippet */
 
 export async function POST(
   request: NextRequest,
@@ -43,17 +42,15 @@ export async function POST(
 ): Promise<NextResponse<LoginResponseBodyPost>> {
   const body = await request.json();
 
-  console.log(body);
-  console.log('Check User Schema');
-
   // 1. get the credentials from the body
+  console.log('Check User Schema');
   const result = userLoginSchema.safeParse(body);
-  console.log(result);
+
   // 2. verify the user data and check that the name is not taken
+  console.log({ result: result });
   if (!result.success) {
     // zod send you details about the error
-    console.log(result.error);
-
+    console.log({ error: result.error });
     return NextResponse.json(
       {
         error: 'username or password missing',
@@ -62,12 +59,13 @@ export async function POST(
     );
   }
 
-  console.log(result.data);
+  console.log({ 'verify userdata': result.data.userName });
   // 3. verify the user credentials
   const userWithPasswordHash = await getUserWithPasswordHashByUsername(
     result.data.userName,
   );
-  console.log(userWithPasswordHash);
+
+  console.log({ 'hashed user': userWithPasswordHash });
   if (!userWithPasswordHash) {
     // zod send you details about the error
     // console.log(result.error);
@@ -80,9 +78,10 @@ export async function POST(
   }
 
   // 3. hash the password
+  console.log('verify password');
   const isPasswordValid = await bcrypt.compare(
     result.data.password,
-    userWithPasswordHash.passwordHash,
+    userWithPasswordHash.password_hash,
   );
 
   if (!isPasswordValid) {
@@ -97,10 +96,12 @@ export async function POST(
   // We are sure the user is authenticated
 
   // 4. Create a token
-  const token = crypto.randomBytes(100).toString('base64');
+  console.log('create token');
+  const token = crypto.randomBytes(50).toString('base64');
+  const csrfSecret = createCsrfSecret();
   // 5. Create the session record
 
-  const csrfSecret = createCsrfSecret();
+  console.log('create session');
   const session = await createSession(
     token,
     csrfSecret,
@@ -117,7 +118,6 @@ export async function POST(
   }
 
   // 6. Send the new cookie in the headers
-
   cookies().set({
     name: 'sessionToken',
     value: session.token,

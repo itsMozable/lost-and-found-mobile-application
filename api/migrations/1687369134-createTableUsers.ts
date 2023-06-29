@@ -3,7 +3,6 @@ import { Sql } from 'postgres';
 export type User = {
   id: number;
   userName: string;
-  passwordHash: string;
   userFirstName: string;
   userMiddleName: string;
   userLastName: string;
@@ -12,12 +11,13 @@ export type User = {
   userPostCode: string;
   userLocationCity: string;
   userEmail: string;
+  passwordHash: string;
 };
 
 export type UserLogin = {
   id: number;
   userName: string;
-  passwordHash: string;
+  // passwordHash: string;
 };
 
 export async function up(sql: Sql) {
@@ -25,7 +25,6 @@ export async function up(sql: Sql) {
   CREATE TABLE users(
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_name varchar(50) NOT NULL UNIQUE,
-    password_hash varchar(70) NOT NULL,
     user_first_name varchar(80)NOT NULL,
     user_middle_name varchar(80),
     user_last_name varchar(80)NOT NULL,
@@ -33,7 +32,8 @@ export async function up(sql: Sql) {
     user_addr_house_no varchar(80)NOT NULL,
     user_post_code varchar(8)NOT NULL,
     user_location_city varchar(30)NOT NULL,
-    user_email varchar(80)NOT NULL UNIQUE
+    user_email varchar(80)NOT NULL UNIQUE,
+    password_hash varchar(70) NOT NULL
   )`;
 }
 
