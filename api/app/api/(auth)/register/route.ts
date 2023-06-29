@@ -34,18 +34,6 @@ const addUserSchema = z.object({
   email: z.string().min(1),
   password: z.string().min(1),
 });
-/*
-// CORS code for browser testing
-export const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-};
-
-export async function OPTIONS(req: NextRequest) {
-  return NextResponse.json({}, { headers: corsHeaders });
-}
- */
 
 export async function POST(
   request: NextRequest,

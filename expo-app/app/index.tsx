@@ -57,23 +57,6 @@ export default function Index() {
     }
 
     successfulLogInAlert();
-    // only at pocket offer backend but not Jose
-    /*    await SecureStore.deleteItemAsync('loggedInAs');
-    await SecureStore.deleteItemAsync('sessionToken');
-    await SecureStore.deleteItemAsync('sessionSecret');
-
-    await SecureStore.setItemAsync('loggedInAs', data.user.userName);
-    await SecureStore.setItemAsync('sessionToken', data.user.token);
-
-    const loggedInAs = await SecureStore.getItemAsync('loggedInAs');
-    const sessionToken = await SecureStore.getItemAsync('sessionToken');
-
-    if (loggedInAs === data.user.userName && sessionToken === data.user.token) {
-      successfulLogInAlert();
-    } else {
-      console.log('failed to create client side session');
-      return;
-    } */
   }
   const styles = StyleSheet.create({
     container: {

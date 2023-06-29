@@ -24,18 +24,6 @@ const userLoginSchema = z.object({
   password: z.string().min(1),
 });
 
-/* // special code snippet
-export const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-};
-
-export async function OPTIONS(req: NextRequest) {
-  return await NextResponse.json({}, { headers: corsHeaders });
-}
-// special code snippet */
-
 export async function POST(
   request: NextRequest,
   // only for Jose not for pocket-offer
