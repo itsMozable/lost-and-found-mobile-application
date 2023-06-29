@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import { colors } from '../../globals/globalData';
-import Header from '../header';
+import Header from '../components/header';
 
 // Styling
 const styles = StyleSheet.create({

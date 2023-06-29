@@ -13,7 +13,7 @@ import {
   View,
 } from 'react-native';
 import { colors } from '../globals/globalData';
-import Header from './header';
+import Header from './components/header';
 
 const manifest = Constants;
 export const apiBaseUrl =

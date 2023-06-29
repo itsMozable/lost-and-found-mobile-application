@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import { User } from '../../../../api/migrations/1687369134-createTableUsers';
 import { colors } from '../../../globals/globalData';
-import Header from '../../header';
+import Header from '../../components/header';
 import { apiBaseUrl } from '../../index';
 
 type GetUserDataResponseBody =

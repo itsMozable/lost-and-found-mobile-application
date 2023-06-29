@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { colors } from '../globals/globalData';
+import { colors } from '../../globals/globalData';
 
 type Props = {
   label: string;
