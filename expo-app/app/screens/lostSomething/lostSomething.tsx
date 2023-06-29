@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../globals/globalData';
 import MultiSelectComponent from '../../components/dropdown';
-import Header from '../../header';
+import Header from '../../components/header';
 
 export const metadata = {
   title: 'lost something',

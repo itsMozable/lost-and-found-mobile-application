@@ -198,20 +198,10 @@ const PickerForm = () => {
         )}
       />
 
-      <Text style={styles.label}>Invitation Code</Text>
-      <Controller
-        name="invitationCode"
-        defaultValue=""
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            selectionColor={'#5188E3'}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
+      <View>
+        <input type="file" />
+      </View>
+
       <TouchableOpacity onPress={handleSubmit(onSubmit)}>
         <Text style={styles.getStarted}>Get Started</Text>
       </TouchableOpacity>

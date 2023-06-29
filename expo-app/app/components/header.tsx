@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     textAlign: 'center',
     paddingHorizontal: 20,
+
     /*     fontFamily: '', */
   },
   headerContent: {
