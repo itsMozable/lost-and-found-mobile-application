@@ -52,10 +52,13 @@ export default function Index() {
     const data: LoginDataResponseBody = await response.json();
     if ('errors' in data) {
       setErrors(data.errors);
+      console.log(data.errors);
       return;
     }
 
-    await SecureStore.deleteItemAsync('loggedInAs');
+    successfulLogInAlert();
+    // only at pocket offer backend but not Jose
+    /*    await SecureStore.deleteItemAsync('loggedInAs');
     await SecureStore.deleteItemAsync('sessionToken');
     await SecureStore.deleteItemAsync('sessionSecret');
 
@@ -70,7 +73,7 @@ export default function Index() {
     } else {
       console.log('failed to create client side session');
       return;
-    }
+    } */
   }
   const styles = StyleSheet.create({
     container: {

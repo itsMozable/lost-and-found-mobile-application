@@ -81,7 +81,7 @@ export async function POST(
   console.log('verify password');
   const isPasswordValid = await bcrypt.compare(
     result.data.password,
-    userWithPasswordHash.password_hash,
+    userWithPasswordHash.passwordHash,
   );
 
   if (!isPasswordValid) {
