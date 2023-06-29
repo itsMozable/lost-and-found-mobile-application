@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
 
   let token;
   let csrfToken;
-
+  console.log(getKeys);
   if (getKeys) {
     if (JSON.parse(getKeys).keyA && JSON.parse(getKeys).keyB) {
       token = JSON.parse(getKeys).keyA;

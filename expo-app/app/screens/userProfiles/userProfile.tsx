@@ -59,7 +59,7 @@ export default function UserProfile() {
         keyB: sessionSecret,
       });
 
-      const response = await fetch(`${apiBaseUrl}/api/userProfile`, {
+      const response = await fetch(`${apiBaseUrl}/api/getUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
