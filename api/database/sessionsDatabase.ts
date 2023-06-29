@@ -63,12 +63,13 @@ export const deleteSessionByToken = cache(async (token: string) => {
 export const getValidSessionByToken = cache(async (token: string) => {
   // Get the session if match the token AND is not expired
   const [session] = await sql<
-    { id: number; token: string; csrfSecret: string }[]
+    { id: number; token: string; csrfSecret: string; userId: string }[]
   >`
     SELECT
       sessions.id,
       sessions.token,
-      sessions.csrf_secret
+      sessions.csrf_secret,
+      sessions.user_id
     FROM
       sessions
     WHERE
