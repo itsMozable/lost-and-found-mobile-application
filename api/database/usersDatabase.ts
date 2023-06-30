@@ -43,7 +43,6 @@ export const createUser = cache(
   async (
     userName: string,
     userFirstName: string,
-    userMiddleName: string,
     userLastName: string,
     userAddrStreet: string,
     userAddrHouseNo: string,
@@ -58,7 +57,6 @@ export const createUser = cache(
     INSERT INTO users
       (user_name,
       user_first_name,
-      user_middle_name,
       user_last_name,
       user_addr_street,
       user_addr_house_no,
@@ -70,7 +68,6 @@ export const createUser = cache(
     VALUES(
     ${userName},
     ${userFirstName},
-    ${userMiddleName},
     ${userLastName},
     ${userAddrStreet},
     ${userAddrHouseNo},
@@ -113,7 +110,6 @@ export async function updateUserById(userId: number, userData: User) {
     UPDATE users
     SET
         user_first_name = ${userData.userFirstName},
-        user_middle_name = ${userData.userMiddleName},
         user_last_name = ${userData.userLastName},
         user_addr_street = ${userData.userAddrStreet},
         user_addr_house_no = ${userData.userAddrHouseNo},
@@ -131,7 +127,6 @@ export async function getUserDatabyId(userId: number) {
   const [user] = await sql<User[]>`
     SELECT
       user_first_name,
-      user_middle_name,
       user_last_name,
       user_addr_street,
       user_addr_house_no,

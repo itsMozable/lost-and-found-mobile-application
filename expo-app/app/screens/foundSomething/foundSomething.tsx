@@ -8,8 +8,6 @@ import {
   View,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import uploadFileCloudinary from '../../../../api/cloudinary/uploadFile';
 import Header from '../../components/headerPicker';
 
 const styles = StyleSheet.create({
@@ -122,7 +120,7 @@ const PickerForm = () => {
           <TextInput
             style={styles.input}
             secureTextEntry={true}
-            selectionColor={'#5188E3'}
+            selectionColor='#5188E3'
             onChangeText={onChange}
             value={value}
           />
@@ -193,7 +191,7 @@ const PickerForm = () => {
         render={({ field: { onChange, value } }) => (
           <TextInput
             style={styles.input}
-            selectionColor={'#5188E3'}
+            selectionColor="#5188E3"
             onChangeText={onChange}
             value={value}
           />

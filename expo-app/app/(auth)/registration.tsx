@@ -110,7 +110,6 @@ export default function RegisterForm() {
   const router = useRouter();
   const [userName, setUserName] = useState<string>('');
   const [userFirstName, setUserFirstName] = useState<string>('');
-  const [userMiddleName, setUserMiddleName] = useState<string>('');
   const [userLastName, setUserLastName] = useState<string>('');
   const [userAddrStreet, setUserAddrStreet] = useState<string>('');
   const [userAddrHouseNo, setUserAddrHouseNo] = useState<string>('');
@@ -129,7 +128,7 @@ export default function RegisterForm() {
       { text: 'back to login', onPress: () => router.push('../') },
     ]);
 
-  /*here: Zeile 23-42 vom Jose*/
+  /* here: Zeile 23-42 vom Jose */
   /*
   async function register() {
     const response = await fetch(`${apiBaseUrl}/register`, {
@@ -140,7 +139,6 @@ export default function RegisterForm() {
       body: JSON.stringify({
         user: userName,
         firstName: userFirstName,
-        middleName: userMiddleName,
         lastName: userLastName,
         addrStreet: userAddrStreet,
         addrHouseNo: userAddrHouseNo,
@@ -173,7 +171,6 @@ export default function RegisterForm() {
       body: JSON.stringify({
         userName: userName,
         firstName: userFirstName,
-        middleName: userMiddleName,
         lastName: userLastName,
         addrStreet: userAddrStreet,
         addrHouseNo: userAddrHouseNo,
@@ -227,14 +224,6 @@ export default function RegisterForm() {
         <View style={styles.regInputView}>
           <TextInput
             style={styles.regTextInput}
-            placeholder="middle Name"
-            onChangeText={setUserMiddleName}
-            value={userMiddleName}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
             placeholder="last Name"
             onChangeText={setUserLastName}
             value={userLastName}
@@ -251,7 +240,7 @@ export default function RegisterForm() {
         <View style={styles.regInputView}>
           <TextInput
             style={styles.regTextInput}
-            placeholder="Address House Number"
+            placeholder="House Number"
             onChangeText={setUserAddrHouseNo}
             value={userAddrHouseNo}
           />
@@ -302,7 +291,6 @@ export default function RegisterForm() {
           () => createNewUser()
           /*               userName,
               userFirstName,
-              userMiddleName,
               userLastName,
               userAddrStreet,
               userAddrHouseNo,
@@ -310,7 +298,7 @@ export default function RegisterForm() {
               userLocationCity,
               userEmail,
               userPassword, */
-          /*register()*/
+          /* register() */
         }
       >
         <Text style={styles.signUpButtonText}>New User Sign - Up</Text>

@@ -25,7 +25,6 @@ export type RegisterResponseBodyPost =
 const addUserSchema = z.object({
   userName: z.string().min(1),
   firstName: z.string().min(1),
-  middleName: z.string().min(1),
   lastName: z.string().min(1),
   addrStreet: z.string().min(1),
   addrHouseNo: z.string().min(1),
@@ -78,7 +77,6 @@ export async function POST(
   const newUser = await createUser(
     result.data.userName,
     result.data.firstName,
-    result.data.middleName,
     result.data.lastName,
     result.data.addrStreet,
     result.data.addrHouseNo,

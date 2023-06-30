@@ -4,7 +4,6 @@ export type User = {
   id: number;
   userName: string;
   userFirstName: string;
-  userMiddleName: string;
   userLastName: string;
   userAddrStreet: string;
   userAddrHouseNo: string;
@@ -26,7 +25,6 @@ export async function up(sql: Sql) {
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_name varchar(50) NOT NULL UNIQUE,
     user_first_name varchar(80)NOT NULL,
-    user_middle_name varchar(80),
     user_last_name varchar(80)NOT NULL,
     user_addr_street varchar(80)NOT NULL,
     user_addr_house_no varchar(80)NOT NULL,
@@ -43,4 +41,4 @@ export async function down(sql: Sql) {
 `;
 }
 
-/* INSERT INTO users (user_name, password_hash, user_first_name, user_middle_name, user_last_name, user_addr_street, user_addr_house_no, user_post_code, user_location_city, user_email)  VALUES ('admin','admin','admin','admin','admin','admin','admin','admin','admin','admin@admin'); */
+/* INSERT INTO users (user_name, password_hash, user_first_name,user_last_name, user_addr_street, user_addr_house_no, user_post_code, user_location_city, user_email)  VALUES ('admin','admin','admin','admin','admin','admin','admin','admin','admin','admin@admin'); */
