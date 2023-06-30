@@ -32,9 +32,6 @@ dependencies:
   dotenv-cli:
     specifier: ^7.2.1
     version: 7.2.1
-  dotenv-safe:
-    specifier: ^8.2.0
-    version: 8.2.0
   expo-constants:
     specifier: ^14.2.1
     version: 14.2.1(expo@48.0.19)
@@ -76,9 +73,6 @@ devDependencies:
   '@types/bcrypt':
     specifier: ^5.0.0
     version: 5.0.0
-  '@types/dotenv-safe':
-    specifier: ^8.1.2
-    version: 8.1.2
 
 packages:
 
@@ -2119,12 +2113,6 @@ packages:
       '@types/responselike': 1.0.0
     dev: false
 
-  /@types/dotenv-safe@8.1.2:
-    resolution: {integrity: sha512-R/B/wIMda6lRE2P1H0vwSoJsV78IOkhccE4vIvmKZQNXOIjiU0QyJsUXwSotBxOPZFZ/oOnjCa3+kK5kVJwGyw==}
-    dependencies:
-      dotenv: 8.6.0
-    dev: true
-
   /@types/http-cache-semantics@4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
     dev: false
@@ -3047,20 +3035,10 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /dotenv-safe@8.2.0:
-    resolution: {integrity: sha512-uWwWWdUQkSs5a3mySDB22UtNwyEYi0JtEQu+vDzIqr9OjbDdC2Ip13PnSpi/fctqlYmzkxCeabiyCAOROuAIaA==}
-    dependencies:
-      dotenv: 8.6.0
-    dev: false
-
   /dotenv@16.3.1:
     resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
     engines: {node: '>=12'}
     dev: false
-
-  /dotenv@8.6.0:
-    resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
-    engines: {node: '>=10'}
 
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}

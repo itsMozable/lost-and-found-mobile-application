@@ -6,3 +6,10 @@ export const colors = {
   patternColorE: 'yellow',
   patternColorF: '#19be9b', // green
 };
+
+/* <ImageBackground
+source={require('../globals/images/LP.jpeg')}
+style={styles.bgImage}
+resizeMode="cover"
+/>
+</ImageBackground> */

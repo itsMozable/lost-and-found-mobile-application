@@ -6,6 +6,7 @@ import React, { useEffect } from 'react';
 import {
   Alert,
   BackHandler,
+  ImageBackground,
   Pressable,
   StyleSheet,
   Text,
@@ -74,6 +75,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginHorizontal: 15,
   },
+  bgImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
 });
 
 export default function Home() {
@@ -132,7 +138,6 @@ export default function Home() {
         >
           <Text style={styles.squareButtonText}>I lost something</Text>
         </Pressable>
-
         <Pressable
           onPress={() => router.push('./foundSomething/foundSomething')}
           style={styles.squareButton}
@@ -147,7 +152,6 @@ export default function Home() {
         >
           <Text style={styles.bottomMenuButtonText}>Blue Pill</Text>
         </Pressable>
-
         <Pressable
           style={styles.bottomMenuPosButton}
           onPress={() =>
