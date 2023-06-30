@@ -41,7 +41,6 @@ export default function UserProfile() {
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const [userName, setUserName] = useState<string>('');
   const [userFirstName, setUserFirstName] = useState<string>('');
-  const [userMiddleName, setUserMiddleName] = useState<string>('');
   const [userLastName, setUserLastName] = useState<string>('');
   const [userAddrStreet, setUserAddrStreet] = useState<string>('');
   const [userAddrHouseNo, setUserAddrHouseNo] = useState<string>('');
@@ -79,7 +78,6 @@ export default function UserProfile() {
 
       setUserName(data.userData.userName);
       setUserFirstName(data.userData.userFirstName);
-      setUserMiddleName(data.userData.userMiddleName);
       setUserLastName(data.userData.userLastName);
       setUserAddrStreet(data.userData.userAddrStreet);
       setUserAddrHouseNo(data.userData.userAddrHouseNo);
@@ -108,7 +106,6 @@ export default function UserProfile() {
       body: JSON.stringify({
         userName: userName,
         userFirstName: userFirstName,
-        userMiddleName: userMiddleName,
         userLastName: userLastName,
         userAddrStreet: userAddrStreet,
         userAddrHouseNo: userAddrHouseNo,
@@ -265,12 +262,6 @@ export default function UserProfile() {
             placeholder="First Name"
             onChangeText={setUserFirstName}
             value={userFirstName}
-          />
-          <TextInput
-            style={styles.textInputField}
-            placeholder="Middle Name"
-            onChangeText={setUserMiddleName}
-            value={userMiddleName}
           />
           <TextInput
             style={styles.textInputField}
