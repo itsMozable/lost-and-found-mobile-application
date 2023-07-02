@@ -6,7 +6,6 @@ import React, { useEffect } from 'react';
 import {
   Alert,
   BackHandler,
-  ImageBackground,
   Pressable,
   StyleSheet,
   Text,
@@ -21,26 +20,32 @@ const styles = StyleSheet.create({
     flex: 1,
     flexdirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#19be9b',
+    backgroundColor: colors.patternBackground,
   },
-  logoContainer: {},
+  headerContainer: {
+    width: '100%',
+    backgroundColor: colors.patternBackground,
+  },
 
-  squareButtonContainer: {
+  ButtonContainer: {
     flex: 10,
     justifyContent: 'center',
   },
-  squareButton: {
+  roundedSquareButton: {
     width: 200,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.patternColorA,
-    margin: 10,
+    backgroundColor: colors.patternButtons,
+    margin: 20,
     padding: 10,
+    borderRadius: 10,
+    borderColor: colors.patternBorderColor,
+    borderWidth: 1,
   },
   squareButtonText: {
     textAlign: 'center',
-    color: '#e9e2ef',
+    color: colors.patternFont,
     /*   fontFamily: '', */
     fontSize: 20,
   },
@@ -49,36 +54,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
-    columnGap: 3,
+    backgroundColor: colors.patternBackground,
+    gap: 10,
   },
-  bottomMenuPosButton: {
-    flex: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.patternColorB,
-  },
-  bottomMenuNegButton: {
-    flex: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.patternColorC,
-  },
+
   bottomMenuButtonText: {
     textAlign: 'center',
-    color: colors.patternColorD,
+    color: colors.patternFont,
     /*  fontFamily: '', */
     fontSize: 15,
   },
   menuLinks: {
-    color: colors.patternColorE,
+    color: colors.patternFont,
     fontSize: 15,
-    fontWeight: 'bold',
     marginHorizontal: 15,
-  },
-  bgImage: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
   },
 });
 
@@ -114,51 +103,51 @@ export default function Home() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <View style={styles.logoContainer}>
-        <Header label="FoundLink" content="by Mozi since 1984" />
+      <View style={styles.headerContainer}>
+        <Header label="FoundLink" content="by Mozi since 1984" title={'Home'} />
       </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Pressable onPress={() => router.push('../(auth)/logout')}>
-          <Text style={styles.menuLinks}>Logout</Text>
-        </Pressable>
-        <Pressable onPress={() => router.push('./messages/messages')}>
-          <Text style={styles.menuLinks}>Messages</Text>
-        </Pressable>
-        <Pressable onPress={() => router.push('./userItems/userItems')}>
-          <Text style={styles.menuLinks}>Items</Text>
-        </Pressable>
-        <Pressable onPress={() => router.push('./userProfiles/userProfile')}>
-          <Text style={styles.menuLinks}>Profile</Text>
-        </Pressable>
-      </View>
-      <View style={styles.squareButtonContainer}>
+      <View style={styles.ButtonContainer}>
         <Pressable
           onPress={() => router.push('./lostSomething/lostSomething')}
-          style={styles.squareButton}
+          style={styles.roundedSquareButton}
         >
           <Text style={styles.squareButtonText}>I lost something</Text>
         </Pressable>
         <Pressable
           onPress={() => router.push('./foundSomething/foundSomething')}
-          style={styles.squareButton}
+          style={styles.roundedSquareButton}
         >
           <Text style={styles.squareButtonText}>I found something</Text>
         </Pressable>
       </View>
+
       <View style={styles.bottomMenuButtonContainer}>
         <Pressable
-          style={styles.bottomMenuNegButton}
+          style={styles.menuLinks}
           onPress={() => router.replace('../(auth)/logout')}
         >
-          <Text style={styles.bottomMenuButtonText}>Blue Pill</Text>
+          <Text style={styles.bottomMenuButtonText}>Logout</Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.menuLinks}
+          onPress={() => router.replace('../screens/messages/messages')}
+        >
+          <Text style={styles.bottomMenuButtonText}>Messages</Text>
         </Pressable>
         <Pressable
-          style={styles.bottomMenuPosButton}
+          style={styles.menuLinks}
+          onPress={() => router.replace('../screens/userItems/userItems')}
+        >
+          <Text style={styles.bottomMenuButtonText}>Items</Text>
+        </Pressable>
+        <Pressable
+          style={styles.menuLinks}
           onPress={() =>
             Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
           }
         >
-          <Text style={styles.bottomMenuButtonText}>Red Pill</Text>
+          <Text style={styles.bottomMenuButtonText}>Profile</Text>
         </Pressable>
       </View>
     </View>

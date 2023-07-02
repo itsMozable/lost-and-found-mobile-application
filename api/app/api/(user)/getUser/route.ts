@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers';
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
@@ -11,47 +12,13 @@ const getUserSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  const getKeys = await request.headers.get('Authorization');
   const body = await request.json();
   const result = getUserSchema.safeParse(body);
 
-  let token;
-  let csrfToken;
-  console.log(getKeys);
-  if (getKeys) {
-    if (JSON.parse(getKeys).keyA && JSON.parse(getKeys).keyB) {
-      token = JSON.parse(getKeys).keyA;
-      csrfToken = JSON.parse(getKeys).keyB;
-    } else {
-      console.log(
-        'User Log / Get Request Denied: missing at least one key in auth request header',
-      );
-      return NextResponse.json(
-        {
-          errors: [
-            {
-              message: 'Denied: failed authentication',
-            },
-          ],
-        },
-        { status: 401 },
-      );
-    }
-  } else {
-    console.log('User Log / Get Request Denied: Auth request header empty');
-    return NextResponse.json(
-      {
-        errors: [
-          {
-            message: 'Denied: failed authentication',
-          },
-        ],
-      },
-      { status: 401 },
-    );
-  }
-
-  const session = await getValidSessionByToken(token);
+  const sessionTokenCookie = cookies().get('sessionToken');
+  const session =
+    sessionTokenCookie &&
+    (await getValidSessionByToken(sessionTokenCookie.value));
 
   if (!session) {
     console.log('User Log / Get Request Denied: invalid token');
@@ -69,7 +36,7 @@ export async function POST(request: NextRequest) {
 
   const isCsrfValid = await validateTokenWithSecret(
     session.csrfSecret,
-    csrfToken,
+    session.token,
   );
 
   if (!isCsrfValid) {

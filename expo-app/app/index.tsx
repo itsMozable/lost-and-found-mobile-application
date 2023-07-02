@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
   Alert,
+  ImageBackground,
   Pressable,
   StyleSheet,
   Text,
@@ -61,107 +62,119 @@ export default function Index() {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#009877',
+      flexdirection: 'column',
       alignItems: 'center',
+    },
+
+    headerContainer: {
+      width: '100%',
+    },
+
+    ButtonContainer: {
+      flex: 10,
       justifyContent: 'center',
+      marginBottom: 150,
     },
-    logo: {
-      marginBottom: 35,
-    },
-    loginInputView: {
-      backgroundColor: colors.patternColorC,
-      width: '50%',
-      height: 30,
-      marginBottom: 10,
+    roundedSquareButton: {
+      width: 200,
+      height: 50,
+      justifyContent: 'center',
       alignItems: 'center',
-      justifyContent: 'center',
+      backgroundColor: colors.patternButtons,
+      margin: 10,
+      padding: 10,
+      borderRadius: 10,
+      borderColor: colors.patternBorderColor,
+      borderWidth: 1,
     },
-    loginTextInput: {
-      /* fontFamily: '', */
+    squareButtonText: {
+      textAlign: 'center',
+      color: colors.patternFont,
+      fontSize: 20,
+    },
+    bottomMenuButtonContainer: {
       flex: 1,
-      height: 30,
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      justifyContent: 'space-between',
+      backgroundColor: colors.patternBackground,
+      gap: 30,
     },
-    loginButton: {
-      width: '50%',
-      height: 30,
-      marginBottom: 10,
-      backgroundColor: colors.patternColorA,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    loginText: {
-      /* fontFamily: '', */
-      color: '#FFF',
+
+    bottomMenuButtonText: {
+      textAlign: 'center',
+      color: colors.patternFont,
       fontSize: 15,
     },
-    registerButton: {
-      width: '50%',
-      height: 30,
-      marginBottom: 10,
-      backgroundColor: colors.patternColorA,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    registerText: {
-      /*  fontFamily: '', */
+    menuLinks: {
+      color: colors.patternFont,
       fontSize: 15,
-      color: '#FFF',
+      marginHorizontal: 15,
     },
     errorMessageText: {
-      /* fontFamily: '', */
-      color: '#9e3030',
+      color: colors.patternFontError,
       fontSize: 15,
-      textAlign: 'center',
-      width: '50%',
     },
   });
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.logo}>
-        <Header label="FoundLink" content="by Mozi since 1984" />
+    <ImageBackground
+      source={require('../globals/images/LP.jpeg')}
+      style={styles.container}
+    >
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+
+        <View style={styles.headerContainer}>
+          <Header label="FoundLink" content="by Mozi since 1984" title={''} />
+        </View>
+
+        <View style={styles.ButtonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Username"
+              onChangeText={setLogUserName}
+              value={logUserName}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Password"
+              secureTextEntry={true}
+              onChangeText={setLogPassword}
+              value={logPassword}
+            />
+          </View>
+          {errors.map((error) => (
+            <Text
+              style={styles.errorMessageText}
+              key={`error-${error.message}`}
+            >
+              {error.message}
+            </Text>
+          ))}
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => attemptLogin(logUserName, logPassword)}
+          >
+            <Text style={styles.squareButtonText}>Login</Text>
+          </Pressable>
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => router.push('/(auth)/registration')}
+          >
+            <Text style={styles.squareButtonText}>Sign - Up</Text>
+          </Pressable>
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => router.push('screens/home')}
+          >
+            <Text style={styles.squareButtonText}>Super Secret Button</Text>
+          </Pressable>
+        </View>
       </View>
-      <View style={styles.loginInputView}>
-        <TextInput
-          style={styles.loginTextInput}
-          placeholder="Username"
-          onChangeText={setLogUserName}
-          value={logUserName}
-        />
-      </View>
-      <View style={styles.loginInputView}>
-        <TextInput
-          style={styles.loginTextInput}
-          placeholder="Password"
-          secureTextEntry={true}
-          onChangeText={setLogPassword}
-          value={logPassword}
-        />
-      </View>
-      {errors.map((error) => (
-        <Text style={styles.errorMessageText} key={`error-${error.message}`}>
-          {error.message}
-        </Text>
-      ))}
-      <Pressable
-        style={styles.loginButton}
-        onPress={() => attemptLogin(logUserName, logPassword)}
-      >
-        <Text style={styles.loginText}>Login existing User</Text>
-      </Pressable>
-      <Pressable
-        style={styles.registerButton}
-        onPress={() => router.push('/(auth)/registration')}
-      >
-        <Text style={styles.registerText}>New User Sign - Up</Text>
-      </Pressable>
-      <Pressable
-        style={styles.registerButton}
-        onPress={() => router.push('screens/home')}
-      >
-        <Text style={styles.registerText}>Admin Button</Text>
-      </Pressable>
-    </View>
+    </ImageBackground>
   );
 }

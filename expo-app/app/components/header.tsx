@@ -6,32 +6,31 @@ import { colors } from '../../globals/globalData';
 type Props = {
   label: string;
   content: string;
+  title: string;
 };
 
 const styles = StyleSheet.create({
   safeArea: {
-    backgroundColor: colors.patternColorE,
     width: '100%',
   },
   container: {
     flexDirection: 'column',
     paddingTop: Constants.statusBarHeight + 5,
-    paddingBottom: 10,
   },
   headerLabel: {
-    color: colors.patternColorA,
+    color: colors.patternFontLogo,
     fontSize: 40,
     textAlign: 'center',
-    paddingHorizontal: 20,
-
-    /*     fontFamily: '', */
   },
   headerContent: {
-    color: colors.patternColorA,
+    color: colors.patternFontLogo,
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  siteTitle: {
+    color: colors.patternFontLogo,
     fontSize: 15,
     textAlign: 'center',
-    paddingTop: 20,
-    /*     fontFamily: '', */
   },
 });
 
@@ -41,6 +40,7 @@ export default function Header(props: Props) {
       <View style={styles.container}>
         <Text style={styles.headerLabel}>{props.label}</Text>
         <Text style={styles.headerContent}>{props.content}</Text>
+        <Text style={styles.siteTitle}>{props.title}</Text>
       </View>
     </SafeAreaView>
   );
