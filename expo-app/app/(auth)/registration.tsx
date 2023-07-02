@@ -192,7 +192,7 @@ export default function RegisterForm() {
     successfulRegistrationAlert();
   }
 
-  console.log(userName);
+  /* console.log(userName); */
 
   return (
     <View style={styles.container}>

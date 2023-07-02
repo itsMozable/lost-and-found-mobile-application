@@ -80,16 +80,16 @@ export async function POST(
       { status: 401 },
     );
   }
-
+  console.log('Password accepted - please proceed');
   // We are sure the user is authenticated
 
   // 4. Create a token
-  console.log('create token');
+  console.log('Secret Token created - please proceed');
   const token = crypto.randomBytes(50).toString('base64');
   const csrfSecret = createCsrfSecret();
   // 5. Create the session record
 
-  console.log('create session');
+  console.log('Session created - please proceed');
   const session = await createSession(
     token,
     csrfSecret,

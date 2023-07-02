@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
+  ImageBackground,
   StyleSheet,
   Text,
   TextInput,
@@ -90,125 +91,131 @@ const PickerForm = () => {
     setGenderOpen(false);
   }, []);
   const { handleSubmit, control } = useForm();
-  const onSubmit = (data) => {
+  const onSubmit = (data: any) => {
     console.log(data, 'data');
   };
   return (
     <View style={styles.container}>
-      <Header text="Sign In" />
-      <Text style={styles.label}>Name</Text>
-      <Controller
-        name="name"
-        defaultValue=""
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            selectionColor={'#5188E3'}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
-
-      <Text style={styles.label}>Password</Text>
-      <Controller
-        name="password"
-        defaultValue=""
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            selectionColor={'#5188E3'}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
-      <View>
-        <Text style={styles.label}>Gender</Text>
+      <ImageBackground
+        source={require('../../globals/images/LP.jpeg')}
+        resizeMode="cover"
+        style={{ width: '100%', height: '100%' }}
+      >
+        <Header text="Sign In" />
+        <Text style={styles.label}>Name</Text>
         <Controller
-          name="gender"
+          name="name"
           defaultValue=""
           control={control}
           render={({ field: { onChange, value } }) => (
-            <View style={styles.dropdownGender}>
-              <DropDownPicker
-                style={styles.dropdown}
-                open={genderOpen}
-                value={genderValue} //genderValue
-                items={gender}
-                setOpen={setGenderOpen}
-                setValue={setGenderValue}
-                setItems={setGender}
-                placeholder="Select Gender"
-                placeholderStyle={styles.placeholderStyles}
-                onOpen={onGenderOpen}
-                onChangeValue={onChange}
-                zIndex={3000}
-                zIndexInverse={1000}
-              />
-            </View>
+            <TextInput
+              style={styles.input}
+              selectionColor={'#5188E3'}
+              onChangeText={onChange}
+              value={value}
+            />
           )}
         />
 
-        <Text style={styles.label}>Institute/Organization</Text>
+        <Text style={styles.label}>Password</Text>
         <Controller
-          name="company"
+          name="password"
           defaultValue=""
           control={control}
           render={({ field: { onChange, value } }) => (
-            <View style={styles.dropdownCompany}>
-              <DropDownPicker
-                style={styles.dropdown}
-                open={companyOpen}
-                value={companyValue} //companyValue
-                items={company}
-                setOpen={setCompanyOpen}
-                setValue={setCompanyValue}
-                setItems={setComapny}
-                placeholder="Select Company"
-                placeholderStyle={styles.placeholderStyles}
-                loading={loading}
-                activityIndicatorColor="#5188E3"
-                searchable={true}
-                searchPlaceholder="Search your company here..."
-                onOpen={onCompanyOpen}
-                onChangeValue={onChange}
-                zIndex={1000}
-                zIndexInverse={3000}
-              />
-            </View>
+            <TextInput
+              style={styles.input}
+              secureTextEntry={true}
+              selectionColor={'#5188E3'}
+              onChangeText={onChange}
+              value={value}
+            />
           )}
         />
-      </View>
-      <Text style={styles.label}>Email Address</Text>
-      <Controller
-        name="email"
-        defaultValue=""
-        control={control}
-        render={({ field: { onChange, value } }) => (
-          <TextInput
-            style={styles.input}
-            selectionColor={'#5188E3'}
-            onChangeText={onChange}
-            value={value}
+        <View>
+          <Text style={styles.label}>Gender</Text>
+          <Controller
+            name="gender"
+            defaultValue=""
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <View style={styles.dropdownGender}>
+                <DropDownPicker
+                  style={styles.dropdown}
+                  open={genderOpen}
+                  value={genderValue} //genderValue
+                  items={gender}
+                  setOpen={setGenderOpen}
+                  setValue={setGenderValue}
+                  setItems={setGender}
+                  placeholder="Select Gender"
+                  placeholderStyle={styles.placeholderStyles}
+                  onOpen={onGenderOpen}
+                  onChangeValue={onChange}
+                  zIndex={3000}
+                  zIndexInverse={1000}
+                />
+              </View>
+            )}
           />
-        )}
-      />
 
-      <View>
-        <input type="file" />
-      </View>
+          <Text style={styles.label}>Institute/Organization</Text>
+          <Controller
+            name="company"
+            defaultValue=""
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <View style={styles.dropdownCompany}>
+                <DropDownPicker
+                  style={styles.dropdown}
+                  open={companyOpen}
+                  value={companyValue} //companyValue
+                  items={company}
+                  setOpen={setCompanyOpen}
+                  setValue={setCompanyValue}
+                  setItems={setComapny}
+                  placeholder="Select Company"
+                  placeholderStyle={styles.placeholderStyles}
+                  loading={loading}
+                  activityIndicatorColor="#5188E3"
+                  searchable={true}
+                  searchPlaceholder="Search your company here..."
+                  onOpen={onCompanyOpen}
+                  onChangeValue={onChange}
+                  zIndex={1000}
+                  zIndexInverse={3000}
+                />
+              </View>
+            )}
+          />
+        </View>
+        <Text style={styles.label}>Email Address</Text>
+        <Controller
+          name="email"
+          defaultValue=""
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <TextInput
+              style={styles.input}
+              selectionColor={'#5188E3'}
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
+        />
 
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <Text style={styles.getStarted}>Get Started</Text>
-      </TouchableOpacity>
+        <View>
+          <input type="file" />
+        </View>
 
-      <TouchableOpacity style={styles.logIn}>
-        <Text style={styles.links}>I have an account</Text>
-      </TouchableOpacity>
+        <TouchableOpacity onPress={handleSubmit(onSubmit)}>
+          <Text style={styles.getStarted}>Get Started</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.logIn}>
+          <Text style={styles.links}>I have an account</Text>
+        </TouchableOpacity>
+      </ImageBackground>
     </View>
   );
 };
