@@ -6,11 +6,13 @@ import React, { useEffect } from 'react';
 import {
   Alert,
   BackHandler,
+  Image,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+/* import userName from '../../../api/database/usersDatabase'; */
 import { colors } from '../../globals/globalData';
 import Header from '../components/header';
 
@@ -69,6 +71,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginHorizontal: 15,
   },
+  icon: {
+    width: 150,
+    height: 150,
+  },
 });
 
 export default function Home() {
@@ -104,8 +110,16 @@ export default function Home() {
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.headerContainer}>
-        <Header label="FoundLink" content="by Mozi since 1984" title={'Home'} />
+        <Header
+          label="FoundLink"
+          content="by Mozi since 1984"
+          title="You are Home Mozi"
+        />
       </View>
+      <Image
+        source={require('../../globals/icons/headphone_cat.png')}
+        style={styles.icon}
+      />
       <View style={styles.ButtonContainer}>
         <Pressable
           onPress={() => router.push('./lostSomething/lostSomething')}

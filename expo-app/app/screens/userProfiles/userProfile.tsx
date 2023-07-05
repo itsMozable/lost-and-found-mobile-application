@@ -2,6 +2,7 @@
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
+import { cookies } from 'next/headers';
 import React, { useEffect, useState } from 'react';
 import {
   Pressable,
@@ -11,10 +12,107 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import { getValidSessionByToken } from '../../../../api/database/sessionsDatabase';
 import { User } from '../../../../api/migrations/1687369134-createTableUsers';
 import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
 import { apiBaseUrl } from '../../index';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  logoContainer: {
+    flex: 1,
+    marginTop: 30,
+    marginBottom: 10,
+  },
+  titleContainer: {
+    height: 10,
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleText: {
+    /*    fontFamily: '', */
+    fontSize: 18,
+    color: colors.patternColorD,
+    textAlign: 'center',
+  },
+
+  inputsScrollview: {
+    flex: 6.5,
+    width: '80%',
+  },
+  doubleInputContainer: {
+    height: 120,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  singleInputContainer: {
+    height: 65,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  inputLabelContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  inputLabelText: {
+    /*     fontFamily: '', */
+    fontSize: 15,
+    color: colors.patternColorD,
+    marginLeft: 5,
+  },
+  textInputField: {
+    height: 40,
+    width: '100%',
+    backgroundColor: colors.patternColorB,
+    paddingLeft: 5,
+    textAlign: 'left',
+  },
+  bottomMenuButtonContainer: {
+    height: 3,
+    paddingTop: 15,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
+    columnGap: 3,
+  },
+  bottomMenuPosButton: {
+    flex: 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorC,
+  },
+  bottomMenuNegButton: {
+    flex: 0.3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorC,
+  },
+  bottomMenuButtonText: {
+    textAlign: 'center',
+    color: colors.patternColorC,
+    /*     fontFamily: '', */
+    fontSize: 20,
+  },
+  menuLinks: {
+    color: colors.patternColorB,
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginHorizontal: 20,
+  },
+  navigationBar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+});
 
 type GetUserDataResponseBody =
   | {
@@ -126,106 +224,12 @@ export default function UserProfile() {
       console.log('Failed to update position');
     }
   }
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-    },
-    logoContainer: {
-      flex: 1,
-      marginTop: 30,
-      marginBottom: 10,
-    },
-    titleContainer: {
-      height: 10,
-      width: '80%',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    titleText: {
-      /*    fontFamily: '', */
-      fontSize: 18,
-      color: colors.patternColorD,
-      textAlign: 'center',
-    },
 
-    inputsScrollview: {
-      flex: 6.5,
-      width: '80%',
-    },
-    doubleInputContainer: {
-      height: 120,
-      width: '100%',
-      justifyContent: 'center',
-    },
-    singleInputContainer: {
-      height: 65,
-      width: '100%',
-      justifyContent: 'center',
-    },
-    inputLabelContainer: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-    },
-    inputLabelText: {
-      /*     fontFamily: '', */
-      fontSize: 15,
-      color: colors.patternColorD,
-      marginLeft: 5,
-    },
-    textInputField: {
-      height: 40,
-      width: '100%',
-      backgroundColor: colors.patternColorB,
-      paddingLeft: 5,
-      textAlign: 'left',
-    },
-    bottomMenuButtonContainer: {
-      height: 3,
-      paddingTop: 15,
-      backgroundColor: '#fff',
-      flexDirection: 'row',
-      alignItems: 'stretch',
-      justifyContent: 'space-between',
-      columnGap: 3,
-    },
-    bottomMenuPosButton: {
-      flex: 0.7,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.patternColorC,
-    },
-    bottomMenuNegButton: {
-      flex: 0.3,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.patternColorC,
-    },
-    bottomMenuButtonText: {
-      textAlign: 'center',
-      color: colors.patternColorC,
-      /*     fontFamily: '', */
-      fontSize: 20,
-    },
-    menuLinks: {
-      color: colors.patternColorB,
-      fontSize: 12,
-      fontWeight: 'bold',
-      marginHorizontal: 20,
-    },
-    navigationBar: {
-      flex: 1,
-      flexDirection: 'row',
-      alignContent: 'center',
-    },
-  });
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.logoContainer}>
-        <Header label="User Profil" content={userName} />
+        <Header label="User Profil" content={userName} title={''} />
       </View>
       <View style={styles.navigationBar}>
         <Pressable onPress={() => router.push('../home')}>

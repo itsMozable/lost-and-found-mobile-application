@@ -6,6 +6,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
   Alert,
+  Image,
   ImageBackground,
   Pressable,
   StyleSheet,
@@ -15,6 +16,66 @@ import {
 } from 'react-native';
 import { colors } from '../globals/globalData';
 import Header from './components/header';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexdirection: 'column',
+    alignItems: 'center',
+  },
+  headerContainer: {
+    width: '100%',
+  },
+  ButtonContainer: {
+    flex: 10,
+    justifyContent: 'center',
+    marginBottom: 150,
+  },
+  roundedSquareButton: {
+    width: 200,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternButtons,
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: colors.patternBorderColor,
+    borderWidth: 1,
+  },
+  squareButtonText: {
+    textAlign: 'center',
+    color: colors.patternFont,
+    fontSize: 20,
+  },
+  bottomMenuButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
+    backgroundColor: colors.patternBackground,
+    gap: 30,
+  },
+
+  bottomMenuButtonText: {
+    textAlign: 'center',
+    color: colors.patternFont,
+    fontSize: 15,
+  },
+  menuLinks: {
+    color: colors.patternFont,
+    fontSize: 15,
+    marginHorizontal: 15,
+  },
+  errorMessageText: {
+    color: colors.patternFontError,
+    fontSize: 15,
+  },
+  icon: {
+    width: 100,
+    height: 100,
+  },
+});
 
 const manifest = Constants;
 export const apiBaseUrl =
@@ -59,63 +120,6 @@ export default function Index() {
 
     successfulLogInAlert();
   }
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexdirection: 'column',
-      alignItems: 'center',
-    },
-
-    headerContainer: {
-      width: '100%',
-    },
-
-    ButtonContainer: {
-      flex: 10,
-      justifyContent: 'center',
-      marginBottom: 150,
-    },
-    roundedSquareButton: {
-      width: 200,
-      height: 50,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.patternButtons,
-      margin: 10,
-      padding: 10,
-      borderRadius: 10,
-      borderColor: colors.patternBorderColor,
-      borderWidth: 1,
-    },
-    squareButtonText: {
-      textAlign: 'center',
-      color: colors.patternFont,
-      fontSize: 20,
-    },
-    bottomMenuButtonContainer: {
-      flex: 1,
-      flexDirection: 'row',
-      alignItems: 'stretch',
-      justifyContent: 'space-between',
-      backgroundColor: colors.patternBackground,
-      gap: 30,
-    },
-
-    bottomMenuButtonText: {
-      textAlign: 'center',
-      color: colors.patternFont,
-      fontSize: 15,
-    },
-    menuLinks: {
-      color: colors.patternFont,
-      fontSize: 15,
-      marginHorizontal: 15,
-    },
-    errorMessageText: {
-      color: colors.patternFontError,
-      fontSize: 15,
-    },
-  });
 
   return (
     <ImageBackground
@@ -128,6 +132,11 @@ export default function Index() {
         <View style={styles.headerContainer}>
           <Header label="FoundLink" content="by Mozi since 1984" title={''} />
         </View>
+
+        <Image
+          source={require('../globals/icons/raccoon_head.png')}
+          style={styles.icon}
+        />
 
         <View style={styles.ButtonContainer}>
           <View style={styles.roundedSquareButton}>

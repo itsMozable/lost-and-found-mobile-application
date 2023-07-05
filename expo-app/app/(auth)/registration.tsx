@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
   Alert,
+  ImageBackground,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -13,87 +14,61 @@ import {
 } from 'react-native';
 import { RegisterResponseBodyPost } from '../../../api/app/api/(auth)/register/route';
 import { colors } from '../../globals/globalData';
+import Header from '../components/header';
 import { apiBaseUrl } from '../index';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    marginTop: 60,
+    flexdirection: 'column',
     alignItems: 'center',
   },
-  logo: {
-    marginBottom: 5,
+  headerContainer: {
+    width: '100%',
   },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 30,
-    marginBottom: 50,
-  },
-  inputsScrollview: {
-    flex: 6.5,
-    width: '80%',
-  },
-  registrationText: {
-    /*  fontFamily: '', */
-    fontSize: 30,
-    color: colors.patternColorD,
-  },
-  regInputView: {
-    backgroundColor: colors.patternColorB,
-    width: '70%',
-    height: 30,
-    marginBottom: 10,
-    alignItems: 'center',
-  },
-  regTextInput: {
-    /* fontFamily: '', */
-    flex: 1,
-    height: 50,
-  },
-  signUpButton: {
-    marginTop: 40,
-    width: '60%',
-    height: 40,
-    backgroundColor: colors.patternColorA,
-    alignItems: 'center',
+  ButtonContainer: {
+    flex: 10,
     justifyContent: 'center',
+    marginBottom: 150,
   },
-  signUpButtonText: {
-    /*     fontFamily: '', */
-    color: '#FFF',
-    fontSize: 20,
+  roundedSquareButton: {
+    width: 200,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternButtons,
+    margin: 10,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: colors.patternBorderColor,
+    borderWidth: 1,
   },
-  errorMessageText: {
-    /*     fontFamily: '', */
-    color: '#9e3030',
-    fontSize: 15,
+  squareButtonText: {
     textAlign: 'center',
-    width: '70%',
+    color: colors.patternFont,
+    fontSize: 20,
   },
   bottomMenuButtonContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
-    columnGap: 3,
+    backgroundColor: colors.patternBackground,
+    gap: 30,
   },
-  bottomMenuPosButton: {
-    flex: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.patternColorB,
-  },
-  bottomMenuNegButton: {
-    flex: 0.5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.patternColorC,
-  },
+
   bottomMenuButtonText: {
     textAlign: 'center',
-    color: colors.patternColorD,
-    /*  fontFamily: '', */
+    color: colors.patternFont,
+    fontSize: 15,
+  },
+  menuLinks: {
+    color: colors.patternFont,
+    fontSize: 15,
+    marginHorizontal: 15,
+  },
+  errorMessageText: {
+    color: colors.patternFontError,
     fontSize: 15,
   },
 });
@@ -120,47 +95,10 @@ export default function RegisterForm() {
   // const [passwordShown, setPasswordShown] = useState(false);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
-  /*   const togglePassword = () => {
-    setPasswordShown(!passwordShown);
- */
   const successfulRegistrationAlert = () =>
     Alert.alert('Signed up!', 'You have successfully signed up!', [
       { text: 'back to login', onPress: () => router.push('../') },
     ]);
-
-  /* here: Zeile 23-42 vom Jose */
-  /*
-  async function register() {
-    const response = await fetch(`${apiBaseUrl}/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user: userName,
-        firstName: userFirstName,
-        lastName: userLastName,
-        addrStreet: userAddrStreet,
-        addrHouseNo: userAddrHouseNo,
-        postCode: userPostCode,
-        locationCity: userLocationCity,
-        email: userEmail,
-        password: userPassword,
-      }),
-    });
-
-    const data: RegisterResponseBodyPost = await response.json();
-
-      if ('error' in data) {
-      setErrors(data.error);
-      return;
-    }
-
-    console.log(data);
-    router.push('../');
-
-    successfulRegistrationAlert();
-  }*/
 
   async function createNewUser() {
     const response = await fetch(`${apiBaseUrl}/api/register`, {
@@ -195,131 +133,110 @@ export default function RegisterForm() {
   /* console.log(userName); */
 
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <View style={styles.logo}>{/* <Header label="FoundLink" /> */}</View>
-      <View style={styles.welcomeContainer}>
-        <Text style={styles.registrationText}>WELCOME!</Text>
-        <Text style={styles.registrationText}>Please sign up here:</Text>
+    <ImageBackground
+      source={require('../../globals/images/LP.jpeg')}
+      style={styles.container}
+    >
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+
+        <View style={styles.container}>
+          <Header label="FoundLink" content="by Mozi since 1984" title={''} />
+        </View>
+        <ScrollView>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Username"
+              onChangeText={setUserName}
+              /* onChange={(event) => setUserName(event.currentTarget.value)} */
+              value={userName}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="first Name"
+              onChangeText={setUserFirstName}
+              value={userFirstName}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="last Name"
+              onChangeText={setUserLastName}
+              value={userLastName}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Address Street"
+              onChangeText={setUserAddrStreet}
+              value={userAddrStreet}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="House Number"
+              onChangeText={setUserAddrHouseNo}
+              value={userAddrHouseNo}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Postal Code"
+              onChangeText={setUserPostCode}
+              value={userPostCode}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Location City"
+              onChangeText={setUserLocationCity}
+              value={userLocationCity}
+            />
+          </View>
+
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Email"
+              onChangeText={setUserEmail}
+              value={userEmail}
+            />
+          </View>
+
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="new Password"
+              secureTextEntry={true}
+              onChangeText={setUserPassword}
+              value={userPassword}
+            />
+          </View>
+        </ScrollView>
+        <View style={styles.bottomMenuButtonContainer}>
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => createNewUser()}
+          >
+            <Text style={styles.squareButtonText}>Sign - Up</Text>
+          </Pressable>
+
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => router.push('../')}
+          >
+            <Text style={styles.squareButtonText}>Index</Text>
+          </Pressable>
+        </View>
       </View>
-
-      <ScrollView style={styles.inputsScrollview}>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="Username"
-            onChangeText={setUserName}
-            /* onChange={(event) => setUserName(event.currentTarget.value)} */
-            value={userName}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="first Name"
-            onChangeText={setUserFirstName}
-            value={userFirstName}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="last Name"
-            onChangeText={setUserLastName}
-            value={userLastName}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="Address Street"
-            onChangeText={setUserAddrStreet}
-            value={userAddrStreet}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="House Number"
-            onChangeText={setUserAddrHouseNo}
-            value={userAddrHouseNo}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="Postal Code"
-            onChangeText={setUserPostCode}
-            value={userPostCode}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="Location City"
-            onChangeText={setUserLocationCity}
-            value={userLocationCity}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="Email"
-            onChangeText={setUserEmail}
-            value={userEmail}
-          />
-        </View>
-        <View style={styles.regInputView}>
-          <TextInput
-            style={styles.regTextInput}
-            placeholder="new Password"
-            secureTextEntry={true}
-            onChangeText={setUserPassword}
-            value={userPassword}
-          />
-        </View>
-      </ScrollView>
-
-      {/*        {errors.map((error) => (
-          <Text style={styles.errorMessageText} key={`error-${error.message}`}>
-            {error.message}
-          </Text>
-        ))} */}
-      <Pressable
-        style={styles.signUpButton}
-        onPress={
-          () => createNewUser()
-          /*               userName,
-              userFirstName,
-              userLastName,
-              userAddrStreet,
-              userAddrHouseNo,
-              userPostCode,
-              userLocationCity,
-              userEmail,
-              userPassword, */
-          /* register() */
-        }
-      >
-        <Text style={styles.signUpButtonText}>New User Sign - Up</Text>
-      </Pressable>
-      <View style={styles.bottomMenuButtonContainer}>
-        <Pressable
-          style={styles.bottomMenuNegButton}
-          onPress={() => router.replace('../')}
-        >
-          <Text style={styles.bottomMenuButtonText}>Home</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.bottomMenuPosButton}
-          onPress={() =>
-            Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-          }
-        >
-          <Text style={styles.bottomMenuButtonText}>Red Pill</Text>
-        </Pressable>
-      </View>
-    </View>
+    </ImageBackground>
   );
 }

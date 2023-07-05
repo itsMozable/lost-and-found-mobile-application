@@ -75,7 +75,7 @@ export default function MessageScreen() {
           font-size="1em"
           label="FoundLink"
           content="by Mozi since 1984"
-          title={'Messages'}
+          title={`Here are your Messages Mozi`}
         />
       </View>
       <View style={styles.ButtonContainer}>

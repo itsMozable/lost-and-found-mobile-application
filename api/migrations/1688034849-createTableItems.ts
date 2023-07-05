@@ -6,31 +6,31 @@ export type UserItems = {
   itemName: string;
   itemCategory: string;
   itemColor: string;
-  itemLost: boolean;
-  itemFound: boolean;
-  itemLostFoundDate: Date;
   itemDescription: string;
-  itemImage: string;
+  itemState: string;
+  itemPickup: string;
+  itemLost: boolean;
+  itemTimestamp: Date;
 };
 
 export async function up(sql: Sql) {
   await sql`
-  CREATE TABLE userItems(
+  CREATE TABLE items(
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id integer,
-    itemName varchar(255),
-    itemCategory varchar(255),
-    itemColor varchar(255),
+    item_name varchar(255),
+    item_category varchar(255),
+    item_color varchar(255),
+    item_description varchar(255),
+    item_state varchar(255) ,
+    item_pickup varchar(255),
     itemLost boolean,
-    itemFound boolean,
-    itemLostFoundDate date ,
-    itemDescription varchar(255) ,
-    itemImage varchar(255)
+    item_timestamp date ,
   )`;
 }
 
 export async function down(sql: Sql) {
   await sql`
-  DROP TABLE userItems
+  DROP TABLE items
 `;
 }

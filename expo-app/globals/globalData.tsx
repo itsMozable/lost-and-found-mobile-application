@@ -9,6 +9,7 @@ export const colors = {
   patternFontLogo: '#19be9b',
   patternButtons: '#19be9b',
   patternBorderColor: '#ffffff',
+  patternDropdown: '#ffffff',
 
   patternColorB: 'orange',
   patternColorC: 'pink',
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     width: '100%',
-    backgroundColor: colors.patternColorE,
+    backgroundColor: colors.patternBackground,
   },
 
   ButtonContainer: {

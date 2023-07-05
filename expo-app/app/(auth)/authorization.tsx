@@ -66,7 +66,7 @@ export default function AuthWrap() {
     loadingText: {
       fontFamily: '',
       fontSize: 30,
-      color: colors.patternColorA,
+      color: colors.patternFont,
     },
   });
 

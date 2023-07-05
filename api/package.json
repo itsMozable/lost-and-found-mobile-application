@@ -14,7 +14,6 @@
     "@types/node": "20.3.1",
     "@types/react": "18.2.13",
     "@types/react-dom": "18.2.6",
-    "ably": "^1.2.40",
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.37.3",
     "csrf": "^3.1.0",

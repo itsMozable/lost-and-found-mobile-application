@@ -1,6 +1,13 @@
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Linking, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  Image,
+  Linking,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
 
@@ -63,6 +70,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginHorizontal: 15,
   },
+  icon: {
+    width: 150,
+    height: 150,
+  },
 });
 
 export default function UserItemsScreen() {
@@ -75,13 +86,17 @@ export default function UserItemsScreen() {
           font-size="1em"
           label="FoundLink"
           content="by Mozi since 1984"
-          title={'Items'}
+          title={`Here are your Items Mozi`}
         />
       </View>
+      <Image
+        source={require('../../../globals/icons/purr.gif')}
+        style={styles.icon}
+      />
       <View style={styles.ButtonContainer}>
         <Pressable
           style={styles.roundedSquareButton}
-          onPress={() => router.replace('../messages/messages')}
+          onPress={() => router.replace('../userItems/userItems')}
         >
           <Text style={styles.squareButtonText}>Items</Text>
         </Pressable>
