@@ -6,8 +6,8 @@ export const colors = {
 
   patternFont: '#ffffff',
   patternFontError: '#ff0000',
-  patternFontLogo: '#19be9b',
-  patternButtons: '#19be9b',
+  patternFontLogo: '#16ac8c',
+  patternButtons: '#16ac8c',
   patternBorderColor: '#ffffff',
   patternDropdown: '#ffffff',
 

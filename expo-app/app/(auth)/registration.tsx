@@ -20,20 +20,56 @@ import { apiBaseUrl } from '../index';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexdirection: 'column',
-    alignItems: 'center',
+    backgroundColor: colors.patternBackground,
   },
   headerContainer: {
     width: '100%',
+    backgroundColor: colors.patternBackground,
   },
-  ButtonContainer: {
+  inputContainer: {
     flex: 10,
+    marginTop: 10,
+  },
+  input: {
+    color: colors.patternFont,
+    borderStyle: 'solid',
+    borderColor: '#B7B7B7',
+    borderRadius: 7,
+    borderWidth: 1,
+    fontSize: 15,
+    height: 50,
+    marginHorizontal: 10,
+    paddingStart: 10,
+    marginBottom: 15,
+  },
+  label: {
+    color: colors.patternFont,
+    marginTop: 5,
+    marginBottom: 7,
+    marginStart: 10,
+  },
+  placeholderStyles: {
+    color: 'grey',
+  },
+  dropdownStyle: {
+    marginHorizontal: 10,
+    zIndex: 3000,
+    zIndexInverse: 1000,
+  },
+  dropdown: {
+    borderColor: '#B7B7B7',
+    height: 50,
+    backgroundColor: colors.patternDropdown,
+  },
+  buttonContainer: {
+    flex: 1,
     justifyContent: 'center',
-    marginBottom: 150,
+    alignItems: 'center',
+    zIndex: 1,
   },
   roundedSquareButton: {
-    width: 200,
-    height: 50,
+    width: 150,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.patternButtons,
@@ -42,11 +78,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: colors.patternBorderColor,
     borderWidth: 1,
+    zIndex: 1,
   },
   squareButtonText: {
     textAlign: 'center',
     color: colors.patternFont,
-    fontSize: 20,
+    fontSize: 15,
+    zIndex: 1,
+  },
+  logIn: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    marginBottom: 10,
+  },
+  links: {
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+    color: '#758580',
   },
   bottomMenuButtonContainer: {
     flex: 1,
@@ -54,12 +102,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'space-between',
     backgroundColor: colors.patternBackground,
-    gap: 30,
+    gap: 10,
   },
 
   bottomMenuButtonText: {
     textAlign: 'center',
     color: colors.patternFont,
+    /*  fontFamily: '', */
     fontSize: 15,
   },
   menuLinks: {
@@ -67,9 +116,14 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginHorizontal: 15,
   },
-  errorMessageText: {
-    color: colors.patternFontError,
-    fontSize: 15,
+  icon: {
+    width: 150,
+    height: 150,
+  },
+  iconContainer: {
+    flex: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -79,7 +133,19 @@ type RegDataResponseBody =
         message: string;
       }[];
     }
-  | { user: { userName: string } };
+  | {
+      user: {
+        userName: string;
+        firstName: string;
+        lastName: string;
+        addrStreet: string;
+        addrHouseNo: string;
+        postCode: string;
+        locationCity: string;
+        email: string;
+        password: string;
+      };
+    };
 
 export default function RegisterForm() {
   const router = useRouter();
@@ -119,15 +185,28 @@ export default function RegisterForm() {
       }),
     });
 
-    console.log(response);
+    console.log(JSON.stringify(response));
 
     const data: RegDataResponseBody = await response.json();
     if ('errors' in data) {
       setErrors(data.errors);
       return;
+    } else if (
+      data.user.userName.length > 0 &&
+      data.user.firstName.length > 0 &&
+      data.user.lastName.length > 0 &&
+      data.user.addrStreet.length > 0 &&
+      data.user.addrHouseNo.length > 0 &&
+      data.user.postCode.length > 0 &&
+      data.user.locationCity.length > 0 &&
+      data.user.email.length > 0 &&
+      data.user.password.length > 0
+    ) {
+      successfulRegistrationAlert();
+      console.log(data);
+    } else {
+      console.log('something went wrong');
     }
-    console.log(data);
-    successfulRegistrationAlert();
   }
 
   /* console.log(userName); */
@@ -140,9 +219,10 @@ export default function RegisterForm() {
       <View style={styles.container}>
         <StatusBar style="auto" />
 
-        <View style={styles.container}>
+        <View style={styles.headerContainer}>
           <Header label="FoundLink" content="by Mozi since 1984" title={''} />
         </View>
+
         <ScrollView>
           <View style={styles.roundedSquareButton}>
             <TextInput
@@ -220,22 +300,23 @@ export default function RegisterForm() {
               value={userPassword}
             />
           </View>
-        </ScrollView>
-        <View style={styles.bottomMenuButtonContainer}>
-          <Pressable
-            style={styles.roundedSquareButton}
-            onPress={() => createNewUser()}
-          >
-            <Text style={styles.squareButtonText}>Sign - Up</Text>
-          </Pressable>
 
-          <Pressable
-            style={styles.roundedSquareButton}
-            onPress={() => router.push('../')}
-          >
-            <Text style={styles.squareButtonText}>Index</Text>
-          </Pressable>
-        </View>
+          <View style={styles.bottomMenuButtonContainer}>
+            <Pressable
+              style={styles.roundedSquareButton}
+              onPress={() => createNewUser()}
+            >
+              <Text style={styles.squareButtonText}>Sign - Up</Text>
+            </Pressable>
+
+            <Pressable
+              style={styles.roundedSquareButton}
+              onPress={() => router.push('../')}
+            >
+              <Text style={styles.squareButtonText}>Landing Page</Text>
+            </Pressable>
+          </View>
+        </ScrollView>
       </View>
     </ImageBackground>
   );

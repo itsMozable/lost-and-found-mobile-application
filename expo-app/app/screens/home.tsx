@@ -75,6 +75,11 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  iconContainer: {
+    flex: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default function Home() {
@@ -116,10 +121,12 @@ export default function Home() {
           title="You are Home Mozi"
         />
       </View>
-      <Image
-        source={require('../../globals/icons/headphone_cat.png')}
-        style={styles.icon}
-      />
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('../../globals/icons/headphone_cat.png')}
+          style={styles.icon}
+        />
+      </View>
       <View style={styles.ButtonContainer}>
         <Pressable
           onPress={() => router.push('./lostSomething/lostSomething')}
@@ -157,9 +164,7 @@ export default function Home() {
         </Pressable>
         <Pressable
           style={styles.menuLinks}
-          onPress={() =>
-            Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-          }
+          onPress={() => router.replace('../screens/userProfiles/userProfile')}
         >
           <Text style={styles.bottomMenuButtonText}>Profile</Text>
         </Pressable>

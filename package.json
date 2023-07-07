@@ -6,6 +6,6 @@
   "dependencies": {
     "@types/react": "~18.2.14",
     "dotenv": "^16.3.1",
-    "expo-constants": "^14.2.1"
+    "expo-constants": "^14.4.2"
   }
 }

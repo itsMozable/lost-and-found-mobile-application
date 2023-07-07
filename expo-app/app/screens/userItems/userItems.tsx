@@ -74,6 +74,11 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  iconContainer: {
+    flex: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default function UserItemsScreen() {
@@ -89,10 +94,12 @@ export default function UserItemsScreen() {
           title={`Here are your Items Mozi`}
         />
       </View>
-      <Image
-        source={require('../../../globals/icons/purr.gif')}
-        style={styles.icon}
-      />
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('../../../globals/icons/purr.gif')}
+          style={styles.icon}
+        />
+      </View>
       <View style={styles.ButtonContainer}>
         <Pressable
           style={styles.roundedSquareButton}
@@ -123,9 +130,7 @@ export default function UserItemsScreen() {
         </Pressable>
         <Pressable
           style={styles.menuLinks}
-          onPress={() =>
-            Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-          }
+          onPress={() => router.replace('../userProfiles/userProfile')}
         >
           <Text style={styles.bottomMenuButtonText}>Profile</Text>
         </Pressable>

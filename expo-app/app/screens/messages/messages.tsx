@@ -108,9 +108,7 @@ export default function MessageScreen() {
         </Pressable>
         <Pressable
           style={styles.menuLinks}
-          onPress={() =>
-            Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-          }
+          onPress={() => router.replace('../userProfiles/userProfile')}
         >
           <Text style={styles.bottomMenuButtonText}>Profile</Text>
         </Pressable>

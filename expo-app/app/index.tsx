@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   ButtonContainer: {
-    flex: 10,
-    justifyContent: 'center',
+    flex: 1,
     marginBottom: 150,
   },
   roundedSquareButton: {
@@ -101,7 +100,7 @@ export default function Index() {
 
   const successfulLogInAlert = () => router.push('../screens/home');
 
-  async function attemptLogin(userName: string, password: string) {
+  async function attemptLogin() {
     const response = await fetch(`${apiBaseUrl}/api/login`, {
       method: 'POST',
       headers: {
@@ -109,7 +108,7 @@ export default function Index() {
       },
       body: JSON.stringify({ userName: logUserName, password: logPassword }),
     });
-    console.log(response);
+    console.log(JSON.stringify(response));
 
     const data: LoginDataResponseBody = await response.json();
     if ('errors' in data) {
@@ -166,7 +165,7 @@ export default function Index() {
           ))}
           <Pressable
             style={styles.roundedSquareButton}
-            onPress={() => attemptLogin(logUserName, logPassword)}
+            onPress={() => attemptLogin()}
           >
             <Text style={styles.squareButtonText}>Login</Text>
           </Pressable>

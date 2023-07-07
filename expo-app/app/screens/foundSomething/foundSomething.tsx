@@ -2,8 +2,7 @@ import { useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-  Alert,
-  Linking,
+  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -114,6 +113,15 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginHorizontal: 15,
   },
+  icon: {
+    width: 150,
+    height: 150,
+  },
+  iconContainer: {
+    flex: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 type SaveItemResponseBody =
@@ -173,6 +181,7 @@ export default function PickerForm() {
   const onSubmit = (data: any) => {
     console.log(data, 'data');
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -180,6 +189,12 @@ export default function PickerForm() {
           label="FoundLink"
           content="by Mozi since 1984"
           title={`Have you found something Mozi ?`}
+        />
+      </View>
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('../../../globals/icons/purr.gif')}
+          style={styles.icon}
         />
       </View>
       <View style={styles.inputContainer}>
@@ -330,9 +345,7 @@ export default function PickerForm() {
         </Pressable>
         <Pressable
           style={styles.menuLinks}
-          onPress={() =>
-            Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-          }
+          onPress={() => router.replace('../userProfiles/userProfile')}
         >
           <Text style={styles.bottomMenuButtonText}>Profile</Text>
         </Pressable>

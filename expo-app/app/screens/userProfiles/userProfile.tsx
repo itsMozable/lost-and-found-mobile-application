@@ -2,7 +2,6 @@
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
-import { cookies } from 'next/headers';
 import React, { useEffect, useState } from 'react';
 import {
   Pressable,
@@ -21,96 +20,113 @@ import { apiBaseUrl } from '../../index';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.patternBackground,
   },
-  logoContainer: {
+  headerContainer: {
+    width: '100%',
+    backgroundColor: colors.patternBackground,
+  },
+  inputContainer: {
+    flex: 10,
+    marginTop: 10,
+  },
+  input: {
+    color: colors.patternFont,
+    borderStyle: 'solid',
+    borderColor: '#B7B7B7',
+    borderRadius: 7,
+    borderWidth: 1,
+    fontSize: 15,
+    height: 50,
+    marginHorizontal: 10,
+    paddingStart: 10,
+    marginBottom: 15,
+  },
+  label: {
+    color: colors.patternFont,
+    marginTop: 5,
+    marginBottom: 7,
+    marginStart: 10,
+  },
+  placeholderStyles: {
+    color: 'grey',
+  },
+  dropdownStyle: {
+    marginHorizontal: 10,
+    zIndex: 3000,
+    zIndexInverse: 1000,
+  },
+  dropdown: {
+    borderColor: '#B7B7B7',
+    height: 50,
+    backgroundColor: colors.patternDropdown,
+  },
+  buttonContainer: {
+    flex: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
+  },
+  roundedSquareButton: {
+    width: 150,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternButtons,
+    marginVertical: 1,
+    padding: 10,
+    borderRadius: 10,
+    borderColor: colors.patternBorderColor,
+    borderWidth: 1,
+    zIndex: 1,
+  },
+  squareButtonText: {
+    textAlign: 'center',
+    color: colors.patternFont,
+    fontSize: 15,
+    zIndex: 1,
+  },
+  logIn: {
     flex: 1,
-    marginTop: 30,
+    justifyContent: 'flex-end',
     marginBottom: 10,
   },
-  titleContainer: {
-    height: 10,
-    width: '80%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  titleText: {
-    /*    fontFamily: '', */
-    fontSize: 18,
-    color: colors.patternColorD,
+  links: {
     textAlign: 'center',
-  },
-
-  inputsScrollview: {
-    flex: 6.5,
-    width: '80%',
-  },
-  doubleInputContainer: {
-    height: 120,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  singleInputContainer: {
-    height: 65,
-    width: '100%',
-    justifyContent: 'center',
-  },
-  inputLabelContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  inputLabelText: {
-    /*     fontFamily: '', */
-    fontSize: 15,
-    color: colors.patternColorD,
-    marginLeft: 5,
-  },
-  textInputField: {
-    height: 40,
-    width: '100%',
-    backgroundColor: colors.patternColorB,
-    paddingLeft: 5,
-    textAlign: 'left',
+    textDecorationLine: 'underline',
+    color: '#758580',
   },
   bottomMenuButtonContainer: {
-    height: 3,
-    paddingTop: 15,
-    backgroundColor: '#fff',
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
-    columnGap: 3,
+    backgroundColor: colors.patternBackground,
+    gap: 10,
   },
-  bottomMenuPosButton: {
-    flex: 0.7,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.patternColorC,
-  },
-  bottomMenuNegButton: {
-    flex: 0.3,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: colors.patternColorC,
-  },
+
   bottomMenuButtonText: {
     textAlign: 'center',
-    color: colors.patternColorC,
-    /*     fontFamily: '', */
-    fontSize: 20,
+    color: colors.patternFont,
+    /*  fontFamily: '', */
+    fontSize: 15,
   },
   menuLinks: {
-    color: colors.patternColorB,
-    fontSize: 12,
-    fontWeight: 'bold',
-    marginHorizontal: 20,
+    color: colors.patternFont,
+    fontSize: 15,
+    marginHorizontal: 15,
   },
-  navigationBar: {
+  icon: {
+    width: 150,
+    height: 150,
+  },
+  iconContainer: {
+    flex: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputScrollview: {
     flex: 1,
-    flexDirection: 'row',
-    alignContent: 'center',
   },
 });
 
@@ -228,140 +244,144 @@ export default function UserProfile() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <View style={styles.logoContainer}>
+      <View style={styles.headerContainer}>
         <Header label="User Profil" content={userName} title={''} />
       </View>
-      <View style={styles.navigationBar}>
-        <Pressable onPress={() => router.push('../home')}>
-          <Text style={styles.menuLinks}>Back</Text>
-        </Pressable>
-        <Pressable onPress={() => router.push('./messages/messages')}>
-          <Text style={styles.menuLinks}>Messages</Text>
-        </Pressable>
-        <Pressable onPress={() => router.push('./userItems/userItems')}>
-          <Text style={styles.menuLinks}>Items</Text>
-        </Pressable>
-        <Pressable onPress={() => router.push('./userProfiles/userProfile')}>
-          <Text style={styles.menuLinks}>Profile</Text>
-        </Pressable>
-      </View>
-      <ScrollView style={styles.inputsScrollview}>
-        <View style={styles.doubleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>User Name</Text>
+
+      <ScrollView style={styles.inputScrollview}>
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>User Name</Text>
           </View>
           <TextInput
-            style={styles.textInputField}
-            placeholder="User Name ?"
-            onChangeText={setUserName}
-            value={userName}
+            style={styles.squareButtonText}
+            placeholder="First Name"
+            onChangeText={setUserFirstName}
+            value={userFirstName}
           />
         </View>
-        <View style={styles.doubleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>Name</Text>
+
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>Name</Text>
           </View>
           <TextInput
-            style={styles.textInputField}
+            style={styles.squareButtonText}
             placeholder="First Name"
             onChangeText={setUserFirstName}
             value={userFirstName}
           />
           <TextInput
-            style={styles.textInputField}
+            style={styles.squareButtonText}
             placeholder="Last Name"
             onChangeText={setUserLastName}
             value={userLastName}
           />
         </View>
-        <View style={styles.singleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>Street</Text>
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>Street</Text>
           </View>
           <TextInput
-            style={styles.textInputField}
+            style={styles.squareButtonText}
             placeholder="Address: Street"
             onChangeText={setUserAddrStreet}
             value={userAddrStreet}
           />
         </View>
-        <View style={styles.doubleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>
               House Number / Additional Info
             </Text>
           </View>
           <TextInput
-            style={styles.textInputField}
+            style={styles.squareButtonText}
             placeholder="Address: House Number"
             onChangeText={setUserAddrHouseNo}
             value={userAddrHouseNo}
           />
         </View>
-        <View style={styles.singleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>Post Code</Text>
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>Post Code</Text>
           </View>
           <TextInput
-            style={styles.textInputField}
+            style={styles.squareButtonText}
             placeholder="Post Code"
             onChangeText={setUserPostCode}
             value={userPostCode}
           />
         </View>
-        <View style={styles.singleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>Location</Text>
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>Location</Text>
           </View>
           <TextInput
-            style={styles.textInputField}
+            style={styles.squareButtonText}
             placeholder="Town / City"
             onChangeText={setUserLocationCity}
             value={userLocationCity}
           />
         </View>
-        <View style={styles.singleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>Email</Text>
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>Email</Text>
           </View>
           <TextInput
-            style={styles.textInputField}
+            style={styles.squareButtonText}
             placeholder="Email"
             onChangeText={setUserEmail}
             value={userEmail}
           />
         </View>
-        <View style={styles.singleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>password</Text>
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>password</Text>
           </View>
           <TextInput
-            style={styles.textInputField}
+            style={styles.squareButtonText}
             placeholder="password"
             onChangeText={setUserPassword}
             value={userPassword}
           />
         </View>
-        <View style={styles.singleInputContainer}>
-          <View style={styles.inputLabelContainer}>
-            <Text style={styles.inputLabelText}>Phone Number</Text>
+        <View style={styles.buttonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <Text style={styles.squareButtonText}>Phone Number</Text>
           </View>
         </View>
+
+        <View style={styles.bottomMenuButtonContainer}>
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => router.push('../home')}
+          >
+            <Text style={styles.squareButtonText}>Home</Text>
+          </Pressable>
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => applyUserData()}
+          >
+            <Text style={styles.squareButtonText}>Apply Changes</Text>
+          </Pressable>
+        </View>
+        <View style={styles.bottomMenuButtonContainer}>
+          <Pressable onPress={() => router.push('../home')}>
+            <Text style={styles.menuLinks}>Home</Text>
+          </Pressable>
+
+          <Pressable onPress={() => router.push('../messages/messages')}>
+            <Text style={styles.menuLinks}>Messages</Text>
+          </Pressable>
+          <Pressable onPress={() => router.push('../userItems/userItems')}>
+            <Text style={styles.menuLinks}>Items</Text>
+          </Pressable>
+          <Pressable onPress={() => router.push('../userProfiles/userProfile')}>
+            <Text style={styles.menuLinks}>Profile</Text>
+          </Pressable>
+        </View>
       </ScrollView>
-      <View style={styles.bottomMenuButtonContainer}>
-        <Pressable
-          style={styles.bottomMenuNegButton}
-          onPress={() => router.push('../home')}
-        >
-          <Text style={styles.bottomMenuButtonText}>Back</Text>
-        </Pressable>
-        <Pressable
-          style={styles.bottomMenuPosButton}
-          onPress={() => applyUserData()}
-        >
-          <Text style={styles.bottomMenuButtonText}>Apply Changes</Text>
-        </Pressable>
-      </View>
     </View>
   );
 }

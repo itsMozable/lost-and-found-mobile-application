@@ -1,16 +1,14 @@
 import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import React, { useCallback, useState } from 'react';
-import { Controller, set, useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
   Alert,
   Image,
-  Linking,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -120,6 +118,11 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
   },
+  iconContainer: {
+    flex: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 type SaveItemResponse =
@@ -219,10 +222,12 @@ const PickerForm = () => {
           title={`Have you lost something Mozi ?`}
         />
       </View>
-      <Image
-        source={require('../../../globals/icons/raccoon_bush.png')}
-        style={styles.icon}
-      />
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('../../../globals/icons/raccoon_bush.png')}
+          style={styles.icon}
+        />
+      </View>
       <View style={styles.inputContainer}>
         <View>
           <Text style={styles.label}>Category</Text>
@@ -327,9 +332,7 @@ const PickerForm = () => {
         </Pressable>
         <Pressable
           style={styles.menuLinks}
-          onPress={() =>
-            Linking.openURL('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-          }
+          onPress={() => router.replace('../userProfiles/userProfile')}
         >
           <Text style={styles.bottomMenuButtonText}>Profile</Text>
         </Pressable>
