@@ -129,7 +129,7 @@ export default function TestUpload({ navigation, route }) {
     const data = new FormData();
     data.append('file', photo);
     data.append('upload_preset', 'final_project');
-    data.append('cloud_name', 'dpkbl7m1w');
+    data.append('cloud_name', 'CLOUD NAME');
     fetch('https://api.cloudinary.com/v1_1/dpkbl7m1w/image/uploads', {
       method: 'POST',
       body: data,
