@@ -11,6 +11,10 @@ export const getItemsByCategoryAndState = cache(
       item_color,
       item_description,
       item_state,
+      item_pickup,
+      itemLost,
+      item_timestamp
+
     FROM
       items
     WHERE
@@ -32,6 +36,7 @@ export const addItem = cache(
     itemState: string,
     itemPickup: string,
     itemLost: boolean,
+    itemTimestamp: Date,
   ) => {
     console.log(itemName);
     const timestamp = new Date();
@@ -59,9 +64,18 @@ export const addItem = cache(
     ${itemLost},
     ${timestamp})
 
+
     RETURNING
       id,
       item_name,
+      item_category,
+      item_color,
+      item_description,
+      item_state,
+      item_pickup,
+      itemLost,
+      item_timestamp
+
  `;
 
     return item;

@@ -2,6 +2,7 @@ import { useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
 import { Controller, useController, useForm } from 'react-hook-form';
 import {
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -145,8 +146,6 @@ type SaveItemResponseBody =
 
 export default function PickerForm() {
   const router = useRouter();
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
-
   const [category, setCategory] = useState([
     { label: 'Animal', value: 'animal' },
     { label: 'Clothing', value: 'clothing' },
@@ -180,12 +179,52 @@ export default function PickerForm() {
   const [stateValue, setStateValue] = useState(null);
 
   const [location, setLocation] = useState('');
+  const [errors, setErrors] = useState<{ message: string }[]>([]);
 
   const [loading, setLoading] = useState(false);
   const { handleSubmit, control } = useForm();
   const onSubmit = (data: any) => {
     console.log(data, 'data');
   };
+
+  const successfulUploadAlert = () =>
+    Alert.alert('It is done!', 'You have successfullyuploaded an Image!', [
+      { text: 'back to Items', onPress: () => router.push('../') },
+    ]);
+
+  async function uploadNewItem() {
+    const response = await fetch(`${apiBaseUrl}/api/addItem/route`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        category: categoryValue,
+        itemName: itemName,
+        color: color,
+        description: description,
+        state: stateValue,
+        location: location,
+      }),
+    });
+    console.log(JSON.stringify(response));
+
+    const data: SaveItemResponseBody = await response.json();
+    if ('errors' in data) {
+      setErrors(data.errors);
+      return;
+    } else if (
+      'Item' in data &&
+      data.Item &&
+      'id' in data.Item &&
+      typeof data.Item.id === 'string'
+    ) {
+      successfulUploadAlert();
+      console.log(data);
+    } else {
+      console.log('something went wrong');
+    }
+  }
 
   return (
     <ScrollView>
