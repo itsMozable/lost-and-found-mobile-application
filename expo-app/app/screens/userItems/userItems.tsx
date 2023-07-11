@@ -103,7 +103,7 @@ export default function UserItemsScreen() {
       <View style={styles.ButtonContainer}>
         <Pressable
           style={styles.roundedSquareButton}
-          onPress={() => router.replace('../userItems/userItems')}
+          onPress={() => router.replace('../cloudinary/cloudinary')}
         >
           <Text style={styles.squareButtonText}>Items</Text>
         </Pressable>

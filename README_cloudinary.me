@@ -1,0 +1,331 @@
+import React, { useState } from 'react';
+import {
+  Alert,
+  Modal,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
+import ImagePicker from 'react-native-image-picker';
+import { Button, TextInput } from 'react-native-paper';
+import { colors } from '../../../globals/globalData';
+import Header from '../../components/header';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  headerContainer: {
+    width: '100%',
+    backgroundColor: colors.patternBackground,
+  },
+  input: {
+    margin: 6,
+  },
+  buttonModalView: {
+    flexDirection: 'row',
+    padding: 10,
+    justifyContent: 'space-around',
+  },
+  modalView: {
+    position: 'absolute',
+    bottom: 2,
+    width: '100%',
+    height: 120,
+  },
+});
+
+export const metadata = {
+  title: 'My Items in the Cloud',
+  description: 'User Items in the Cloud',
+};
+export default function TestUpload({ navigation, route }) {
+  const getDetails = (type: any) => {
+    if (route.params) {
+      switch (type) {
+        case 'name':
+          return route.params.name;
+        case 'picture':
+          return route.params.picture;
+      }
+    }
+    return '';
+  };
+  const [name, setName] = useState('');
+  const [picture, setPicture] = useState('');
+  const [modal, setModal] = useState(false);
+
+  const submitData = () => {
+    fetch('http://localhost:3000/send-data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        picture: picture,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        Alert.alert(`${data.name} is saved successfuly`);
+        navigation.navigate('Home');
+      })
+      .catch((err) => {
+        Alert.alert('someting went wrong');
+      });
+  };
+
+  const updateData = () => {
+    fetch('http://localhost/update', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: route.params._id,
+        name: name,
+        picture: picture,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        Alert.alert(`${data.name}is Update successffly!!`);
+        navigation.navigate('Home');
+      })
+      .catch((err) => {
+        console.log('error', err);
+        Alert.alert('someting went wrong');
+      });
+  };
+
+  const uploadImage = () => {
+    const options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: 'globals/images',
+      },
+    };
+    ImagePicker.launchImageLibrary(options, (response) => {
+      console.log('Response = ', response);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const uri = response.uri;
+        const type = 'image.jpeg';
+        const name = response.fileName;
+        const source = { uri, type, name };
+        console.log(source);
+        handleUpData(source);
+      }
+    });
+  };
+
+  const handleUpData = (photo: any) => {
+    const data = new FormData();
+    data.append('file', photo);
+    data.append('upload_preset', 'final_project');
+    data.append('cloud_name', 'dpkbl7m1w');
+    fetch('https://api.cloudinary.com/v1_1/dpkbl7m1w/image/uploads', {
+      method: 'POST',
+      body: data,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPicture(data.url);
+        setModal(false);
+        console.log(data);
+      })
+      .catch((err) => {
+        Alert.alert('An Error Occured While Uploading - Computer says no');
+      });
+  };
+
+  const takePhoto = () => {
+    const options = {
+      title: 'Select Image',
+      storageOptions: {
+        skipBackup: true,
+        path: './globals/images',
+      },
+    };
+    ImagePicker.launchCamera(options, (response) => {
+      console.log('Response = ', response);
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const uri = response.uri;
+        const type = 'image/jpeg';
+        const name = response.fileName;
+        const source = { uri, type, name };
+        console.log(source);
+        handleUpData(source);
+      }
+    });
+  };
+
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <StatusBar style="auto" />
+        <View style={styles.headerContainer}>
+          <Header
+            font-size="1em"
+            label="FoundLink"
+            content="by Mozi since 1984"
+            title={`Here are your Mozi`}
+          />
+        </View>
+
+        <View style={styles.container}>
+          <TextInput
+            label="Name"
+            style={styles.input}
+            value={name}
+            mode="outlined"
+            onChangeText={(text) => ({ text })}
+          />
+          <TextInput
+            label="Picture"
+            style={styles.input}
+            value={picture}
+            mode="outlined"
+            onChangeText={(text) => ({ text })}
+          />
+        </View>
+
+        <Button
+          icon={picture == '' ? 'upload' : 'check-bold'}
+          style={styles.input}
+          mode="contained"
+          onPress={() => setModal(true)}
+        >
+          Upload Image
+        </Button>
+
+        {route.params ? (
+          <Button
+            icon="content-save"
+            style={styles.input}
+            mode="contained"
+            onPress={() => updateData()}
+          >
+            Update-User
+          </Button>
+        ) : (
+          <Button
+            icon="content-save"
+            style={styles.input}
+            mode="contained"
+            onPress={() => submitData()}
+          >
+            Save
+          </Button>
+        )}
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modal}
+          onRequestClose={() => {
+            setModal(false);
+          }}
+        >
+          <View style={styles.modalView}>
+            <View style={styles.buttonModalView}>
+              <Button
+                icon="camera"
+                style={styles.input}
+                mode="contained"
+                onPress={() => takePhoto()}
+              >
+                Camera
+              </Button>
+              <Button
+                icon="folder-image"
+                style={styles.input}
+                mode="contained"
+                onPress={() => uploadImage()}
+              >
+                Gellery
+              </Button>
+            </View>
+            <Button
+              icon="cancel"
+              style={styles.input}
+              mode="contained"
+              onPress={() => setModal(false)}
+            >
+              Cancel
+            </Button>
+          </View>
+        </Modal>
+      </View>
+    </ScrollView>
+  );
+}
+
+
+---------------------------------------------
+
+
+import axios from 'axios';
+import { useState } from 'react';
+import ImagePicker from 'react-native-image-picker';
+
+export default function App() {
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [imageData, setImageData] = useState(null);
+  const uploadImage = () => {
+    const formData = new FormData();
+    formData.append('file', selectedImages);
+    formData.append('upload_preset', 'il4v3g2d');
+    const postImage = async () => {
+      try {
+        const response = await axios.post(
+          'https://api.cloudinary.com/v1_1/di8agpaq6/image/upload',
+          formData,
+          // Replace YOUR_CLOUD_NAME with your cloudName which you can find in your Dashboard
+        );
+        setImageData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    postImage();
+  };
+  return (
+    <div>
+      <h1>Cloudinary Image Upload</h1>
+      <article>
+        <input
+          type="file"
+          name="file"
+          id="file"
+          onChange={(e) => setSelectedImages(e.target.files[0])}
+          className="input"
+        />
+        <button onClick={uploadImage}>Upload Image</button>
+      </article>
+      <article>
+        {imageData && (
+          <Image
+            cloudName="YOUR_CLOUD_NAME"
+            publicId={`https://res.cloudinary.com/di8agpaq6/image/upload/v1649427526/${imageData.public_id}`}
+            // Replace YOUR_CLOUD_NAME with your cloudName which you can find in your Dashboard. NOTE: Your publicId link might be different.
+          />
+        )}
+      </article>
+    </div>
+  );
+}

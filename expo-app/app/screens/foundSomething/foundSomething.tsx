@@ -1,9 +1,10 @@
 import { useRouter } from 'expo-router';
 import React, { useCallback, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useController, useForm } from 'react-hook-form';
 import {
   Image,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -131,20 +132,21 @@ type SaveItemResponseBody =
       }[];
     }
   | {
-      Item: { itemName: string };
+      Item: {
+        id: string;
+        category: string;
+        itemName: string;
+        color: string;
+        description: string;
+        state: string;
+        location: string;
+      };
     };
 
 export default function PickerForm() {
   const router = useRouter();
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [itemName, setItemName] = useState('');
-  const [color, setColor] = useState('');
-
-  const [categoryOpen, setCategoryOpen] = useState(false);
-  const [categoryValue, setCategoryValue] = useState(null);
   const [category, setCategory] = useState([
     { label: 'Animal', value: 'animal' },
     { label: 'Clothing', value: 'clothing' },
@@ -155,9 +157,14 @@ export default function PickerForm() {
     { label: 'Jewelry, watches & valuables', value: 'valuables' },
     { label: 'Other', value: 'other' },
   ]);
+  const [categoryOpen, setCategoryOpen] = useState(false);
+  const [categoryValue, setCategoryValue] = useState(null);
 
-  const [stateOpen, setStateOpen] = useState(false);
-  const [stateValue, setStateValue] = useState(null);
+  const [itemName, setItemName] = useState('');
+
+  const [color, setColor] = useState('');
+  const [description, setDescription] = useState('');
+
   const [state, setState] = useState([
     { label: 'Vienna', value: 'vienna' },
     { label: 'Burgenland', value: 'burgenland' },
@@ -169,187 +176,187 @@ export default function PickerForm() {
     { label: 'Upper Austria', value: 'upperAustria' },
     { label: 'Vorarlberg', value: 'vorarlberg' },
   ]);
-  const [loading, setLoading] = useState(false);
-  /*   const onGenderOpen = useCallback(() => {
-    setCompanyOpen(false);
-  }, []);
+  const [stateOpen, setStateOpen] = useState(false);
+  const [stateValue, setStateValue] = useState(null);
 
-  const onCompanyOpen = useCallback(() => {
-    setGenderOpen(false);
-  }, []); */
+  const [location, setLocation] = useState('');
+
+  const [loading, setLoading] = useState(false);
   const { handleSubmit, control } = useForm();
   const onSubmit = (data: any) => {
     console.log(data, 'data');
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.headerContainer}>
-        <Header
-          label="FoundLink"
-          content="by Mozi since 1984"
-          title={`Have you found something Mozi ?`}
-        />
-      </View>
-      <View style={styles.iconContainer}>
-        <Image
-          source={require('../../../globals/icons/purr.gif')}
-          style={styles.icon}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <View>
-          <Text style={styles.label}>Category</Text>
-          <Controller
-            name="category"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.dropdownStyle}>
-                <DropDownPicker
-                  style={styles.dropdown}
-                  open={categoryOpen}
-                  value={categoryValue}
-                  items={category}
-                  setOpen={setCategoryOpen}
-                  setValue={setCategoryValue}
-                  setItems={setCategory}
-                  placeholder="Select Category"
-                  placeholderStyle={styles.placeholderStyles}
-                  onChangeValue={onChange}
-                  zIndex={3000}
-                  zIndexInverse={1000}
-                />
-              </View>
-            )}
-          />
-          <Text style={styles.label}>Item Name</Text>
-          <Controller
-            name="item"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                style={styles.input}
-                selectionColor={colors.patternButtons}
-                onChangeText={setItemName}
-                value={itemName}
-                z-index={1}
-              />
-            )}
-          />
-
-          <Text style={styles.label}>Color</Text>
-          <Controller
-            name="color"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                style={styles.input}
-                selectionColor={colors.patternButtons}
-                onChangeText={setColor}
-                value={color}
-                z-index={1}
-              />
-            )}
-          />
-
-          <Text style={styles.label}>Description</Text>
-          <Controller
-            name="discription"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                style={styles.input}
-                selectionColor={colors.patternButtons}
-                onChangeText={setDescription}
-                value={description}
-                z-index={1}
-              />
-            )}
-          />
-
-          <Text style={styles.label}>State</Text>
-          <Controller
-            name="state"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.dropdownStyle}>
-                <DropDownPicker
-                  style={styles.dropdown}
-                  open={stateOpen}
-                  value={stateValue}
-                  items={state}
-                  setOpen={setStateOpen}
-                  setValue={setStateValue}
-                  setItems={setState}
-                  placeholder="Select State"
-                  placeholderStyle={styles.placeholderStyles}
-                  loading={loading}
-                  activityIndicatorColor={colors.patternButtons}
-                  searchable={true}
-                  searchPlaceholder="Search state here..."
-                  onChangeValue={onChange}
-                  zIndex={3000}
-                  zIndexInverse={1000}
-                />
-              </View>
-            )}
-          />
-          <Text style={styles.label}>Pickup Location</Text>
-          <Controller
-            name="Pickup Location"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                style={styles.input}
-                onChangeText={setLocation}
-                value={location}
-              />
-            )}
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <Header
+            label="FoundLink"
+            content="by Mozi since 1984"
+            title={`Have you found something Mozi ?`}
           />
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={styles.iconContainer}>
+          <Image
+            source={require('../../../globals/icons/purr.gif')}
+            style={styles.icon}
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <View>
+            <Text style={styles.label}>Category</Text>
+            <Controller
+              name="category"
+              defaultValue=""
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <View style={styles.dropdownStyle}>
+                  <DropDownPicker
+                    style={styles.dropdown}
+                    open={categoryOpen}
+                    value={categoryValue}
+                    items={category}
+                    setOpen={setCategoryOpen}
+                    setValue={setCategoryValue}
+                    setItems={setCategory}
+                    placeholder="Select Category"
+                    placeholderStyle={styles.placeholderStyles}
+                    onChangeValue={onChange}
+                    zIndex={3000}
+                    zIndexInverse={1000}
+                  />
+                </View>
+              )}
+            />
+            <Text style={styles.label}>Item Name</Text>
+            <Controller
+              name="item"
+              defaultValue=""
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  selectionColor={colors.patternButtons}
+                  onChangeText={setItemName}
+                  value={itemName}
+                  z-index={1}
+                />
+              )}
+            />
+
+            <Text style={styles.label}>Color</Text>
+            <Controller
+              name="color"
+              defaultValue=""
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  selectionColor={colors.patternButtons}
+                  onChangeText={setColor}
+                  value={color}
+                  z-index={1}
+                />
+              )}
+            />
+
+            <Text style={styles.label}>Description</Text>
+            <Controller
+              name="discription"
+              defaultValue=""
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  selectionColor={colors.patternButtons}
+                  onChangeText={setDescription}
+                  value={description}
+                  z-index={1}
+                />
+              )}
+            />
+
+            <Text style={styles.label}>State</Text>
+            <Controller
+              name="state"
+              defaultValue=""
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <View style={styles.dropdownStyle}>
+                  <DropDownPicker
+                    style={styles.dropdown}
+                    open={stateOpen}
+                    value={stateValue}
+                    items={state}
+                    setOpen={setStateOpen}
+                    setValue={setStateValue}
+                    setItems={setState}
+                    placeholder="Select State"
+                    placeholderStyle={styles.placeholderStyles}
+                    loading={loading}
+                    activityIndicatorColor={colors.patternButtons}
+                    searchable={true}
+                    searchPlaceholder="Search state here..."
+                    onChangeValue={onChange}
+                    zIndex={3000}
+                    zIndexInverse={1000}
+                  />
+                </View>
+              )}
+            />
+            <Text style={styles.label}>Pickup Location</Text>
+            <Controller
+              name="Pickup Location"
+              defaultValue=""
+              control={control}
+              render={({ field: { onChange, value } }) => (
+                <TextInput
+                  style={styles.input}
+                  onChangeText={setLocation}
+                  value={location}
+                />
+              )}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Pressable
+              onPress={handleSubmit(onSubmit)}
+              style={styles.roundedSquareButton}
+            >
+              <Text style={styles.squareButtonText}>Add Item</Text>
+            </Pressable>
+          </View>
+        </View>
+
+        <View style={styles.bottomMenuButtonContainer}>
           <Pressable
-            onPress={handleSubmit(onSubmit)}
-            style={styles.roundedSquareButton}
+            style={styles.menuLinks}
+            onPress={() => router.replace('../home')}
           >
-            <Text style={styles.squareButtonText}>Add Item</Text>
+            <Text style={styles.bottomMenuButtonText}>Home</Text>
+          </Pressable>
+
+          <Pressable
+            style={styles.menuLinks}
+            onPress={() => router.replace('../messages/messages')}
+          >
+            <Text style={styles.bottomMenuButtonText}>Messages</Text>
+          </Pressable>
+          <Pressable
+            style={styles.menuLinks}
+            onPress={() => router.replace('../userItems/userItems')}
+          >
+            <Text style={styles.bottomMenuButtonText}>Items</Text>
+          </Pressable>
+          <Pressable
+            style={styles.menuLinks}
+            onPress={() => router.replace('../userProfiles/userProfile')}
+          >
+            <Text style={styles.bottomMenuButtonText}>Profile</Text>
           </Pressable>
         </View>
       </View>
-
-      <View style={styles.bottomMenuButtonContainer}>
-        <Pressable
-          style={styles.menuLinks}
-          onPress={() => router.replace('../home')}
-        >
-          <Text style={styles.bottomMenuButtonText}>Home</Text>
-        </Pressable>
-
-        <Pressable
-          style={styles.menuLinks}
-          onPress={() => router.replace('../messages/messages')}
-        >
-          <Text style={styles.bottomMenuButtonText}>Messages</Text>
-        </Pressable>
-        <Pressable
-          style={styles.menuLinks}
-          onPress={() => router.replace('../userItems/userItems')}
-        >
-          <Text style={styles.bottomMenuButtonText}>Items</Text>
-        </Pressable>
-        <Pressable
-          style={styles.menuLinks}
-          onPress={() => router.replace('../userProfiles/userProfile')}
-        >
-          <Text style={styles.bottomMenuButtonText}>Profile</Text>
-        </Pressable>
-      </View>
-    </View>
+    </ScrollView>
   );
 }

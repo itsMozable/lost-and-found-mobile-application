@@ -20,14 +20,14 @@ import { apiBaseUrl } from '../index';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.patternBackground,
   },
   headerContainer: {
     width: '100%',
-    backgroundColor: colors.patternBackground,
   },
   inputContainer: {
-    flex: 10,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 10,
   },
   input: {
@@ -101,7 +101,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
-    backgroundColor: colors.patternBackground,
     gap: 10,
   },
 
@@ -123,6 +122,12 @@ const styles = StyleSheet.create({
   iconContainer: {
     flex: 5,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  doubleSquareButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
 });
@@ -224,99 +229,105 @@ export default function RegisterForm() {
         </View>
 
         <ScrollView>
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="Username"
-              onChangeText={setUserName}
-              /* onChange={(event) => setUserName(event.currentTarget.value)} */
-              value={userName}
-            />
-          </View>
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="first Name"
-              onChangeText={setUserFirstName}
-              value={userFirstName}
-            />
-          </View>
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="last Name"
-              onChangeText={setUserLastName}
-              value={userLastName}
-            />
-          </View>
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="Address Street"
-              onChangeText={setUserAddrStreet}
-              value={userAddrStreet}
-            />
-          </View>
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="House Number"
-              onChangeText={setUserAddrHouseNo}
-              value={userAddrHouseNo}
-            />
-          </View>
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="Postal Code"
-              onChangeText={setUserPostCode}
-              value={userPostCode}
-            />
-          </View>
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="Location City"
-              onChangeText={setUserLocationCity}
-              value={userLocationCity}
-            />
-          </View>
+          <View style={styles.inputContainer}>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="Username"
+                onChangeText={setUserName}
+                /* onChange={(event) => setUserName(event.currentTarget.value)} */
+                value={userName}
+              />
+            </View>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="Email"
+                onChangeText={setUserEmail}
+                value={userEmail}
+              />
+            </View>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="new Password"
+                secureTextEntry={true}
+                onChangeText={setUserPassword}
+                value={userPassword}
+              />
+            </View>
+            <View style={styles.doubleSquareButtonContainer}>
+              <View style={styles.roundedSquareButton}>
+                <TextInput
+                  style={styles.squareButtonText}
+                  placeholder="first Name"
+                  onChangeText={setUserFirstName}
+                  value={userFirstName}
+                />
+              </View>
 
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="Email"
-              onChangeText={setUserEmail}
-              value={userEmail}
-            />
-          </View>
-
-          <View style={styles.roundedSquareButton}>
-            <TextInput
-              style={styles.squareButtonText}
-              placeholder="new Password"
-              secureTextEntry={true}
-              onChangeText={setUserPassword}
-              value={userPassword}
-            />
-          </View>
-
-          <View style={styles.bottomMenuButtonContainer}>
-            <Pressable
-              style={styles.roundedSquareButton}
-              onPress={() => createNewUser()}
-            >
-              <Text style={styles.squareButtonText}>Sign - Up</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.roundedSquareButton}
-              onPress={() => router.push('../')}
-            >
-              <Text style={styles.squareButtonText}>Landing Page</Text>
-            </Pressable>
+              <View style={styles.roundedSquareButton}>
+                <TextInput
+                  style={styles.squareButtonText}
+                  placeholder="last Name"
+                  onChangeText={setUserLastName}
+                  value={userLastName}
+                />
+              </View>
+            </View>
+            <View style={styles.doubleSquareButtonContainer}>
+              <View style={styles.roundedSquareButton}>
+                <TextInput
+                  style={styles.squareButtonText}
+                  placeholder="Address Street"
+                  onChangeText={setUserAddrStreet}
+                  value={userAddrStreet}
+                />
+              </View>
+              <View style={styles.roundedSquareButton}>
+                <TextInput
+                  style={styles.squareButtonText}
+                  placeholder="House Number"
+                  onChangeText={setUserAddrHouseNo}
+                  value={userAddrHouseNo}
+                />
+              </View>
+            </View>
+            <View style={styles.doubleSquareButtonContainer}>
+              <View style={styles.roundedSquareButton}>
+                <TextInput
+                  style={styles.squareButtonText}
+                  placeholder="Postal Code"
+                  onChangeText={setUserPostCode}
+                  value={userPostCode}
+                />
+              </View>
+              <View style={styles.roundedSquareButton}>
+                <TextInput
+                  style={styles.squareButtonText}
+                  placeholder="Location City"
+                  onChangeText={setUserLocationCity}
+                  value={userLocationCity}
+                />
+              </View>
+            </View>
           </View>
         </ScrollView>
+        <View style={styles.bottomMenuButtonContainer}>
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => createNewUser()}
+          >
+            <Text style={styles.squareButtonText}>Sign - Up</Text>
+          </Pressable>
+
+          <Pressable
+            style={styles.roundedSquareButton}
+            onPress={() => router.push('../')}
+          >
+            <Text style={styles.squareButtonText}>Back</Text>
+          </Pressable>
+        </View>
       </View>
     </ImageBackground>
   );

@@ -346,11 +346,6 @@ export default function UserProfile() {
             value={userPassword}
           />
         </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>Phone Number</Text>
-          </View>
-        </View>
 
         <View style={styles.bottomMenuButtonContainer}>
           <Pressable

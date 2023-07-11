@@ -86,9 +86,7 @@ console.log(apiBaseUrl);
 
 type LoginDataResponseBody =
   | {
-      errors: {
-        message: string;
-      }[];
+      error: string;
     }
   | { user: { userName: string; token: string } };
 
@@ -96,7 +94,7 @@ export default function Index() {
   const router = useRouter();
   const [logUserName, setLogUserName] = useState<string>('');
   const [logPassword, setLogPassword] = useState<string>('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [error, setError] = useState('');
 
   const successfulLogInAlert = () => router.push('../screens/home');
 
@@ -111,9 +109,9 @@ export default function Index() {
     console.log(JSON.stringify(response));
 
     const data: LoginDataResponseBody = await response.json();
-    if ('errors' in data) {
-      setErrors(data.errors);
-      console.log(data.errors);
+    if ('error' in data) {
+      setError(data.error);
+      console.log(data.error);
       return;
     }
 
@@ -155,14 +153,10 @@ export default function Index() {
               value={logPassword}
             />
           </View>
-          {errors.map((error) => (
-            <Text
-              style={styles.errorMessageText}
-              key={`error-${error.message}`}
-            >
-              {error.message}
-            </Text>
-          ))}
+          <Text style={styles.errorMessageText} key={`error-${error}`}>
+            {error}
+          </Text>
+
           <Pressable
             style={styles.roundedSquareButton}
             onPress={() => attemptLogin()}
