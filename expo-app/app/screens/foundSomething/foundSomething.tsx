@@ -137,7 +137,6 @@ type SaveItemResponseBody =
         itemDescription: string;
         itemState: string;
         itemPickup: string;
-        itemTimestamp: Date;
       };
     };
 
@@ -205,7 +204,6 @@ export default function PickerForm() {
         itemDescription: description,
         itemState: stateValue,
         itemPickup: location,
-        itemTimestamp: new Date(),
       }),
     });
     console.log(JSON.stringify(response));

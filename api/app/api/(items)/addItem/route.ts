@@ -16,7 +16,6 @@ export type RegisterResponseBodyPost =
         itemDescription: string;
         itemState: string;
         itemPickup: string;
-        itemTimestamp: Date;
       };
     }
   | Error;
@@ -28,7 +27,6 @@ const addItemSchema = z.object({
   itemDescription: z.string().min(1),
   itemState: z.string().min(1),
   itemPickup: z.string().min(1),
-  itemTimestamp: z.date(),
 });
 
 export async function POST(
@@ -54,7 +52,9 @@ export async function POST(
     );
   }
 
-  console.log({ 'check username': result.data.itemName });
+  console.log({ 'check itemname': result.data.itemName });
+  const itemTimestamp = new Date();
+  console.log({ itemTimestamp });
   // 4. store the credentials in the db
   const newItem = await addItem(
     1,
@@ -64,7 +64,7 @@ export async function POST(
     result.data.itemDescription,
     result.data.itemState,
     result.data.itemPickup,
-    result.data.itemTimestamp,
+    itemTimestamp,
   );
 
   console.log(newItem);

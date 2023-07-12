@@ -17,7 +17,7 @@ export const getItemsByCategoryAndState = cache(
       item_timestamp
 
     FROM
-      items
+      useritems
     WHERE
       items.item_state = ${itemState} AND items.item_category = ${itemCategory}
  `;
@@ -41,7 +41,7 @@ export const addItem = cache(
     console.log(itemName);
 
     const [item] = await sql<UserItems[]>`
-    INSERT INTO items
+    INSERT INTO useritems
       (user_id,
       item_category,
       item_name,
@@ -72,7 +72,6 @@ export const addItem = cache(
       item_description,
       item_state,
       item_pickup,
-      item_lost,
       item_timestamp
  `;
 

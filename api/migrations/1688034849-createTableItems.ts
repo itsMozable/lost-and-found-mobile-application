@@ -14,7 +14,7 @@ export type UserItems = {
 
 export async function up(sql: Sql) {
   await sql`
-  CREATE TABLE UserItems(
+  CREATE TABLE useritems(
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id integer,
     item_category varchar(255),
@@ -23,13 +23,12 @@ export async function up(sql: Sql) {
     item_description varchar(255),
     item_state varchar(255) ,
     item_pickup varchar(255),
-    item_lost boolean,
     item_timestamp date
   )`;
 }
 
 export async function down(sql: Sql) {
   await sql`
-  DROP TABLE UserItems
+  DROP TABLE useritems
 `;
 }
