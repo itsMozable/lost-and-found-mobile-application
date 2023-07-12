@@ -1,4 +1,3 @@
-import * as Linking from 'expo-linking';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
@@ -12,7 +11,6 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { RegisterResponseBodyPost } from '../../../api/app/api/(auth)/register/route';
 import { colors } from '../../globals/globalData';
 import Header from '../components/header';
 import { apiBaseUrl } from '../index';
@@ -154,6 +152,7 @@ type RegDataResponseBody =
 
 export default function RegisterForm() {
   const router = useRouter();
+
   const [userName, setUserName] = useState<string>('');
   const [userFirstName, setUserFirstName] = useState<string>('');
   const [userLastName, setUserLastName] = useState<string>('');
@@ -163,7 +162,6 @@ export default function RegisterForm() {
   const [userLocationCity, setUserLocationCity] = useState<string>('');
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
-  // const [passwordShown, setPasswordShown] = useState(false);
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
   const successfulRegistrationAlert = () =>
@@ -193,10 +191,15 @@ export default function RegisterForm() {
     console.log(JSON.stringify(response));
 
     const data: RegDataResponseBody = await response.json();
+
     if ('errors' in data) {
       setErrors(data.errors);
+      console.log(data.errors, 'errörs');
+
       return;
-    } else if (
+    }
+    if (
+      'user' in data &&
       data.user.userName.length > 0 &&
       data.user.firstName.length > 0 &&
       data.user.lastName.length > 0 &&
@@ -208,7 +211,6 @@ export default function RegisterForm() {
       data.user.password.length > 0
     ) {
       successfulRegistrationAlert();
-      console.log(data);
     } else {
       console.log('something went wrong');
     }
@@ -225,7 +227,7 @@ export default function RegisterForm() {
         <StatusBar style="auto" />
 
         <View style={styles.headerContainer}>
-          <Header label="FoundLink" content="by Mozi since 1984" title={''} />
+          <Header label="FoundLink" content="by Mozi since 1984" title="" />
         </View>
 
         <ScrollView>

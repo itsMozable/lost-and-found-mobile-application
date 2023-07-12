@@ -11,7 +11,6 @@ export const deleteExpiredSessions = cache(async () => {
   `;
 });
 
-// not included in Jose's code
 export async function deleteSessionsBytokenAndCleanAllExpired(token: string) {
   await sql`
     DELETE FROM
@@ -80,14 +79,3 @@ export const getValidSessionByToken = cache(async (token: string) => {
 
   return session;
 });
-
-// only at Jose
-/* export async function deleteSessionsByUserId(userId: number) {
-  await sql`
-    DELETE FROM
-      sessions
-    WHERE
-      user_id=${userId}
-    `;
-  return `Session for User Id ${userId} cleaned up`;
-} */

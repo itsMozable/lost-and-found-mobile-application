@@ -3,13 +3,13 @@ import { Sql } from 'postgres';
 export type User = {
   id: number;
   userName: string;
-  userFirstName: string;
-  userLastName: string;
-  userAddrStreet: string;
-  userAddrHouseNo: string;
-  userPostCode: string;
-  userLocationCity: string;
-  userEmail: string;
+  firstName: string;
+  lastName: string;
+  addrStreet: string;
+  addrHouseNo: string;
+  postCode: string;
+  locationCity: string;
+  email: string;
   passwordHash: string;
 };
 

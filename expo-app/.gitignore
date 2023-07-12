@@ -18,7 +18,3 @@ web-build/
 
 .eslintcache
 *.tsbuildinfo
-
-# local env files
-.env*.local
-.env

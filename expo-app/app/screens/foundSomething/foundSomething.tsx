@@ -1,11 +1,8 @@
 import { useRouter } from 'expo-router';
-import React, { useCallback, useState } from 'react';
-import { Controller, useController, useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 import {
   Alert,
-  Image,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -133,14 +130,14 @@ type SaveItemResponseBody =
       }[];
     }
   | {
-      Item: {
-        id: string;
-        category: string;
+      item: {
+        itemCategory: string;
         itemName: string;
-        color: string;
-        description: string;
-        state: string;
-        location: string;
+        itemColor: string;
+        itemDescription: string;
+        itemState: string;
+        itemPickup: string;
+        itemTimestamp: Date;
       };
     };
 
@@ -179,32 +176,36 @@ export default function PickerForm() {
   const [stateValue, setStateValue] = useState(null);
 
   const [location, setLocation] = useState('');
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
 
-  const [loading, setLoading] = useState(false);
-  const { handleSubmit, control } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data, 'data');
-  };
+  const [errors, setErrors] = useState<{ message: string }[]>([]);
 
   const successfulUploadAlert = () =>
     Alert.alert('It is done!', 'You have successfullyuploaded an Image!', [
       { text: 'back to Items', onPress: () => router.push('../') },
     ]);
 
-  async function uploadNewItem() {
-    const response = await fetch(`${apiBaseUrl}/api/addItem/route`, {
+  async function addNewItem() {
+    console.log({
+      categoryValue,
+      itemName,
+      color,
+      description,
+      stateValue,
+      location,
+    });
+    const response = await fetch(`${apiBaseUrl}/api/addItem`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        category: categoryValue,
+        itemCategory: categoryValue,
         itemName: itemName,
-        color: color,
-        description: description,
-        state: stateValue,
-        location: location,
+        itemColor: color,
+        itemDescription: description,
+        itemState: stateValue,
+        itemPickup: location,
+        itemTimestamp: new Date(),
       }),
     });
     console.log(JSON.stringify(response));
@@ -213,189 +214,139 @@ export default function PickerForm() {
     if ('errors' in data) {
       setErrors(data.errors);
       return;
-    } else if (
-      'Item' in data &&
-      data.Item &&
-      'id' in data.Item &&
-      typeof data.Item.id === 'string'
-    ) {
+    }
+    if ('item' in data) {
       successfulUploadAlert();
       console.log(data);
-    } else {
       console.log('something went wrong');
     }
+    console.log('Here is the data', data);
   }
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Header
-            label="FoundLink"
-            content="by Mozi since 1984"
-            title={`Have you found something Mozi ?`}
-          />
-        </View>
-        <View style={styles.iconContainer}>
-          <Image
-            source={require('../../../globals/icons/purr.gif')}
-            style={styles.icon}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <View>
-            <Text style={styles.label}>Category</Text>
-            <Controller
-              name="category"
-              defaultValue=""
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <View style={styles.dropdownStyle}>
-                  <DropDownPicker
-                    style={styles.dropdown}
-                    open={categoryOpen}
-                    value={categoryValue}
-                    items={category}
-                    setOpen={setCategoryOpen}
-                    setValue={setCategoryValue}
-                    setItems={setCategory}
-                    placeholder="Select Category"
-                    placeholderStyle={styles.placeholderStyles}
-                    onChangeValue={onChange}
-                    zIndex={3000}
-                    zIndexInverse={1000}
-                  />
-                </View>
-              )}
-            />
-            <Text style={styles.label}>Item Name</Text>
-            <Controller
-              name="item"
-              defaultValue=""
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextInput
-                  style={styles.input}
-                  selectionColor={colors.patternButtons}
-                  onChangeText={setItemName}
-                  value={itemName}
-                  z-index={1}
-                />
-              )}
-            />
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Header
+          label="FoundLink"
+          content="by Mozi since 1984"
+          title="Have you found something Mozi ?"
+        />
+      </View>
+      {/* <View style={styles.iconContainer}>
+        <Image
+          source={require('../../../globals/icons/purr.gif')}
+          style={styles.icon}
+        />
+      </View> */}
 
-            <Text style={styles.label}>Color</Text>
-            <Controller
-              name="color"
-              defaultValue=""
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextInput
-                  style={styles.input}
-                  selectionColor={colors.patternButtons}
-                  onChangeText={setColor}
-                  value={color}
-                  z-index={1}
-                />
-              )}
-            />
-
-            <Text style={styles.label}>Description</Text>
-            <Controller
-              name="discription"
-              defaultValue=""
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextInput
-                  style={styles.input}
-                  selectionColor={colors.patternButtons}
-                  onChangeText={setDescription}
-                  value={description}
-                  z-index={1}
-                />
-              )}
-            />
-
-            <Text style={styles.label}>State</Text>
-            <Controller
-              name="state"
-              defaultValue=""
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <View style={styles.dropdownStyle}>
-                  <DropDownPicker
-                    style={styles.dropdown}
-                    open={stateOpen}
-                    value={stateValue}
-                    items={state}
-                    setOpen={setStateOpen}
-                    setValue={setStateValue}
-                    setItems={setState}
-                    placeholder="Select State"
-                    placeholderStyle={styles.placeholderStyles}
-                    loading={loading}
-                    activityIndicatorColor={colors.patternButtons}
-                    searchable={true}
-                    searchPlaceholder="Search state here..."
-                    onChangeValue={onChange}
-                    zIndex={3000}
-                    zIndexInverse={1000}
-                  />
-                </View>
-              )}
-            />
-            <Text style={styles.label}>Pickup Location</Text>
-            <Controller
-              name="Pickup Location"
-              defaultValue=""
-              control={control}
-              render={({ field: { onChange, value } }) => (
-                <TextInput
-                  style={styles.input}
-                  onChangeText={setLocation}
-                  value={location}
-                />
-              )}
+      <View style={styles.inputContainer}>
+        <View>
+          <Text style={styles.label}>Category</Text>
+          <View style={styles.dropdownStyle}>
+            <DropDownPicker
+              style={styles.dropdown}
+              open={categoryOpen}
+              value={categoryValue}
+              items={category}
+              setOpen={setCategoryOpen}
+              setValue={setCategoryValue}
+              setItems={setCategory}
+              placeholder="Select Category"
+              placeholderStyle={styles.placeholderStyles}
+              activityIndicatorColor={colors.patternButtons}
+              zIndex={3000}
+              zIndexInverse={1000}
             />
           </View>
-          <View style={styles.buttonContainer}>
-            <Pressable
-              onPress={handleSubmit(onSubmit)}
-              style={styles.roundedSquareButton}
-            >
-              <Text style={styles.squareButtonText}>Add Item</Text>
-            </Pressable>
+          <Text style={styles.label}>Item Name</Text>
+          <TextInput
+            style={styles.input}
+            selectionColor={colors.patternButtons}
+            onChangeText={setItemName}
+            value={itemName}
+            z-index={1}
+          />
+
+          <Text style={styles.label}>Color</Text>
+          <TextInput
+            style={styles.input}
+            selectionColor={colors.patternButtons}
+            onChangeText={setColor}
+            value={color}
+            z-index={1}
+          />
+
+          <Text style={styles.label}>Description</Text>
+          <TextInput
+            style={styles.input}
+            selectionColor={colors.patternButtons}
+            onChangeText={setDescription}
+            value={description}
+            z-index={1}
+          />
+
+          <Text style={styles.label}>State</Text>
+          <View style={styles.dropdownStyle}>
+            <DropDownPicker
+              style={styles.dropdown}
+              open={stateOpen}
+              value={stateValue}
+              items={state}
+              setOpen={setStateOpen}
+              setValue={setStateValue}
+              setItems={setState}
+              placeholder="Select State"
+              placeholderStyle={styles.placeholderStyles}
+              activityIndicatorColor={colors.patternButtons}
+              searchPlaceholder="Search state here..."
+              zIndex={3000}
+              zIndexInverse={1000}
+            />
           </View>
+          <Text style={styles.label}>Pickup Location</Text>
+          <TextInput
+            style={styles.input}
+            onChangeText={setLocation}
+            value={location}
+          />
         </View>
-
-        <View style={styles.bottomMenuButtonContainer}>
+        <View style={styles.buttonContainer}>
           <Pressable
-            style={styles.menuLinks}
-            onPress={() => router.replace('../home')}
+            onPress={() => addNewItem()}
+            style={styles.roundedSquareButton}
           >
-            <Text style={styles.bottomMenuButtonText}>Home</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.menuLinks}
-            onPress={() => router.replace('../messages/messages')}
-          >
-            <Text style={styles.bottomMenuButtonText}>Messages</Text>
-          </Pressable>
-          <Pressable
-            style={styles.menuLinks}
-            onPress={() => router.replace('../userItems/userItems')}
-          >
-            <Text style={styles.bottomMenuButtonText}>Items</Text>
-          </Pressable>
-          <Pressable
-            style={styles.menuLinks}
-            onPress={() => router.replace('../userProfiles/userProfile')}
-          >
-            <Text style={styles.bottomMenuButtonText}>Profile</Text>
+            <Text style={styles.squareButtonText}>Add Item</Text>
           </Pressable>
         </View>
       </View>
-    </ScrollView>
+
+      <View style={styles.bottomMenuButtonContainer}>
+        <Pressable
+          style={styles.menuLinks}
+          onPress={() => router.replace('../home')}
+        >
+          <Text style={styles.bottomMenuButtonText}>Home</Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.menuLinks}
+          onPress={() => router.replace('../messages/messages')}
+        >
+          <Text style={styles.bottomMenuButtonText}>Messages</Text>
+        </Pressable>
+        <Pressable
+          style={styles.menuLinks}
+          onPress={() => router.replace('../userItems/userItems')}
+        >
+          <Text style={styles.bottomMenuButtonText}>Items</Text>
+        </Pressable>
+        <Pressable
+          style={styles.menuLinks}
+          onPress={() => router.replace('../userProfiles/userProfile')}
+        >
+          <Text style={styles.bottomMenuButtonText}>Profile</Text>
+        </Pressable>
+      </View>
+    </View>
   );
 }

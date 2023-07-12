@@ -16,6 +16,102 @@ import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
 import { apiBaseUrl } from '../../index';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  logoContainer: {
+    flex: 1,
+    marginTop: 30,
+    marginBottom: 10,
+  },
+  titleContainer: {
+    height: 10,
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  titleText: {
+    /*    fontFamily: '', */
+    fontSize: 18,
+    color: colors.patternColorD,
+    textAlign: 'center',
+  },
+
+  inputsScrollview: {
+    flex: 6.5,
+    width: '80%',
+  },
+  doubleInputContainer: {
+    height: 120,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  singleInputContainer: {
+    height: 65,
+    width: '100%',
+    justifyContent: 'center',
+  },
+  inputLabelContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+  inputLabelText: {
+    /*     fontFamily: '', */
+    fontSize: 15,
+    color: colors.patternColorD,
+    marginLeft: 5,
+  },
+  textInputField: {
+    height: 40,
+    width: '100%',
+    backgroundColor: colors.patternColorB,
+    paddingLeft: 5,
+    textAlign: 'left',
+  },
+  bottomMenuButtonContainer: {
+    height: 3,
+    paddingTop: 15,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    justifyContent: 'space-between',
+    columnGap: 3,
+  },
+  bottomMenuPosButton: {
+    flex: 0.7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorC,
+  },
+  bottomMenuNegButton: {
+    flex: 0.3,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.patternColorC,
+  },
+  bottomMenuButtonText: {
+    textAlign: 'center',
+    color: colors.patternColorC,
+    /*     fontFamily: '', */
+    fontSize: 20,
+  },
+  menuLinks: {
+    color: colors.patternColorB,
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginHorizontal: 20,
+  },
+  navigationBar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+});
+
 type GetUserDataResponseBody =
   | {
       errors: {
@@ -77,13 +173,13 @@ export default function UserProfile() {
       }
 
       setUserName(data.userData.userName);
-      setUserFirstName(data.userData.userFirstName);
-      setUserLastName(data.userData.userLastName);
-      setUserAddrStreet(data.userData.userAddrStreet);
-      setUserAddrHouseNo(data.userData.userAddrHouseNo);
-      setUserPostCode(data.userData.userPostCode);
-      setUserLocationCity(data.userData.userLocationCity);
-      setUserEmail(data.userData.userEmail);
+      setUserFirstName(data.userData.firstName);
+      setUserLastName(data.userData.lastName);
+      setUserAddrStreet(data.userData.addrStreet);
+      setUserAddrHouseNo(data.userData.addrHouseNo);
+      setUserPostCode(data.userData.postCode);
+      setUserLocationCity(data.userData.locationCity);
+      setUserEmail(data.userData.email);
       setUserPassword(data.userData.passwordHash);
     }
     getUserData().catch((error) => console.error(error));
@@ -126,101 +222,7 @@ export default function UserProfile() {
       console.log('Failed to update position');
     }
   }
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
-      backgroundColor: '#fff',
-    },
-    logoContainer: {
-      flex: 1,
-      marginTop: 30,
-      marginBottom: 10,
-    },
-    titleContainer: {
-      height: 10,
-      width: '80%',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    titleText: {
-      /*    fontFamily: '', */
-      fontSize: 18,
-      color: colors.patternColorD,
-      textAlign: 'center',
-    },
 
-    inputsScrollview: {
-      flex: 6.5,
-      width: '80%',
-    },
-    doubleInputContainer: {
-      height: 120,
-      width: '100%',
-      justifyContent: 'center',
-    },
-    singleInputContainer: {
-      height: 65,
-      width: '100%',
-      justifyContent: 'center',
-    },
-    inputLabelContainer: {
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-    },
-    inputLabelText: {
-      /*     fontFamily: '', */
-      fontSize: 15,
-      color: colors.patternColorD,
-      marginLeft: 5,
-    },
-    textInputField: {
-      height: 40,
-      width: '100%',
-      backgroundColor: colors.patternColorB,
-      paddingLeft: 5,
-      textAlign: 'left',
-    },
-    bottomMenuButtonContainer: {
-      height: 3,
-      paddingTop: 15,
-      backgroundColor: '#fff',
-      flexDirection: 'row',
-      alignItems: 'stretch',
-      justifyContent: 'space-between',
-      columnGap: 3,
-    },
-    bottomMenuPosButton: {
-      flex: 0.7,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.patternColorC,
-    },
-    bottomMenuNegButton: {
-      flex: 0.3,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: colors.patternColorC,
-    },
-    bottomMenuButtonText: {
-      textAlign: 'center',
-      color: colors.patternColorC,
-      /*     fontFamily: '', */
-      fontSize: 20,
-    },
-    menuLinks: {
-      color: colors.patternColorB,
-      fontSize: 12,
-      fontWeight: 'bold',
-      marginHorizontal: 20,
-    },
-    navigationBar: {
-      flex: 1,
-      flexDirection: 'row',
-      alignContent: 'center',
-    },
-  });
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />

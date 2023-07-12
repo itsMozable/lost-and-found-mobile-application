@@ -3,16 +3,29 @@
 import { useRouter, useSearchParams } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../globals/globalData';
 import { apiBaseUrl } from '../index';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  loadingText: {
+    fontFamily: '',
+    fontSize: 30,
+    color: colors.patternFont,
+  },
+});
 
 export default function AuthWrap() {
   const router = useRouter();
   const { home } = useSearchParams();
   const [errors, setErrors] = useState<{ message: string }[]>([]);
   const [messageText, setMessageText] = useState<string>('LOADING');
-  // const [redirect, setRedirect] = useState<string>('');
 
   useEffect(() => {
     if (home) {
@@ -55,20 +68,6 @@ export default function AuthWrap() {
 
     revalidateOnRoute();
   }, []);
-
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    loadingText: {
-      fontFamily: '',
-      fontSize: 30,
-      color: colors.patternFont,
-    },
-  });
 
   return (
     <View style={styles.container}>

@@ -1,5 +1,4 @@
 /* eslint-disable react/style-prop-object */
-import * as Linking from 'expo-linking';
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';

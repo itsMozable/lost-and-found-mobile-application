@@ -1,11 +1,9 @@
 'use client';
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
-  Alert,
   Image,
   ImageBackground,
   Pressable,

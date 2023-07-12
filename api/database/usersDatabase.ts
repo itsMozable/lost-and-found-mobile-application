@@ -42,13 +42,13 @@ export const getUserByUsername = cache(async (userName: string) => {
 export const createUser = cache(
   async (
     userName: string,
-    userFirstName: string,
-    userLastName: string,
-    userAddrStreet: string,
-    userAddrHouseNo: string,
-    userPostCode: string,
-    userLocationCity: string,
-    userEmail: string,
+    firstName: string,
+    lastName: string,
+    addrStreet: string,
+    addrHouseNo: string,
+    postCode: string,
+    locationCity: string,
+    email: string,
     passwordHash: string,
   ) => {
     console.log(passwordHash);
@@ -67,18 +67,25 @@ export const createUser = cache(
 
     VALUES(
     ${userName},
-    ${userFirstName},
-    ${userLastName},
-    ${userAddrStreet},
-    ${userAddrHouseNo},
-    ${userPostCode},
-    ${userLocationCity},
-    ${userEmail},
+    ${firstName},
+    ${lastName},
+    ${addrStreet},
+    ${addrHouseNo},
+    ${postCode},
+    ${locationCity},
+    ${email},
     ${passwordHash})
 
     RETURNING
       id,
-      user_name
+      user_name,
+      user_first_name,
+      user_last_name,
+      user_addr_street,
+      user_addr_house_no,
+      user_post_code,
+      user_location_city,
+      user_email
  `;
 
     return user;
@@ -140,16 +147,3 @@ export async function getUserDatabyId(userId: number) {
     `;
   return user;
 }
-
-/* export async function getUserAndIdByName(userName: string) {
-  const [user] = await sql<{ id: number; userName: string }[]>`
-    SELECT
-      id,
-      user_name
-    FROM
-      users
-    WHERE
-      user_name=${userName}
-    `;
-  return user;
-} */

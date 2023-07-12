@@ -191,13 +191,13 @@ export default function UserProfile() {
       }
 
       setUserName(data.userData.userName);
-      setUserFirstName(data.userData.userFirstName);
-      setUserLastName(data.userData.userLastName);
-      setUserAddrStreet(data.userData.userAddrStreet);
-      setUserAddrHouseNo(data.userData.userAddrHouseNo);
-      setUserPostCode(data.userData.userPostCode);
-      setUserLocationCity(data.userData.userLocationCity);
-      setUserEmail(data.userData.userEmail);
+      setUserFirstName(data.userData.firstName);
+      setUserLastName(data.userData.lastName);
+      setUserAddrStreet(data.userData.addrStreet);
+      setUserAddrHouseNo(data.userData.addrHouseNo);
+      setUserPostCode(data.userData.postCode);
+      setUserLocationCity(data.userData.locationCity);
+      setUserEmail(data.userData.email);
       setUserPassword(data.userData.passwordHash);
     }
     getUserData().catch((error) => console.error(error));

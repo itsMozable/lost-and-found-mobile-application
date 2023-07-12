@@ -3,13 +3,12 @@ import { Sql } from 'postgres';
 export type UserItems = {
   id: number;
   userId: number;
-  itemName: string;
   itemCategory: string;
+  itemName: string;
   itemColor: string;
   itemDescription: string;
   itemState: string;
   itemPickup: string;
-  itemLost: boolean;
   itemTimestamp: Date;
 };
 
@@ -18,8 +17,8 @@ export async function up(sql: Sql) {
   CREATE TABLE UserItems(
     id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     user_id integer,
-    item_name varchar(255),
     item_category varchar(255),
+    item_name varchar(255),
     item_color varchar(255),
     item_description varchar(255),
     item_state varchar(255) ,
