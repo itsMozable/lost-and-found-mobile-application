@@ -200,15 +200,15 @@ export default function RegisterForm() {
     }
     if (
       'user' in data &&
-      data.user.userName.length > 0 &&
-      data.user.firstName.length > 0 &&
-      data.user.lastName.length > 0 &&
-      data.user.addrStreet.length > 0 &&
-      data.user.addrHouseNo.length > 0 &&
-      data.user.postCode.length > 0 &&
-      data.user.locationCity.length > 0 &&
-      data.user.email.length > 0 &&
-      data.user.password.length > 0
+      data.user.userName &&
+      data.user.firstName &&
+      data.user.lastName &&
+      data.user.addrStreet &&
+      data.user.addrHouseNo &&
+      data.user.postCode &&
+      data.user.locationCity &&
+      data.user.email &&
+      data.user.password
     ) {
       successfulRegistrationAlert();
     } else {

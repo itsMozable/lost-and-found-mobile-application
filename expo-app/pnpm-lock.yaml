@@ -77,6 +77,9 @@ dependencies:
   react-native-screens:
     specifier: ~3.20.0
     version: 3.20.0(react-native@0.71.8)(react@18.2.0)
+  react-native-vision-camera:
+    specifier: ^2.15.4
+    version: 2.15.4(react-native@0.71.8)(react@18.2.0)
   react-native-web:
     specifier: ~0.18.10
     version: 0.18.12(react-dom@18.2.0)(react@18.2.0)
@@ -8627,6 +8630,16 @@ packages:
     dependencies:
       prop-types: 15.8.1
       yargs: 16.2.0
+    dev: false
+
+  /react-native-vision-camera@2.15.4(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-SJXSWH1pu4V3Kj4UuX/vSgOxc9d5wb5+nHqBHd+5iUtVyVLEp0F6Jbbaha7tDoU+kUBwonhlwr2o8oV6NZ7Ibg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.20.2)(@babel/preset-env@7.22.5)(react@18.2.0)
     dev: false
 
   /react-native-web@0.18.12(react-dom@18.2.0)(react@18.2.0):

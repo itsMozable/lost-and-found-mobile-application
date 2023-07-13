@@ -199,7 +199,7 @@ export default function PickerForm() {
       },
       body: JSON.stringify({
         itemCategory: categoryValue,
-        itemName: itemName,
+        itemName,
         itemColor: color,
         itemDescription: description,
         itemState: stateValue,
