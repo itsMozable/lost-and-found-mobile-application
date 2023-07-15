@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { addItem } from '../../../../database/itemsDatabase';
+import { getUserByUsername } from '../../../../database/usersDatabase';
 
 type Error = {
   error: string;
@@ -27,6 +28,7 @@ const addItemSchema = z.object({
   itemDescription: z.string().min(1),
   itemState: z.string().min(1),
   itemPickup: z.string().min(1),
+  userName: z.string().min(1),
 });
 
 export async function POST(
@@ -46,7 +48,7 @@ export async function POST(
 
     return NextResponse.json(
       {
-        error: 'username or password weg',
+        error: 'Something went wrong',
       },
       { status: 400 },
     );
@@ -54,10 +56,15 @@ export async function POST(
 
   console.log({ 'check itemname': result.data.itemName });
   const itemTimestamp = new Date();
+
+  console.log('getting the id');
+  const userCredentials = await getUserByUsername(result.data.userName);
+  console.log(userCredentials);
+
   console.log({ itemTimestamp });
   // 4. store the credentials in the db
   const newItem = await addItem(
-    1,
+    userCredentials.id,
     result.data.itemCategory,
     result.data.itemName,
     result.data.itemColor,

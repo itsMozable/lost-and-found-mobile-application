@@ -201,23 +201,22 @@ export default function RegisterForm() {
     if (
       'user' in data &&
       data.user.userName &&
-      data.user.firstName &&
-      data.user.lastName &&
-      data.user.addrStreet &&
-      data.user.addrHouseNo &&
-      data.user.postCode &&
-      data.user.locationCity &&
-      data.user.email &&
-      data.user.password
+      data.user.userFirstName &&
+      data.user.userLastName &&
+      data.user.userAddrStreet &&
+      data.user.userAddrHouseNo &&
+      data.user.userPostCode &&
+      data.user.userLocationCity &&
+      data.user.userEmail
     ) {
-      successfulRegistrationAlert();
+      console.log('Userdata: all fields are filled');
     } else {
       console.log('something went wrong');
       console.log(data);
     }
-  }
 
-  /* console.log(userName); */
+    successfulRegistrationAlert();
+  }
 
   return (
     <ImageBackground
@@ -230,7 +229,6 @@ export default function RegisterForm() {
         <View style={styles.headerContainer}>
           <Header label="FoundLink" content="by Mozi since 1984" title="" />
         </View>
-
         <ScrollView>
           <View style={styles.inputContainer}>
             <View style={styles.roundedSquareButton}>

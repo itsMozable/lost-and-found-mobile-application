@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     backgroundColor: colors.patternBackground,
+    alignContent: 'center',
+    alignItems: 'center',
   },
   inputContainer: {
     flex: 20,
@@ -121,11 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  userContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
 });
 
 type SaveItemResponseBody =
@@ -178,15 +175,14 @@ export default function PickerForm() {
   ]);
   const [stateOpen, setStateOpen] = useState(false);
   const [stateValue, setStateValue] = useState(null);
-  const [userName, setUserName] = useState('');
-
   const [location, setLocation] = useState('');
 
   const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [userName, setUserName] = useState('');
 
   const successfulUploadAlert = () =>
     Alert.alert('It is done!', 'You have successfully added an Item!', [
-      { text: 'back to Items', onPress: () => router.push('../') },
+      { text: 'back to Items', onPress: () => router.push('../userItems') },
     ]);
 
   async function addNewItem() {
@@ -197,6 +193,7 @@ export default function PickerForm() {
       description,
       stateValue,
       location,
+      userName,
     });
     const response = await fetch(`${apiBaseUrl}/api/addItem`, {
       method: 'POST',
@@ -210,6 +207,7 @@ export default function PickerForm() {
         itemDescription: description,
         itemState: stateValue,
         itemPickup: location,
+        userName: userName,
       }),
     });
     console.log(JSON.stringify(response));
@@ -245,8 +243,6 @@ export default function PickerForm() {
           content="by Mozi since 1984"
           title="You are Home"
         />
-      </View>
-      <View style={styles.userContainer}>
         <Text style={{ color: colors.patternFont }}>{userName}</Text>
       </View>
       {/* <View style={styles.iconContainer}>
