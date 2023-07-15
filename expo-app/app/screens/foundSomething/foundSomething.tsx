@@ -182,7 +182,10 @@ export default function PickerForm() {
 
   const successfulUploadAlert = () =>
     Alert.alert('It is done!', 'You have successfully added an Item!', [
-      { text: 'back to Items', onPress: () => router.push('../userItems') },
+      {
+        text: 'back to Items',
+        onPress: () => router.push('../userItems/userItems'),
+      },
     ]);
 
   async function addNewItem() {

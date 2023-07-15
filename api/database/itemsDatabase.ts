@@ -12,8 +12,7 @@ export const getItemsByCategoryAndState = cache(
       item_color,
       item_description,
       item_state,
-      item_pickup,
-
+      item_pickup
     FROM
       useritems
     WHERE
@@ -25,9 +24,14 @@ export const getItemsByCategoryAndState = cache(
   },
 );
 
-export const getProducts = cache(async () => {
-  const [items] = await sql<UserItems[]>`
-    SELECT * FROM userItems
+export const getMyItems = cache(async (userId: number) => {
+  const items = await sql<UserItems[]>`
+
+    SELECT
+     *
+     FROM useritems
+
+	WHERE user_id = ${userId}
  `;
   console.log(items);
   return items;

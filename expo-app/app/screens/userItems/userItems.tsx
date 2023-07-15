@@ -2,16 +2,10 @@ import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import {
-  FlatList,
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
+import { apiBaseUrl } from '../../index';
 
 export const metadata = {
   title: 'My Items',
@@ -31,9 +25,12 @@ const styles = StyleSheet.create({
   },
 
   ButtonContainer: {
-    flex: 10,
-    justifyContent: 'center',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: 20,
   },
+
   roundedSquareButton: {
     width: 200,
     height: 50,
@@ -52,6 +49,13 @@ const styles = StyleSheet.create({
     /*   fontFamily: '', */
     fontSize: 20,
   },
+  squareButtonTextBold: {
+    textAlign: 'center',
+    color: colors.patternFont,
+    fontWeight: 'bold',
+    /*   fontFamily: '', */
+    fontSize: 20,
+  },
   bottomMenuButtonContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -64,7 +68,6 @@ const styles = StyleSheet.create({
   bottomMenuButtonText: {
     textAlign: 'center',
     color: colors.patternFont,
-    /*  fontFamily: '', */
     fontSize: 15,
   },
   menuLinks: {
@@ -77,8 +80,7 @@ const styles = StyleSheet.create({
     height: 150,
   },
   iconContainer: {
-    flex: 5,
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
   },
 });
@@ -92,27 +94,66 @@ type Items = {
   itemPickup: string;
 };
 
-/* const renderItem = (item: { item: Items }) => (
-  <PostItem foundItem={item.item} />
-); */
+type GetItemDataResponseBody =
+  | {
+      errors: {
+        message: string;
+      }[];
+    }
+  | {
+      items: Items;
+    };
 
-export default async function UserItemsScreen() {
-  /*   const items = await fetch('http://localhost:3000/api/getItem').then((res) =>
-    res.json(),
-  );
-   const items = await getItems(); */
-  console.log('hi');
+export default function UserItemsScreen() {
   const router = useRouter();
+  const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [itemCategory, setItemCategory] = useState<string>('');
+  const [itemName, setitemName] = useState<string>('');
+  const [itemColor, setitemColor] = useState<string>('');
+  const [itemDescription, setitemDescription] = useState<string>('');
+  const [itemState, setitemState] = useState<string>('');
+  const [itemPickup, setItemPickup] = useState<string>('');
 
   const [userName, setUserName] = useState<string>('');
+
+  const [itemList, setItemList] = useState<Items[]>([]);
+
   useEffect(() => {
-    async function getUserName() {
+    async function getItemData() {
+      console.log('getItemData');
+
       const userName = await SecureStore.getItemAsync('userName');
       console.log(userName);
 
       setUserName(userName);
+
+      const response = await fetch(`${apiBaseUrl}/api/getMyItems`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          getDetails: 'all',
+          userName: userName,
+        }),
+      });
+
+      console.log(response);
+
+      const data: GetItemDataResponseBody = await response.json();
+      console.log(data, 'dataCheck');
+      console.log(data.item, 'dataCheckItems');
+      setItemList(data.item);
+
+      if ('errors' in data) {
+        setErrors(data.errors);
+        console.log(errors);
+        return;
+      }
+      console.log(itemList);
     }
-    getUserName();
+
+    getItemData().catch((error) => console.error(error));
   }, []);
 
   return (
@@ -127,25 +168,46 @@ export default async function UserItemsScreen() {
         />
       </View>
       <Text style={{ color: colors.patternFont }}>{userName}</Text>
+
       <View style={styles.iconContainer}>
         <Image
           source={require('../../../globals/icons/purr.gif')}
           style={styles.icon}
         />
       </View>
-      <View style={styles.ButtonContainer}>
-        <Text style={styles.squareButtonText}>Items</Text>
-      </View>
-      <View style={styles.ButtonContainer}>
-        <Text style={styles.squareButtonText}>Here is my ItemList</Text>
-      </View>
 
-      {/*   <View>
-        style={styles.ButtonContainer}
-        {data={items} }
-        {  renderItem={renderItem}
-        keyExtractor={(item: Items) => item.itemName} }
-      </View> */}
+      <View style={styles.ButtonContainer}>
+        <Text style={styles.squareButtonTextBold}>
+          Here are your found Items
+        </Text>
+        <View>
+          {itemList.map((item) => {
+            return (
+              <View key={`Hola${item.itemName}-${item.itemCategory}`}>
+                <Text style={styles.squareButtonText}>
+                  Name:{item.itemName}
+                </Text>
+                <Text style={styles.squareButtonText}>
+                  Category:{item.itemCategory}
+                </Text>
+                <Text style={styles.squareButtonText}>
+                  Color:{item.itemColor}
+                </Text>
+                <Text style={styles.squareButtonText}>
+                  Description:{item.itemDescription}
+                </Text>
+                <Text style={styles.squareButtonText}>
+                  State:{item.itemState}
+                </Text>
+                <Text style={styles.squareButtonText}>
+                  Pickup:{item.itemPickup}
+                </Text>
+                <Text style={styles.squareButtonText}>{item.itemState}</Text>
+              </View>
+            );
+          })}
+        </View>
+      </View>
 
       <View style={styles.bottomMenuButtonContainer}>
         <Pressable
