@@ -20,7 +20,7 @@ export type UserLogin = {
 };
 
 export type updateUser = {
-  userName: string;
+  /*   userName: string; */
   firstName: string;
   lastName: string;
   addrStreet: string;

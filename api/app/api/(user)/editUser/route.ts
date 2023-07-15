@@ -48,7 +48,10 @@ export async function PUT(request: NextRequest) {
   Reflect.deleteProperty(newUpdateUser, 'userName');
   console.log(newUpdateUser);
 
-  const updatedPosition = await updateUserById(userCredentials.id, userData);
+  const updatedPosition = await updateUserById(
+    userCredentials.id,
+    newUpdateUser,
+  );
 
   console.log(updatedPosition);
 

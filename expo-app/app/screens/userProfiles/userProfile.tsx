@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {
+  Alert,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -170,6 +171,14 @@ export default function UserProfile() {
   const [userEmail, setUserEmail] = useState<string>('');
   const [userPassword, setUserPassword] = useState<string>('');
 
+  const successfulUploadAlert = () =>
+    Alert.alert('It is done!', 'Your personal Data has been updated! !', [
+      {
+        text: 'Take me home',
+        onPress: () => router.push('../home'),
+      },
+    ]);
+
   useEffect(() => {
     async function getUserData() {
       const userName = await SecureStore.getItemAsync('userName');
@@ -235,7 +244,7 @@ export default function UserProfile() {
       return;
     }
     if (data.isEdited) {
-      router.replace(`../home`);
+      successfulUploadAlert();
     } else {
       console.log('Failed to update position');
     }

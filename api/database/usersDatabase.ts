@@ -117,6 +117,7 @@ export const getUserBySessionToken = cache(async (token: string) => {
 
 // function not included by Jose but by pocket offers
 export async function updateUserById(userId: number, userData: updateUser) {
+  console.log(userId, 'Hollodrio');
   await sql`
     UPDATE users
     SET
@@ -126,9 +127,9 @@ export async function updateUserById(userId: number, userData: updateUser) {
         user_addr_house_no = ${userData.addrHouseNo},
         user_post_code = ${userData.postCode},
         user_location_city = ${userData.locationCity},
-        user_email = ${userData.email},
+        user_email = ${userData.email}
   	WHERE
-        id=${userId}
+    id = ${userId}
     `;
   return `User Log / Data of user ${userId} has been updated successfully `;
 }
@@ -148,7 +149,7 @@ export async function getUserDatabyId(userId: number) {
     FROM
       users
     WHERE
-      id=${userId}
+    id = ${userId}
     `;
   return user;
 }
