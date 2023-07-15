@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {
@@ -171,6 +172,7 @@ export default function UserProfile() {
 
   useEffect(() => {
     async function getUserData() {
+      const userName = await SecureStore.getItemAsync('userName');
       console.log('getUserData');
 
       const response = await fetch(`${apiBaseUrl}/api/getUser`, {
@@ -180,6 +182,7 @@ export default function UserProfile() {
         },
         body: JSON.stringify({
           getDetails: 'all',
+          userName: userName,
         }),
       });
 
@@ -208,7 +211,8 @@ export default function UserProfile() {
   }, []);
 
   async function applyUserData() {
-    const response = await fetch(`${apiBaseUrl}/editUser`, {
+    console.log('userAddress', userAddrStreet);
+    const response = await fetch(`${apiBaseUrl}/api/editUser`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

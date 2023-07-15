@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { updateUserById } from '../../../../database/usersDatabase';
+import {
+  getUserByUsername,
+  updateUserById,
+} from '../../../../database/usersDatabase';
 import { updateUser } from '../../../../migrations/1687369134-createTableUsers';
 
 type Error = {
@@ -34,8 +37,18 @@ export async function PUT(request: NextRequest) {
   }
 
   const userData: updateUser = result.data;
+  console.log(result.data);
+  console.log(userData);
 
-  const updatedPosition = await updateUserById(1, userData);
+  console.log('getting the id');
+  const userCredentials = await getUserByUsername(result.data.userName);
+  console.log(userCredentials);
+
+  const newUpdateUser = userData;
+  Reflect.deleteProperty(newUpdateUser, 'userName');
+  console.log(newUpdateUser);
+
+  const updatedPosition = await updateUserById(userCredentials.id, userData);
 
   console.log(updatedPosition);
 
