@@ -244,7 +244,7 @@ export default function UserProfile() {
         <Header
           label="FoundLink"
           content="by Mozi since 1984"
-          title="You are Home"
+          title="This is your Profile,"
         />
       </View>
       <Text style={{ color: colors.patternFont }}>{userName}</Text>

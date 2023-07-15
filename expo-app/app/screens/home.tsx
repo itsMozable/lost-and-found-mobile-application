@@ -132,7 +132,7 @@ export default function Home() {
         <Header
           label="FoundLink"
           content="by Mozi since 1984"
-          title="You are Home"
+          title="You are Home,"
         />
       </View>
       <Text style={{ color: colors.patternFont }}>{userName}</Text>

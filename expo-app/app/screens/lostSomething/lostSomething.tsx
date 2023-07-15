@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: '100%',
     backgroundColor: colors.patternBackground,
+    alignItems: 'center',
   },
   inputContainer: {
     flex: 10,
@@ -225,10 +226,8 @@ export default function FoundPickerForm() {
         <Header
           label="FoundLink"
           content="by Mozi since 1984"
-          title="You are Home"
+          title="Have you lost something,"
         />
-      </View>
-      <View style={styles.userContainer}>
         <Text style={{ color: colors.patternFont }}>{userName}</Text>
       </View>
       <View style={styles.iconContainer}>

@@ -241,7 +241,7 @@ export default function PickerForm() {
         <Header
           label="FoundLink"
           content="by Mozi since 1984"
-          title="You are Home"
+          title="Have you found something,"
         />
         <Text style={{ color: colors.patternFont }}>{userName}</Text>
       </View>

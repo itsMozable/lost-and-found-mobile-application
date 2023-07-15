@@ -123,7 +123,7 @@ export default async function UserItemsScreen() {
           font-size="1em"
           label="FoundLink"
           content="by Mozi since 1984"
-          title="You are Home"
+          title="Here are your items,"
         />
       </View>
       <Text style={{ color: colors.patternFont }}>{userName}</Text>
