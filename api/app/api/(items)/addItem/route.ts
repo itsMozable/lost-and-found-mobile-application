@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { addItem } from '../../../../database/itemsDatabase';
@@ -38,12 +37,10 @@ export async function POST(
 
   console.log(body);
 
-  // 1. get the credentials from the body
   const result = addItemSchema.safeParse(body);
   console.log(result);
-  // 2. verify the user data and check that the name is not taken
+
   if (!result.success) {
-    // zod send you details about the error
     console.log(result.error);
 
     return NextResponse.json(
@@ -62,7 +59,7 @@ export async function POST(
   console.log(userCredentials);
 
   console.log({ itemTimestamp });
-  // 4. store the credentials in the db
+
   const newItem = await addItem(
     userCredentials.id,
     result.data.itemCategory,
@@ -77,8 +74,6 @@ export async function POST(
   console.log(newItem);
 
   if (!newItem) {
-    // zod send you details about the error
-    // console.log(result.error);
     return NextResponse.json(
       {
         error: 'Error creating the new item',

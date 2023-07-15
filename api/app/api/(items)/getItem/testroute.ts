@@ -28,12 +28,10 @@ export async function POST(
 
   console.log(body);
 
-  // 1. get the credentials from the body
   const result = addItemFilterSchema.safeParse(body);
   console.log(result);
-  // 2. verify the user data and check that the name is not taken
+
   if (!result.success) {
-    // zod send you details about the error
     console.log(result.error);
 
     return NextResponse.json(
@@ -54,8 +52,6 @@ export async function POST(
   console.log(newItemList);
 
   if (!newItemList) {
-    // zod send you details about the error
-    // console.log(result.error);
     return NextResponse.json(
       {
         error: 'Error creating the new item List',

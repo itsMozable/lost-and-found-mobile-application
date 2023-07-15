@@ -1,4 +1,3 @@
-import { it } from 'node:test';
 import { cache } from 'react';
 import { UserItems } from '../migrations/1688034849-createTableItems';
 import { sql } from './connect';
@@ -37,7 +36,6 @@ export const getMyItems = cache(async (userId: number) => {
   return items;
 });
 
-// add new items to database
 export const addItem = cache(
   async (
     userId: number,
@@ -72,7 +70,6 @@ export const addItem = cache(
     ${itemPickup},
     ${itemTimestamp}
     )
-
 
     RETURNING
 

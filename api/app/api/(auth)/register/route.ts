@@ -41,12 +41,10 @@ export async function POST(
 
   console.log(body);
 
-  // 1. get the credentials from the body
   const result = addUserSchema.safeParse(body);
   console.log(result);
-  // 2. verify the user data and check that the name is not taken
+
   if (!result.success) {
-    // zod send you details about the error
     console.log(result.error);
 
     return NextResponse.json(
@@ -60,8 +58,6 @@ export async function POST(
   console.log({ 'check username': result.data.userName });
 
   if (await getUserByUsername(result.data.userName)) {
-    // zod send you details about the error
-    // console.log(result.error);
     return NextResponse.json(
       {
         error: 'username is already used',
@@ -70,10 +66,8 @@ export async function POST(
     );
   }
 
-  // 3. hash the password
   const passwordHash = await bcrypt.hash(result.data.password, 10);
 
-  // 4. store the credentials in the db
   const newUser = await createUser(
     result.data.userName,
     result.data.firstName,
@@ -88,8 +82,6 @@ export async function POST(
   console.log(newUser);
 
   if (!newUser) {
-    // zod send you details about the error
-    // console.log(result.error);
     return NextResponse.json(
       {
         error: 'Error creating the new user',
@@ -98,14 +90,11 @@ export async function POST(
     );
   }
 
-  // We are sure the user is authenticated
-
-  // 5. Create a token (changed to 50 due to Postgres error)
   const token = crypto.randomBytes(50).toString('base64');
   console.log({ token: token });
   const csrfSecret = createCsrfSecret();
   console.log({ secret: csrfSecret });
-  // 6. Create the session record
+
   const session = await createSession(token, csrfSecret, newUser.id);
 
   if (!session) {
@@ -117,13 +106,11 @@ export async function POST(
     );
   }
 
-  // 7. Send the new cookie in the headers
   cookies().set({
     name: 'sessionToken',
     value: session.token,
     ...secureCookieOptions,
   });
 
-  // 7. return the new user to the client
   return NextResponse.json({ user: newUser });
 }

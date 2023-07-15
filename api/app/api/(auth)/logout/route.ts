@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { NextRequest, NextResponse } from 'next/server';
 import {
   deleteSessionsBytokenAndCleanAllExpired,
@@ -49,8 +48,4 @@ export async function POST(request: NextRequest) {
   return NextResponse.json({
     message: { isServerSessionCleaned: true },
   });
-
-  // console.log(
-  //   `Logout Log / Session Id ${cleanedId.id} successfully cleaned up`,
-  // );
 }

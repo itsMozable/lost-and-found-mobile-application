@@ -1,5 +1,4 @@
-import React from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export const colors = {
   patternBackground: '#3c545f',
@@ -17,8 +16,6 @@ export const colors = {
   patternColorF: '#19be9b',
   patternColorG: '#2d8cf0',
 };
-
-// Design über alle Seiten hinweg
 
 const styles = StyleSheet.create({
   container: {

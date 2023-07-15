@@ -27,7 +27,6 @@ export const getUserWithPasswordHashByUsername = cache(
   },
 );
 
-// used for register to check if Username already exists
 export const getUserByUsername = cache(async (userName: string) => {
   const [user] = await sql<User[]>`
     SELECT
@@ -42,7 +41,6 @@ export const getUserByUsername = cache(async (userName: string) => {
   return user;
 });
 
-// used for register new user
 export const createUser = cache(
   async (
     userName: string,
@@ -96,7 +94,6 @@ export const createUser = cache(
   },
 );
 
-// not included in pocket offers but maybe necessary
 export const getUserBySessionToken = cache(async (token: string) => {
   const [user] = await sql<User[]>`
   SELECT
@@ -115,7 +112,6 @@ export const getUserBySessionToken = cache(async (token: string) => {
   return user;
 });
 
-// function not included by Jose but by pocket offers
 export async function updateUserById(userId: number, userData: updateUser) {
   console.log(userId, 'Hollodrio');
   await sql`
@@ -134,7 +130,6 @@ export async function updateUserById(userId: number, userData: updateUser) {
   return `User Log / Data of user ${userId} has been updated successfully `;
 }
 
-// could be used for userprofil
 export async function getUserDatabyId(userId: number) {
   const [user] = await sql<User[]>`
     SELECT

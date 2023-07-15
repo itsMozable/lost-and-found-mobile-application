@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { getMyItems } from '../../../../database/itemsDatabase';
@@ -33,7 +32,6 @@ export async function POST(request: NextRequest) {
   console.log(result);
 
   if (!result.success) {
-    // zod send you details about the error
     console.log(result.error);
 
     return NextResponse.json(
@@ -55,8 +53,6 @@ export async function POST(request: NextRequest) {
   console.log(myItems);
 
   if (!myItems) {
-    // zod send you details about the error
-    // console.log(result.error);
     return NextResponse.json(
       {
         error: 'Error creating the new item List',

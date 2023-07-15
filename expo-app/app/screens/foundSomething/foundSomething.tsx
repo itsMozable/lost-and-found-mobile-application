@@ -3,7 +3,6 @@ import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
-  Image,
   Pressable,
   StyleSheet,
   Text,

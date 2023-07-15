@@ -14,9 +14,6 @@ import {
 import { colors } from '../../globals/globalData';
 import Header from '../components/header';
 
-/* eslint-disable react/style-prop-object */
-
-// Styling
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -122,8 +119,6 @@ export default function Home() {
       console.log(error);
     });
   }, []);
-
-  // App Page
 
   return (
     <View style={styles.container}>
