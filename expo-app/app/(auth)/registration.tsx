@@ -213,6 +213,7 @@ export default function RegisterForm() {
       successfulRegistrationAlert();
     } else {
       console.log('something went wrong');
+      console.log(data);
     }
   }
 
@@ -258,6 +259,7 @@ export default function RegisterForm() {
                 value={userPassword}
               />
             </View>
+
             <View style={styles.doubleSquareButtonContainer}>
               <View style={styles.roundedSquareButton}>
                 <TextInput

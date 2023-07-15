@@ -7,24 +7,31 @@ export const getItemsByCategoryAndState = cache(
   async (itemCategory: string, itemState: string) => {
     const [items] = await sql<UserItems[]>`
     SELECT
-      user_id,
       item_category,
       item_name,
       item_color,
       item_description,
       item_state,
       item_pickup,
-      item_timestamp
 
     FROM
       useritems
     WHERE
       items.item_state = ${itemState} AND items.item_category = ${itemCategory}
  `;
+    console.log(items);
 
     return items;
   },
 );
+
+export const getProducts = cache(async () => {
+  const [items] = await sql<UserItems[]>`
+    SELECT * FROM userItems
+ `;
+  console.log(items);
+  return items;
+});
 
 // add new items to database
 export const addItem = cache(

@@ -1,5 +1,9 @@
 import { cache } from 'react';
-import { User, UserLogin } from '../migrations/1687369134-createTableUsers';
+import {
+  updateUser,
+  User,
+  UserLogin,
+} from '../migrations/1687369134-createTableUsers';
 import { sql } from './connect';
 
 type UserWithPasswordHash = UserLogin & {
@@ -61,8 +65,8 @@ export const createUser = cache(
       user_addr_street,
       user_addr_house_no,
       user_post_code,
-       user_location_city,
-       user_email,
+      user_location_city,
+      user_email,
        password_hash)
 
     VALUES(
@@ -112,17 +116,17 @@ export const getUserBySessionToken = cache(async (token: string) => {
 });
 
 // function not included by Jose but by pocket offers
-export async function updateUserById(userId: number, userData: User) {
+export async function updateUserById(userId: number, userData: updateUser) {
   await sql`
     UPDATE users
     SET
-        user_first_name = ${userData.userFirstName},
-        user_last_name = ${userData.userLastName},
-        user_addr_street = ${userData.userAddrStreet},
-        user_addr_house_no = ${userData.userAddrHouseNo},
-        user_post_code = ${userData.userPostCode},
-        user_location_city = ${userData.userLocationCity},
-        user_email = ${userData.userEmail},
+        user_first_name = ${userData.firstName},
+        user_last_name = ${userData.lastName},
+        user_addr_street = ${userData.addrStreet},
+        user_addr_house_no = ${userData.addrHouseNo},
+        user_post_code = ${userData.postCode},
+        user_location_city = ${userData.locationCity},
+        user_email = ${userData.email},
   	WHERE
         id=${userId}
     `;
@@ -133,13 +137,14 @@ export async function updateUserById(userId: number, userData: User) {
 export async function getUserDatabyId(userId: number) {
   const [user] = await sql<User[]>`
     SELECT
+      user_name,
       user_first_name,
       user_last_name,
       user_addr_street,
       user_addr_house_no,
       user_post_code,
       user_location_city,
-      user_email,
+      user_email
     FROM
       users
     WHERE

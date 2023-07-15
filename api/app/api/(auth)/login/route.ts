@@ -15,7 +15,10 @@ type Error = {
 
 export type LoginResponseBodyPost =
   | {
-      user: UserLogin;
+      user: {
+        userName: string;
+        token: string;
+      };
     }
   | Error;
 
@@ -112,11 +115,16 @@ export async function POST(
     ...secureCookieOptions,
   });
 
+  async function POST(request: NextRequest) {
+    const token = await request.headers.get('sessionToken');
+  }
+  console.log({ token });
+
   return NextResponse.json(
     {
       user: {
-        id: userWithPasswordHash.id,
         userName: userWithPasswordHash.userName,
+        token: session.token,
       },
     },
     {

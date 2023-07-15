@@ -1,6 +1,7 @@
 'use client';
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import {
@@ -112,6 +113,12 @@ export default function Index() {
       console.log(data.error);
       return;
     }
+    console.log(data, 'data');
+    await SecureStore.deleteItemAsync('token');
+    await SecureStore.deleteItemAsync('secret');
+    await SecureStore.deleteItemAsync('userName');
+    await SecureStore.setItemAsync('userName', data.user.userName);
+    await SecureStore.setItemAsync('token', data.user.token);
 
     successfulLogInAlert();
   }
@@ -167,12 +174,14 @@ export default function Index() {
           >
             <Text style={styles.squareButtonText}>Sign - Up</Text>
           </Pressable>
-          <Pressable
-            style={styles.roundedSquareButton}
-            onPress={() => router.push('screens/home')}
-          >
-            <Text style={styles.squareButtonText}>Super Secret Button</Text>
-          </Pressable>
+          {
+            <Pressable
+              style={styles.roundedSquareButton}
+              onPress={() => router.push('screens/home')}
+            >
+              <Text style={styles.squareButtonText}>Super Secret Button</Text>
+            </Pressable>
+          }
         </View>
       </View>
     </ImageBackground>

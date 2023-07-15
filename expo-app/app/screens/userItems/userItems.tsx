@@ -1,6 +1,13 @@
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import {
+  FlatList,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
 
@@ -74,8 +81,27 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function UserItemsScreen() {
+type Items = {
+  itemCategory: string;
+  itemName: string;
+  itemColor: string;
+  itemDescription: string;
+  itemState: string;
+  itemPickup: string;
+};
+
+/* const renderItem = (item: { item: Items }) => (
+  <PostItem foundItem={item.item} />
+); */
+
+export default async function UserItemsScreen() {
+  /*   const items = await fetch('http://localhost:3000/api/getItem').then((res) =>
+    res.json(),
+  );
+   const items = await getItems(); */
+  console.log('hi');
   const router = useRouter();
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -94,13 +120,19 @@ export default function UserItemsScreen() {
         />
       </View>
       <View style={styles.ButtonContainer}>
-        <Pressable
-          style={styles.roundedSquareButton}
-          onPress={() => router.replace('../cloudinary/cloudinary')}
-        >
-          <Text style={styles.squareButtonText}>Items</Text>
-        </Pressable>
+        <Text style={styles.squareButtonText}>Items</Text>
       </View>
+      <View style={styles.ButtonContainer}>
+        <Text style={styles.squareButtonText}>Here is my ItemList</Text>
+      </View>
+
+      {/*   <View>
+        style={styles.ButtonContainer}
+        {data={items} }
+        {  renderItem={renderItem}
+        keyExtractor={(item: Items) => item.itemName} }
+      </View> */}
+
       <View style={styles.bottomMenuButtonContainer}>
         <Pressable
           style={styles.menuLinks}
@@ -108,7 +140,6 @@ export default function UserItemsScreen() {
         >
           <Text style={styles.bottomMenuButtonText}>Home</Text>
         </Pressable>
-
         <Pressable
           style={styles.menuLinks}
           onPress={() => router.replace('../messages/messages')}

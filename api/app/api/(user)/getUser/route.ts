@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
   const result = getUserSchema.safeParse(body);
 
-  const sessionTokenCookie = cookies().get('sessionToken');
+  /*   const sessionTokenCookie = cookies().get('sessionToken');
   const session =
     sessionTokenCookie &&
     (await getValidSessionByToken(sessionTokenCookie.value));
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
       },
       { status: 401 },
     );
-  }
+  } */
 
   if (!result.success) {
     console.log(result.error.issues);
@@ -63,8 +63,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const userData: User = await getUserDatabyId(session.userId);
-
+  const userData: User = await getUserDatabyId(1);
   return NextResponse.json({
     userData: userData,
   });

@@ -1,4 +1,3 @@
-/* eslint-disable react/style-prop-object */
 import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
@@ -11,9 +10,10 @@ import {
   Text,
   View,
 } from 'react-native';
-/* import userName from '../../../api/database/usersDatabase'; */
 import { colors } from '../../globals/globalData';
 import Header from '../components/header';
+
+/* eslint-disable react/style-prop-object */
 
 // Styling
 const styles = StyleSheet.create({
@@ -105,6 +105,12 @@ export default function Home() {
       backAction,
     );
 
+    async function POST(request: any) {
+      const token = await request.headers.get('sessionToken');
+      console.log('oida');
+      console.log({ token });
+    }
+    console.log('hello');
     return () => backHandler.remove();
   }, []);
 

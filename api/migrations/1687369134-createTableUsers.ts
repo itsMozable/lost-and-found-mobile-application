@@ -19,6 +19,17 @@ export type UserLogin = {
   // passwordHash: string;
 };
 
+export type updateUser = {
+  userName: string;
+  firstName: string;
+  lastName: string;
+  addrStreet: string;
+  addrHouseNo: string;
+  postCode: string;
+  locationCity: string;
+  email: string;
+};
+
 export async function up(sql: Sql) {
   await sql`
   CREATE TABLE users(

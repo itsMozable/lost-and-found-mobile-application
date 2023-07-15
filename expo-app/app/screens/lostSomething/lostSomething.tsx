@@ -1,9 +1,6 @@
 import { useRouter } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
-import React, { useCallback, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import React, { useState } from 'react';
 import {
-  Alert,
   Image,
   Pressable,
   StyleSheet,
@@ -125,28 +122,26 @@ const styles = StyleSheet.create({
   },
 });
 
-type SaveItemResponse =
+type GetItemResponse =
   | {
       errors: {
         message: string;
       }[];
     }
   | {
-      isAdded: boolean;
+      item: {
+        itemCategory: string;
+        itemName: string;
+        itemColor: string;
+        itemDescription: string;
+        itemState: string;
+        itemPickup: string;
+      };
     };
 
-const PickerForm = () => {
+export default function FoundPickerForm() {
   const router = useRouter();
-  const [errors, setErrors] = useState<{ message: string }[]>([]);
 
-  const [description, setDescription] = useState('');
-  const [date, setDate] = useState('');
-  const [location, setLocation] = useState('');
-  const [itemName, setItemName] = useState('');
-  const [color, setColor] = useState('');
-
-  const [categoryOpen, setCategoryOpen] = useState(false);
-  const [categoryValue, setCategoryValue] = useState(null);
   const [category, setCategory] = useState([
     { label: 'Animal', value: 'animal' },
     { label: 'Clothing', value: 'clothing' },
@@ -157,10 +152,10 @@ const PickerForm = () => {
     { label: 'Jewelry, watches & valuables', value: 'valuables' },
     { label: 'Other', value: 'other' },
   ]);
-  const [loading, setLoading] = useState(false);
+  const [categoryOpen, setCategoryOpen] = useState(false);
+  const [categoryValue, setCategoryValue] = useState(null);
+  const [characteristics, setCharacteristics] = useState('');
 
-  const [stateOpen, setStateOpen] = useState(false);
-  const [stateValue, setStateValue] = useState(null);
   const [state, setState] = useState([
     { label: 'Vienna', value: 'vienna' },
     { label: 'Burgenland', value: 'burgenland' },
@@ -172,45 +167,41 @@ const PickerForm = () => {
     { label: 'Upper Austria', value: 'upperAustria' },
     { label: 'Vorarlberg', value: 'vorarlberg' },
   ]);
+  const [stateOpen, setStateOpen] = useState(false);
+  const [stateValue, setStateValue] = useState(null);
 
-  const { handleSubmit, control } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
-  };
+  const [errors, setErrors] = useState<{ message: string }[]>([]);
 
-  async function AddItem() {
-    const sessionToken = await SecureStore.getItemAsync('sessionToken');
-    const sessionSecret = await SecureStore.getItemAsync('sessionSecret');
-    const keyObject = JSON.stringify({
-      keyA: sessionToken,
-      keyB: sessionSecret,
+  async function getFoundItem() {
+    console.log({
+      itemCategory: categoryValue,
+      itemState: stateValue,
     });
-    console.log(keyObject);
-    const response = await fetch(`${apiBaseUrl}/addItem`, {
+    const response = await fetch(`${apiBaseUrl}/api/getItem`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: keyObject,
       },
+
       body: JSON.stringify({
         itemCategory: categoryValue,
-        itemColor: color,
         itemState: stateValue,
       }),
     });
-    const data: SaveItemResponse = await response.json();
+
+    console.log(JSON.stringify(response));
+
+    const data: GetItemResponse = await response.json();
 
     if ('errors' in data) {
       setErrors(data.errors);
       return;
     }
-    if (!data.isAdded) {
-      console.log('Failed to add Template');
-    } else {
-      Alert.alert('Success', `Item has been added to your templates list`, [
-        { text: 'OK', onPress: () => null },
-      ]);
+    if ('item' in data) {
+      console.log(data);
+      console.log('Item is amazoned in Datapackage');
     }
+    console.log('Here is the data', data);
   }
 
   return (
@@ -231,77 +222,54 @@ const PickerForm = () => {
       <View style={styles.inputContainer}>
         <View>
           <Text style={styles.label}>Category</Text>
-          <Controller
-            name="category"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.dropdownStyle}>
-                <DropDownPicker
-                  style={styles.dropdown}
-                  open={categoryOpen}
-                  value={categoryValue}
-                  items={category}
-                  setOpen={setCategoryOpen}
-                  setValue={setCategoryValue}
-                  setItems={setCategory}
-                  placeholder="Select Category"
-                  placeholderStyle={styles.placeholderStyles}
-                  onChangeValue={onChange}
-                  zIndex={300}
-                  zIndexInverse={100}
-                />
-              </View>
-            )}
-          />
+          <View style={styles.dropdownStyle}>
+            <DropDownPicker
+              style={styles.dropdown}
+              open={categoryOpen}
+              value={categoryValue}
+              items={category}
+              setOpen={setCategoryOpen}
+              setValue={setCategoryValue}
+              setItems={setCategory}
+              placeholder="Select Category"
+              placeholderStyle={styles.placeholderStyles}
+              activityIndicatorColor={colors.patternButtons}
+              zIndex={3000}
+              zIndexInverse={1000}
+            />
+          </View>
 
           <Text style={styles.label}>Characteristics</Text>
-          <Controller
-            name="color"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                style={styles.input}
-                selectionColor={colors.patternButtons}
-                onChangeText={setColor}
-                value={color}
-              />
-            )}
+          <TextInput
+            style={styles.input}
+            selectionColor={colors.patternButtons}
+            onChangeText={setCharacteristics}
+            value={characteristics}
           />
 
           <Text style={styles.label}>State</Text>
-          <Controller
-            name="state"
-            defaultValue=""
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <View style={styles.dropdownStyle}>
-                <DropDownPicker
-                  style={styles.dropdown}
-                  open={stateOpen}
-                  value={stateValue}
-                  items={state}
-                  setOpen={setStateOpen}
-                  setValue={setStateValue}
-                  setItems={setState}
-                  placeholder="Select State"
-                  placeholderStyle={styles.placeholderStyles}
-                  loading={loading}
-                  activityIndicatorColor={colors.patternButtons}
-                  searchable={true}
-                  searchPlaceholder="Search state here..."
-                  onChangeValue={onChange}
-                  zIndex={100}
-                  zIndexInverse={300}
-                />
-              </View>
-            )}
-          />
+          <View style={styles.dropdownStyle}>
+            <DropDownPicker
+              style={styles.dropdown}
+              open={stateOpen}
+              value={stateValue}
+              items={state}
+              setOpen={setStateOpen}
+              setValue={setStateValue}
+              setItems={setState}
+              placeholder="Select State"
+              placeholderStyle={styles.placeholderStyles}
+              activityIndicatorColor={colors.patternButtons}
+              searchable={true}
+              searchPlaceholder="Search state here..."
+              zIndex={1000}
+              zIndexInverse={3000}
+            />
+          </View>
         </View>
         <View style={styles.buttonContainer}>
           <Pressable
-            onPress={handleSubmit(onSubmit)}
+            onPress={() => getFoundItem()}
             z-index={1}
             style={styles.roundedSquareButton}
           >
@@ -339,6 +307,4 @@ const PickerForm = () => {
       </View>
     </View>
   );
-};
-
-export default PickerForm;
+}

@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'expo-router';
-import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {
@@ -11,7 +10,6 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import { getValidSessionByToken } from '../../../../api/database/sessionsDatabase';
 import { User } from '../../../../api/migrations/1687369134-createTableUsers';
 import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
@@ -128,6 +126,12 @@ const styles = StyleSheet.create({
   inputScrollview: {
     flex: 1,
   },
+  doubleSquareButtonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 });
 
 type GetUserDataResponseBody =
@@ -165,68 +169,57 @@ export default function UserProfile() {
 
   useEffect(() => {
     async function getUserData() {
-      const sessionToken = await SecureStore.getItemAsync('sessionToken');
-      const sessionSecret = await SecureStore.getItemAsync('sessionSecret');
-      const keyObject = JSON.stringify({
-        keyA: sessionToken,
-        keyB: sessionSecret,
-      });
+      console.log('getUserData');
 
       const response = await fetch(`${apiBaseUrl}/api/getUser`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: keyObject,
         },
         body: JSON.stringify({
           getDetails: 'all',
         }),
       });
+
       const data: GetUserDataResponseBody = await response.json();
+      console.log(data);
 
       if ('errors' in data) {
         setErrors(data.errors);
         console.log(errors);
         return;
       }
-
       setUserName(data.userData.userName);
-      setUserFirstName(data.userData.firstName);
-      setUserLastName(data.userData.lastName);
-      setUserAddrStreet(data.userData.addrStreet);
-      setUserAddrHouseNo(data.userData.addrHouseNo);
-      setUserPostCode(data.userData.postCode);
-      setUserLocationCity(data.userData.locationCity);
-      setUserEmail(data.userData.email);
-      setUserPassword(data.userData.passwordHash);
+      setUserFirstName(data.userData.userFirstName);
+      setUserLastName(data.userData.userLastName);
+      setUserAddrStreet(data.userData.userAddrStreet);
+      setUserAddrHouseNo(data.userData.userAddrHouseNo);
+      setUserPostCode(data.userData.userPostCode);
+      setUserLocationCity(data.userData.userLocationCity);
+      setUserEmail(data.userData.userEmail);
+      console.log('UserLastName', data.userData.userLastName);
     }
+
     getUserData().catch((error) => console.error(error));
+
+    console.log('UserName', userFirstName);
   }, []);
 
   async function applyUserData() {
-    const sessionToken = await SecureStore.getItemAsync('sessionToken');
-    const sessionSecret = await SecureStore.getItemAsync('sessionSecret');
-    const keyObject = JSON.stringify({
-      keyA: sessionToken,
-      keyB: sessionSecret,
-    });
-
     const response = await fetch(`${apiBaseUrl}/editUser`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: keyObject,
       },
       body: JSON.stringify({
         userName: userName,
-        userFirstName: userFirstName,
-        userLastName: userLastName,
-        userAddrStreet: userAddrStreet,
-        userAddrHouseNo: userAddrHouseNo,
-        userPostCode: userPostCode,
-        userLocationCity: userLocationCity,
-        userEmail: userEmail,
-        userPassword: userPassword,
+        firstName: userFirstName,
+        lastName: userLastName,
+        addrStreet: userAddrStreet,
+        addrHouseNo: userAddrHouseNo,
+        postCode: userPostCode,
+        locationCity: userLocationCity,
+        email: userEmail,
       }),
     });
     const data: EditUserDataResponseBody = await response.json();
@@ -244,139 +237,97 @@ export default function UserProfile() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+
       <View style={styles.headerContainer}>
-        <Header label="User Profil" content={userName} title={''} />
+        <Header
+          label="FoundLink"
+          content="by Mozi since 1984"
+          title="Hello ${userName}!"
+        />
       </View>
 
-      <ScrollView style={styles.inputScrollview}>
-        <View style={styles.buttonContainer}>
+      <ScrollView>
+        <View style={styles.inputContainer}>
           <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>User Name</Text>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Email"
+              onChangeText={setUserEmail}
+              value={userEmail}
+            />
           </View>
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="First Name"
-            onChangeText={setUserFirstName}
-            value={userFirstName}
-          />
-        </View>
+          <View style={styles.doubleSquareButtonContainer}>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="first Name"
+                onChangeText={setUserFirstName}
+                value={userFirstName}
+              />
+            </View>
 
-        <View style={styles.buttonContainer}>
-          <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>Name</Text>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="last Name"
+                onChangeText={setUserLastName}
+                value={userLastName}
+              />
+            </View>
           </View>
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="First Name"
-            onChangeText={setUserFirstName}
-            value={userFirstName}
-          />
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="Last Name"
-            onChangeText={setUserLastName}
-            value={userLastName}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>Street</Text>
+          <View style={styles.doubleSquareButtonContainer}>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="Address Street"
+                onChangeText={setUserAddrStreet}
+                value={userAddrStreet}
+              />
+            </View>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="House Number"
+                onChangeText={setUserAddrHouseNo}
+                value={userAddrHouseNo}
+              />
+            </View>
           </View>
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="Address: Street"
-            onChangeText={setUserAddrStreet}
-            value={userAddrStreet}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>
-              House Number / Additional Info
-            </Text>
+          <View style={styles.doubleSquareButtonContainer}>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="Postal Code"
+                onChangeText={setUserPostCode}
+                value={userPostCode}
+              />
+            </View>
+            <View style={styles.roundedSquareButton}>
+              <TextInput
+                style={styles.squareButtonText}
+                placeholder="Location City"
+                onChangeText={setUserLocationCity}
+                value={userLocationCity}
+              />
+            </View>
           </View>
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="Address: House Number"
-            onChangeText={setUserAddrHouseNo}
-            value={userAddrHouseNo}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>Post Code</Text>
-          </View>
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="Post Code"
-            onChangeText={setUserPostCode}
-            value={userPostCode}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>Location</Text>
-          </View>
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="Town / City"
-            onChangeText={setUserLocationCity}
-            value={userLocationCity}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>Email</Text>
-          </View>
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="Email"
-            onChangeText={setUserEmail}
-            value={userEmail}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <View style={styles.roundedSquareButton}>
-            <Text style={styles.squareButtonText}>password</Text>
-          </View>
-          <TextInput
-            style={styles.squareButtonText}
-            placeholder="password"
-            onChangeText={setUserPassword}
-            value={userPassword}
-          />
-        </View>
-
-        <View style={styles.bottomMenuButtonContainer}>
-          <Pressable
-            style={styles.roundedSquareButton}
-            onPress={() => router.push('../home')}
-          >
-            <Text style={styles.squareButtonText}>Home</Text>
-          </Pressable>
-          <Pressable
-            style={styles.roundedSquareButton}
-            onPress={() => applyUserData()}
-          >
-            <Text style={styles.squareButtonText}>Apply Changes</Text>
-          </Pressable>
-        </View>
-        <View style={styles.bottomMenuButtonContainer}>
-          <Pressable onPress={() => router.push('../home')}>
-            <Text style={styles.menuLinks}>Home</Text>
-          </Pressable>
-
-          <Pressable onPress={() => router.push('../messages/messages')}>
-            <Text style={styles.menuLinks}>Messages</Text>
-          </Pressable>
-          <Pressable onPress={() => router.push('../userItems/userItems')}>
-            <Text style={styles.menuLinks}>Items</Text>
-          </Pressable>
-          <Pressable onPress={() => router.push('../userProfiles/userProfile')}>
-            <Text style={styles.menuLinks}>Profile</Text>
-          </Pressable>
         </View>
       </ScrollView>
+      <View style={styles.bottomMenuButtonContainer}>
+        <Pressable
+          style={styles.roundedSquareButton}
+          onPress={() => applyUserData()}
+        >
+          <Text style={styles.squareButtonText}>Apply changes</Text>
+        </Pressable>
+
+        <Pressable
+          style={styles.roundedSquareButton}
+          onPress={() => router.push('../home')}
+        >
+          <Text style={styles.squareButtonText}>Back</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

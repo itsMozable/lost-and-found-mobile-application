@@ -179,7 +179,7 @@ export default function PickerForm() {
   const [errors, setErrors] = useState<{ message: string }[]>([]);
 
   const successfulUploadAlert = () =>
-    Alert.alert('It is done!', 'You have successfullyuploaded an Image!', [
+    Alert.alert('It is done!', 'You have successfully added an Item!', [
       { text: 'back to Items', onPress: () => router.push('../') },
     ]);
 
@@ -209,6 +209,7 @@ export default function PickerForm() {
     console.log(JSON.stringify(response));
 
     const data: SaveItemResponseBody = await response.json();
+
     if ('errors' in data) {
       setErrors(data.errors);
       return;
@@ -216,7 +217,7 @@ export default function PickerForm() {
     if ('item' in data) {
       successfulUploadAlert();
       console.log(data);
-      console.log('something went wrong');
+      console.log('Item is stored in Datapackage');
     }
     console.log('Here is the data', data);
   }
@@ -256,6 +257,7 @@ export default function PickerForm() {
               zIndexInverse={1000}
             />
           </View>
+
           <Text style={styles.label}>Item Name</Text>
           <TextInput
             style={styles.input}
@@ -311,6 +313,7 @@ export default function PickerForm() {
         <View style={styles.buttonContainer}>
           <Pressable
             onPress={() => addNewItem()}
+            z-index={1}
             style={styles.roundedSquareButton}
           >
             <Text style={styles.squareButtonText}>Add Item</Text>

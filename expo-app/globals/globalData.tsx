@@ -13,7 +13,7 @@ export const colors = {
 
   patternColorB: 'orange',
   patternColorC: 'pink',
-  patternColorD: '#738d7f',
+  patternColorD: '#a29393',
   patternColorF: '#19be9b',
   patternColorG: '#2d8cf0',
 };
