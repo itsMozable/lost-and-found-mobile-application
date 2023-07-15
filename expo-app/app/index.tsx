@@ -113,7 +113,7 @@ export default function Index() {
       console.log(data.error);
       return;
     }
-    console.log(data, 'data');
+    console.log(data, 'Dateien');
     await SecureStore.deleteItemAsync('token');
     await SecureStore.deleteItemAsync('secret');
     await SecureStore.deleteItemAsync('userName');
