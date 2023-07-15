@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect } from 'react';
 import {
@@ -83,35 +84,43 @@ const styles = StyleSheet.create({
 
 export default function Home() {
   const router = useRouter();
+
+  const [userName, setUserName] = React.useState<string>('');
+
   useEffect(() => {
-    const backAction = () => {
-      Alert.alert(
-        'Leaving FoundLink',
-        'Are you sure you want to "get lost" ?',
-        [
-          {
-            text: 'Cancel',
-            onPress: () => null,
-            style: 'cancel',
-          },
-          { text: 'YES', onPress: () => BackHandler.exitApp() },
-        ],
+    async function getUserName() {
+      const backAction = () => {
+        Alert.alert(
+          'Leaving FoundLink',
+          'Are you sure you want to "get lost" ?',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => null,
+              style: 'cancel',
+            },
+            { text: 'YES', onPress: () => BackHandler.exitApp() },
+          ],
+        );
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
       );
-      return true;
-    };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
+      const userName = await SecureStore.getItemAsync('userName');
+      console.log(userName);
 
-    async function POST(request: any) {
-      const token = await request.headers.get('sessionToken');
-      console.log('oida');
-      console.log({ token });
+      setUserName(userName);
+
+      console.log('hello');
+      return () => backHandler.remove();
     }
-    console.log('hello');
-    return () => backHandler.remove();
+    getUserName().catch((error) => {
+      console.log(error);
+    });
   }, []);
 
   // App Page
@@ -123,9 +132,10 @@ export default function Home() {
         <Header
           label="FoundLink"
           content="by Mozi since 1984"
-          title="You are Home Mozi"
+          title="You are Home"
         />
       </View>
+      <Text style={{ color: colors.patternFont }}>{userName}</Text>
       <View style={styles.iconContainer}>
         <Image
           source={require('../../globals/icons/headphone_cat.png')}

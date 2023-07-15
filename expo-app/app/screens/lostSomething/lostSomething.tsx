@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import React, { useEffect, useState } from 'react';
 import {
   Image,
   Pressable,
@@ -120,6 +121,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  userContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 type GetItemResponse =
@@ -171,6 +177,7 @@ export default function FoundPickerForm() {
   const [stateValue, setStateValue] = useState(null);
 
   const [errors, setErrors] = useState<{ message: string }[]>([]);
+  const [userName, setUserName] = useState('');
 
   async function getFoundItem() {
     console.log({
@@ -204,14 +211,25 @@ export default function FoundPickerForm() {
     console.log('Here is the data', data);
   }
 
+  useEffect(() => {
+    async function getUserName() {
+      const userName = await SecureStore.getItemAsync('userName');
+      setUserName(userName);
+    }
+    getUserName();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Header
           label="FoundLink"
           content="by Mozi since 1984"
-          title={`Have you lost something Mozi ?`}
+          title="You are Home"
         />
+      </View>
+      <View style={styles.userContainer}>
+        <Text style={{ color: colors.patternFont }}>{userName}</Text>
       </View>
       <View style={styles.iconContainer}>
         <Image

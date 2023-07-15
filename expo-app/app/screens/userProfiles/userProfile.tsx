@@ -19,6 +19,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.patternBackground,
+    alignContent: 'center',
+    alignItems: 'center',
   },
   headerContainer: {
     width: '100%',
@@ -222,6 +224,7 @@ export default function UserProfile() {
         email: userEmail,
       }),
     });
+
     const data: EditUserDataResponseBody = await response.json();
     if ('errors' in data) {
       setErrors(data.errors);
@@ -237,15 +240,14 @@ export default function UserProfile() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-
       <View style={styles.headerContainer}>
         <Header
           label="FoundLink"
           content="by Mozi since 1984"
-          title="Hello ${userName}!"
+          title="You are Home"
         />
       </View>
-
+      <Text style={{ color: colors.patternFont }}>{userName}</Text>
       <ScrollView>
         <View style={styles.inputContainer}>
           <View style={styles.roundedSquareButton}>

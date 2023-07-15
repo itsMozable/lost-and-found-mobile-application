@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import * as SecureStore from 'expo-secure-store';
+import React, { useEffect, useState } from 'react';
 import {
   Alert,
   Pressable,
@@ -23,8 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.patternBackground,
   },
   inputContainer: {
-    flex: 10,
-    marginTop: 10,
+    flex: 20,
   },
   input: {
     color: colors.patternFont,
@@ -121,6 +121,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  userContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 type SaveItemResponseBody =
@@ -173,6 +178,7 @@ export default function PickerForm() {
   ]);
   const [stateOpen, setStateOpen] = useState(false);
   const [stateValue, setStateValue] = useState(null);
+  const [userName, setUserName] = useState('');
 
   const [location, setLocation] = useState('');
 
@@ -222,14 +228,26 @@ export default function PickerForm() {
     console.log('Here is the data', data);
   }
 
+  useEffect(() => {
+    async function getUser() {
+      const userName = await SecureStore.getItemAsync('userName');
+
+      setUserName(userName);
+    }
+    getUser();
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
         <Header
           label="FoundLink"
           content="by Mozi since 1984"
-          title="Have you found something Mozi ?"
+          title="You are Home"
         />
+      </View>
+      <View style={styles.userContainer}>
+        <Text style={{ color: colors.patternFont }}>{userName}</Text>
       </View>
       {/* <View style={styles.iconContainer}>
         <Image

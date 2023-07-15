@@ -1,5 +1,7 @@
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -102,6 +104,17 @@ export default async function UserItemsScreen() {
   console.log('hi');
   const router = useRouter();
 
+  const [userName, setUserName] = useState<string>('');
+  useEffect(() => {
+    async function getUserName() {
+      const userName = await SecureStore.getItemAsync('userName');
+      console.log(userName);
+
+      setUserName(userName);
+    }
+    getUserName();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -110,9 +123,10 @@ export default async function UserItemsScreen() {
           font-size="1em"
           label="FoundLink"
           content="by Mozi since 1984"
-          title={`Here are your Items Mozi`}
+          title="You are Home"
         />
       </View>
+      <Text style={{ color: colors.patternFont }}>{userName}</Text>
       <View style={styles.iconContainer}>
         <Image
           source={require('../../../globals/icons/purr.gif')}

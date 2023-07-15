@@ -1,5 +1,7 @@
 import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
@@ -67,6 +69,16 @@ const styles = StyleSheet.create({
 
 export default function MessageScreen() {
   const router = useRouter();
+  const [userName, setUserName] = useState<string>('');
+
+  useEffect(() => {
+    async function getUserName() {
+      const userName = await SecureStore.getItemAsync('userName');
+      setUserName(userName);
+    }
+    getUserName();
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
@@ -75,9 +87,10 @@ export default function MessageScreen() {
           font-size="1em"
           label="FoundLink"
           content="by Mozi since 1984"
-          title={`Here are your Messages Mozi`}
+          title="You are Home"
         />
       </View>
+      <Text style={{ color: colors.patternFont }}>{userName}</Text>
       <View style={styles.ButtonContainer}>
         <Pressable
           style={styles.roundedSquareButton}
