@@ -174,14 +174,12 @@ export default function Index() {
           >
             <Text style={styles.squareButtonText}>Sign - Up</Text>
           </Pressable>
-          {
-            <Pressable
+          {/*  <Pressable
               style={styles.roundedSquareButton}
               onPress={() => router.push('screens/home')}
             >
               <Text style={styles.squareButtonText}>Super Secret Button</Text>
-            </Pressable>
-          }
+            </Pressable> */}
         </View>
       </View>
     </ImageBackground>

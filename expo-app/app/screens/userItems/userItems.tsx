@@ -25,10 +25,9 @@ const styles = StyleSheet.create({
   },
 
   ButtonContainer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'column',
     alignItems: 'center',
-    marginBottom: 20,
   },
 
   roundedSquareButton: {
@@ -57,10 +56,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   bottomMenuButtonContainer: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    height: 50,
     backgroundColor: colors.patternBackground,
     gap: 10,
   },
@@ -107,12 +106,8 @@ type GetItemDataResponseBody =
 export default function UserItemsScreen() {
   const router = useRouter();
   const [errors, setErrors] = useState<{ message: string }[]>([]);
-  const [itemCategory, setItemCategory] = useState<string>('');
-  const [itemName, setitemName] = useState<string>('');
-  const [itemColor, setitemColor] = useState<string>('');
-  const [itemDescription, setitemDescription] = useState<string>('');
-  const [itemState, setitemState] = useState<string>('');
-  const [itemPickup, setItemPickup] = useState<string>('');
+
+  const [itemId, setItemId] = useState<string>('');
 
   const [userName, setUserName] = useState<string>('');
 
@@ -137,8 +132,6 @@ export default function UserItemsScreen() {
           userName: userName,
         }),
       });
-
-      console.log(response);
 
       const data: GetItemDataResponseBody = await response.json();
       console.log(data, 'dataCheck');
@@ -180,30 +173,20 @@ export default function UserItemsScreen() {
         <Text style={styles.squareButtonTextBold}>
           Here are your found Items
         </Text>
-        <View>
+        <View style={styles.ButtonContainer}>
           {itemList.map((item) => {
             return (
-              <View key={`Hola${item.itemName}-${item.itemCategory}`}>
+              <Pressable
+                key={`Hola${item.itemName}-${item.itemCategory}`}
+                style={styles.roundedSquareButton}
+                onPress={() => {
+                  router.replace('../userItems/theItem');
+                }}
+              >
                 <Text style={styles.squareButtonText}>
-                  Name:{item.itemName}
+                  {item.itemCategory}: {item.itemName}
                 </Text>
-                <Text style={styles.squareButtonText}>
-                  Category:{item.itemCategory}
-                </Text>
-                <Text style={styles.squareButtonText}>
-                  Color:{item.itemColor}
-                </Text>
-                <Text style={styles.squareButtonText}>
-                  Description:{item.itemDescription}
-                </Text>
-                <Text style={styles.squareButtonText}>
-                  State:{item.itemState}
-                </Text>
-                <Text style={styles.squareButtonText}>
-                  Pickup:{item.itemPickup}
-                </Text>
-                <Text style={styles.squareButtonText}>{item.itemState}</Text>
-              </View>
+              </Pressable>
             );
           })}
         </View>

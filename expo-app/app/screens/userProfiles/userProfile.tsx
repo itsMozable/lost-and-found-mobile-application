@@ -5,6 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -29,8 +30,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.patternBackground,
   },
   inputContainer: {
-    flex: 10,
-    marginTop: 10,
+    flex: 1,
+    alignItems: 'center',
+    paddingBottom: 80,
   },
   input: {
     color: colors.patternFont,
@@ -43,25 +45,6 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     paddingStart: 10,
     marginBottom: 15,
-  },
-  label: {
-    color: colors.patternFont,
-    marginTop: 5,
-    marginBottom: 7,
-    marginStart: 10,
-  },
-  placeholderStyles: {
-    color: 'grey',
-  },
-  dropdownStyle: {
-    marginHorizontal: 10,
-    zIndex: 3000,
-    zIndexInverse: 1000,
-  },
-  dropdown: {
-    borderColor: '#B7B7B7',
-    height: 50,
-    backgroundColor: colors.patternDropdown,
   },
   buttonContainer: {
     flex: 10,
@@ -88,21 +71,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
     zIndex: 1,
   },
-  logIn: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 10,
-  },
+
   links: {
     textAlign: 'center',
     textDecorationLine: 'underline',
     color: '#758580',
   },
   bottomMenuButtonContainer: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    height: 70,
     backgroundColor: colors.patternBackground,
     gap: 10,
   },
@@ -121,17 +100,18 @@ const styles = StyleSheet.create({
   icon: {
     width: 150,
     height: 150,
+    borderRadius: 200,
+    borderColor: colors.patternBorderColor,
+    borderWidth: 1,
   },
   iconContainer: {
-    flex: 5,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  inputScrollview: {
-    flex: 1,
-  },
   doubleSquareButtonContainer: {
     flex: 1,
+    gap: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -260,74 +240,80 @@ export default function UserProfile() {
           title="This is your Profile,"
         />
       </View>
+
       <Text style={{ color: colors.patternFont }}>{userName}</Text>
-      <ScrollView>
-        <View style={styles.inputContainer}>
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('../../../globals/icons/robot_hello.png')}
+          style={styles.icon}
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <View style={styles.roundedSquareButton}>
+          <TextInput
+            style={styles.squareButtonText}
+            placeholder="Email"
+            onChangeText={setUserEmail}
+            value={userEmail}
+          />
+        </View>
+        <View style={styles.doubleSquareButtonContainer}>
           <View style={styles.roundedSquareButton}>
             <TextInput
               style={styles.squareButtonText}
-              placeholder="Email"
-              onChangeText={setUserEmail}
-              value={userEmail}
+              placeholder="first Name"
+              onChangeText={setUserFirstName}
+              value={userFirstName}
             />
           </View>
-          <View style={styles.doubleSquareButtonContainer}>
-            <View style={styles.roundedSquareButton}>
-              <TextInput
-                style={styles.squareButtonText}
-                placeholder="first Name"
-                onChangeText={setUserFirstName}
-                value={userFirstName}
-              />
-            </View>
 
-            <View style={styles.roundedSquareButton}>
-              <TextInput
-                style={styles.squareButtonText}
-                placeholder="last Name"
-                onChangeText={setUserLastName}
-                value={userLastName}
-              />
-            </View>
-          </View>
-          <View style={styles.doubleSquareButtonContainer}>
-            <View style={styles.roundedSquareButton}>
-              <TextInput
-                style={styles.squareButtonText}
-                placeholder="Address Street"
-                onChangeText={setUserAddrStreet}
-                value={userAddrStreet}
-              />
-            </View>
-            <View style={styles.roundedSquareButton}>
-              <TextInput
-                style={styles.squareButtonText}
-                placeholder="House Number"
-                onChangeText={setUserAddrHouseNo}
-                value={userAddrHouseNo}
-              />
-            </View>
-          </View>
-          <View style={styles.doubleSquareButtonContainer}>
-            <View style={styles.roundedSquareButton}>
-              <TextInput
-                style={styles.squareButtonText}
-                placeholder="Postal Code"
-                onChangeText={setUserPostCode}
-                value={userPostCode}
-              />
-            </View>
-            <View style={styles.roundedSquareButton}>
-              <TextInput
-                style={styles.squareButtonText}
-                placeholder="Location City"
-                onChangeText={setUserLocationCity}
-                value={userLocationCity}
-              />
-            </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="last Name"
+              onChangeText={setUserLastName}
+              value={userLastName}
+            />
           </View>
         </View>
-      </ScrollView>
+        <View style={styles.doubleSquareButtonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Address Street"
+              onChangeText={setUserAddrStreet}
+              value={userAddrStreet}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="House Number"
+              onChangeText={setUserAddrHouseNo}
+              value={userAddrHouseNo}
+            />
+          </View>
+        </View>
+        <View style={styles.doubleSquareButtonContainer}>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Postal Code"
+              onChangeText={setUserPostCode}
+              value={userPostCode}
+            />
+          </View>
+          <View style={styles.roundedSquareButton}>
+            <TextInput
+              style={styles.squareButtonText}
+              placeholder="Location City"
+              onChangeText={setUserLocationCity}
+              value={userLocationCity}
+            />
+          </View>
+        </View>
+      </View>
+
       <View style={styles.bottomMenuButtonContainer}>
         <Pressable
           style={styles.roundedSquareButton}

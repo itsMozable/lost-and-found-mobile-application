@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
 
@@ -14,7 +14,6 @@ export const metadata = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexdirection: 'column',
     alignItems: 'center',
     backgroundColor: colors.patternBackground,
   },
@@ -24,32 +23,36 @@ const styles = StyleSheet.create({
   },
 
   ButtonContainer: {
-    flex: 10,
+    flex: 1,
     justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1,
   },
   roundedSquareButton: {
-    width: 200,
-    height: 50,
+    width: 150,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.patternButtons,
-    margin: 20,
+    marginVertical: 1,
     padding: 10,
     borderRadius: 10,
     borderColor: colors.patternBorderColor,
     borderWidth: 1,
+    zIndex: 1,
   },
   squareButtonText: {
     textAlign: 'center',
     color: colors.patternFont,
     /*   fontFamily: '', */
-    fontSize: 20,
+    fontSize: 15,
+    zIndex: 1,
   },
   bottomMenuButtonContainer: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
+    height: 50,
     backgroundColor: colors.patternBackground,
     gap: 10,
   },
@@ -64,6 +67,15 @@ const styles = StyleSheet.create({
     color: colors.patternFont,
     fontSize: 15,
     marginHorizontal: 15,
+  },
+  iconContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  icon: {
+    width: 200,
+    height: 200,
   },
 });
 
@@ -91,6 +103,12 @@ export default function MessageScreen() {
         />
       </View>
       <Text style={{ color: colors.patternFont }}>{userName}</Text>
+      <View style={styles.iconContainer}>
+        <Image
+          source={require('../../../globals/icons/under_construction.png')}
+          style={styles.icon}
+        />
+      </View>
       <View style={styles.ButtonContainer}>
         <Pressable
           style={styles.roundedSquareButton}

@@ -17,6 +17,7 @@ import { apiBaseUrl } from '../../index';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+
     backgroundColor: colors.patternBackground,
   },
   headerContainer: {
@@ -94,10 +95,10 @@ const styles = StyleSheet.create({
     color: '#758580',
   },
   bottomMenuButtonContainer: {
-    flex: 1,
     flexDirection: 'row',
     alignItems: 'stretch',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    height: 50,
     backgroundColor: colors.patternBackground,
     gap: 10,
   },

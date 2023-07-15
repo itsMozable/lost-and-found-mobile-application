@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   bottomMenuButtonContainer: {
-    flex: 1,
+    height: 50,
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',

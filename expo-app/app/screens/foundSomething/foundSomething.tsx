@@ -3,6 +3,7 @@ import * as SecureStore from 'expo-secure-store';
 import React, { useEffect, useState } from 'react';
 import {
   Alert,
+  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -248,13 +249,6 @@ export default function PickerForm() {
         />
         <Text style={{ color: colors.patternFont }}>{userName}</Text>
       </View>
-      {/* <View style={styles.iconContainer}>
-        <Image
-          source={require('../../../globals/icons/purr.gif')}
-          style={styles.icon}
-        />
-      </View> */}
-
       <View style={styles.inputContainer}>
         <View>
           <Text style={styles.label}>Category</Text>
