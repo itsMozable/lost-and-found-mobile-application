@@ -2,12 +2,18 @@
 
 ## Introduction
 
-Introducing "FoundLink" - the ultimate lost and found app that brings people together with their cherished belongings effortlessly, without any unnecessary hurdles. Say goodbye to bureaucracy and welcome a hassle-free experience that's as simple as a click.
+Introducing "FoundLink" - the ultimate lost and found app that brings people together with their cherished belongings effortlessly, without any unnecessary hurdles.
+
+Say goodbye to bureaucracy and welcome a hassle-free experience that's as simple as a click.
 FoundLink offers a seamless platform to connect with others who have found your lost items, instantly reuniting you with what you hold dear.
+
 With FoundLink, the process is a breeze. Whether you misplaced your keys, left your favourite jacket behind, or even lost a beloved keepsake, our app streamlines the entire journey. No more waiting in long queues or enduring tedious paperwork. Just snap a photo, enter a brief description, and voila! Your item is listed and ready for discovery.
+
 We prioritize your security and peace of mind. FoundLink ensures a secure environment where your personal information remains confidential.
 Our advanced verification system guarantees trustworthy interactions, allowing you to connect with fellow users who genuinely want to help you find what's lost.
+
 But that's not all! FoundLink is an app on demand, available at your fingertips whenever needed. Our user-friendly interface ensures effortless navigation and quick results, whether at home, in the office, or on the go. Browse through the database of found items, receive real-time notifications, and directly communicate with finders to swiftly reclaim what's rightfully yours.
+
 So, why wait? Experience the joy of rediscovery with FoundLink. It's the epitome of simplicity, security, and immediate connection.
 Our app makes the journey from lost to found an exhilarating adventure filled with smiles, gratitude, and the restoration of precious memories.
 
@@ -91,14 +97,14 @@ https://github.com/tattoomozi/lost-and-found-final
 
 ![LostSomething](./expo-app/globals/MobileAppScreenshots/7_LostSomething.png)
 
-#### Item List Entry Screen
-
-![ItemList_Entry](./expo-app/globals/MobileAppScreenshots/8_ItemList_Entry.png)
-
-#### Item List Screen
+#### Item List Empty Screen
 
 ![ItemList](./expo-app/globals/MobileAppScreenshots/8_ItemList.png)
 
-#### Messages Screen
+#### Item List Screen
+
+![ItemList_Entry](./expo-app/globals/MobileAppScreenshots/8_ItemList_Entry.png)
+
+#### Messages Screen 'under construction'
 
 ![Messages](./expo-app/globals/MobileAppScreenshots/9_Messages.png)
