@@ -56,3 +56,13 @@ DrawSQL for Database Sketching
 
 ![Index](./expo-app/globals/MobileAppScreenshots/1_Index.png)
 ![Register](./expo-app/globals/MobileAppScreenshots/2_Register.png)
+![LoginFailed](./expo-app/globals/MobileAppScreenshots/3_Login_failed.png)
+![Home](./expo-app/globals/MobileAppScreenshots/4_Home.png)
+![Profile](./expo-app/globals/MobileAppScreenshots/5_Profile.png)
+[ProfileAlert](./expo-app/globals/MobileAppScreenshots/5_Profile_Alert.png)
+![FoundSomething](./expo-app/globals/MobileAppScreenshots/6_Found_Something.png)
+![FoundSomethingAlert](./expo-app/globals/MobileAppScreenshots/6_FoundSomething_Alert.png)
+![LostSomething](./expo-app/globals/MobileAppScreenshots/7_LostSomething.png)
+![ItemList_Entry](./expo-app/globals/MobileAppScreenshots/8_ItemList_Entry.png)
+![ItemList](./expo-app/globals/MobileAppScreenshots/8_ItemList.png)
+![Messages](./expo-app/globals/MobileAppScreenshots/9_Messages.png)

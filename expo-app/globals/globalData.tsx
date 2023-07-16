@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import MessageScreen from '../app/screens/messages/messages';
 
 export const colors = {
   patternBackground: '#3c545f',
