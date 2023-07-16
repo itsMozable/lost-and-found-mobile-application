@@ -13,7 +13,8 @@ Our app makes the journey from lost to found an exhilarating adventure filled wi
 
 ## Description
 
-FoundLink is a Smartphone Application written in React Native and Expo which allows users to connect with others who have found your lost items. The User can store favorite Items as well as add and delete profile information.
+FoundLink is a Smartphone Application which allows users to connect with others who have found your lost items.
+The User can store favorite Items as well as add and delete profile information.
 The Application uses React Native and Expo in the Frontend and Next.js with PostgreSQL in the Backend.
 
 ## Demo Video
@@ -22,18 +23,17 @@ https://github.com/tattoomozi/lost-and-found-final
 
 ## Features Frontend
 
-User Registration, Login, Logout
-Validation of API requests with Session Token and a CSRF-Token
-Add and Delete Profile Information (Name, Street, House Number, Postal Code, City, Email)
-Add favorite items which you carry all day every day to have a quicker access when lost ( Id, Category, Color, Description, State, Favorite Pickup Location )
+- User Registration, Login, Logout
+- Validation of API requests with Session Token and a CSRF-Token
+- Add and Delete Profile Information (Name, Street, House Number, Postal Code, City, Email)
+- Add favorite items which you carry all day every day to have a quicker access when lost ( Id, Category, Color, Description, State, Favorite Pickup Location )
 
 ## Features Backend
 
-Session Management: Login, Logout and Revalidation routes
-Authorization Checks
-Add, Store and retrieve User Data
-Tokens at all API Endpoints
-Database migration setup with ley
+- Session Management: Login, Logout and Revalidation routes
+- Authorization Checks
+- Add, Store and retrieve User Data Tokens at all API Endpoints
+- Database migration setup with ley
 
 ## Future Updates
 
@@ -44,13 +44,14 @@ Database migration setup with ley
 
 ## Technologies
 
-React Native
-Expo / Expo Go / Expo CLI
-Next.js
-PostgreSQL
-TypeScript
-Figma for planning and
-DrawSQL for Database Sketching
+- React Native
+- Expo / Expo Go / Expo CLI
+- Next.js
+- PostgreSQL
+- TypeScript
+- CSS
+- Figma for planning and
+- DrawSQL for Database Sketching
 
 ### Screenshots
 
@@ -76,9 +77,9 @@ DrawSQL for Database Sketching
 
 #### Profile Alert Screen
 
-[ProfileAlert](./expo-app/globals/MobileAppScreenshots/5_Profile_Alert.png)
+![ProfileAlert](./expo-app/globals/MobileAppScreenshots/5_Profile_Alert.png)
 
-#### Found Something Alert Screen
+#### Found Something Notification Screen
 
 ![FoundSomethingAlert](./expo-app/globals/MobileAppScreenshots/6_FoundSomething_Alert.png)
 
