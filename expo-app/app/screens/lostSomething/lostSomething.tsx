@@ -128,6 +128,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  FontUserName: {
+    color: colors.patternFont,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
 });
 
 type GetItemResponse =
@@ -229,7 +235,7 @@ export default function FoundPickerForm() {
           content="by Mozi since 1984"
           title="Have you lost something,"
         />
-        <Text style={{ color: colors.patternFont }}>{userName}</Text>
+        <Text style={styles.FontUserName}>{userName}</Text>
       </View>
       <View style={styles.iconContainer}>
         <Image

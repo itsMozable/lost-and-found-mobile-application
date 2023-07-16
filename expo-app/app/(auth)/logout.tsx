@@ -10,14 +10,14 @@ import { apiBaseUrl } from '../index';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.patternBackground,
     alignItems: 'center',
     justifyContent: 'center',
   },
   loadingText: {
     /*   fontFamily: '', */
     fontSize: 30,
-    color: colors.patternColorB,
+    color: colors.patternFont,
   },
 });
 
@@ -27,19 +27,17 @@ export default function Logout() {
 
   useEffect(() => {
     async function LogoutOnRoute() {
-      const tokenToClearSession = await SecureStore.getItemAsync(
-        'sessionToken',
-      );
+      const tokenToClearSession = await SecureStore.getItemAsync('token');
       async function clearSecureStorage() {
-        await SecureStore.deleteItemAsync('loggedInAs');
-        await SecureStore.deleteItemAsync('sessionToken');
-        await SecureStore.deleteItemAsync('sessionSecret');
+        await SecureStore.deleteItemAsync('userName');
+        await SecureStore.deleteItemAsync('token');
+        await SecureStore.deleteItemAsync('secret');
 
-        const loggedInAs = await SecureStore.getItemAsync('loggedInAs');
-        const sessionToken = await SecureStore.getItemAsync('sessionToken');
-        const sessionSecret = await SecureStore.getItemAsync('sessionSecret');
+        const userName = await SecureStore.getItemAsync('userName');
+        const token = await SecureStore.getItemAsync('token');
+        const secret = await SecureStore.getItemAsync('secret');
 
-        if (loggedInAs || sessionToken || sessionSecret) {
+        if (userName || token || secret) {
           console.log('Session Cleanup Failed');
         }
       }

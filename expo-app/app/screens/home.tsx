@@ -77,6 +77,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  FontUserName: {
+    color: colors.patternFont,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
 });
 
 export default function Home() {
@@ -130,7 +136,7 @@ export default function Home() {
           title="You are Home,"
         />
       </View>
-      <Text style={{ color: colors.patternFont }}>{userName}</Text>
+      <Text style={styles.FontUserName}>{userName}</Text>
       <View style={styles.iconContainer}>
         <Image
           source={require('../../globals/icons/headphone_cat.png')}

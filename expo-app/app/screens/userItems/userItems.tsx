@@ -82,6 +82,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  FontUserName: {
+    color: colors.patternFont,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
 });
 
 type Items = {
@@ -160,7 +166,7 @@ export default function UserItemsScreen() {
           title="Here are your items,"
         />
       </View>
-      <Text style={{ color: colors.patternFont }}>{userName}</Text>
+      <Text style={styles.FontUserName}>{userName}</Text>
 
       <View style={styles.iconContainer}>
         <Image

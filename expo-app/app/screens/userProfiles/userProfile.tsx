@@ -70,6 +70,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     zIndex: 1,
   },
+  FontUserName: {
+    color: colors.patternFont,
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginVertical: 20,
+  },
 
   links: {
     textAlign: 'center',
@@ -240,7 +246,7 @@ export default function UserProfile() {
         />
       </View>
 
-      <Text style={{ color: colors.patternFont }}>{userName}</Text>
+      <Text style={styles.FontUserName}>{userName}</Text>
       <View style={styles.iconContainer}>
         <Image
           source={require('../../../globals/icons/robot_hello.png')}

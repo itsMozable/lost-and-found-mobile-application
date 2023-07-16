@@ -77,6 +77,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
   },
+  FontUserName: {
+    color: colors.patternFont,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 10,
+  },
 });
 
 export default function MessageScreen() {
@@ -102,7 +108,7 @@ export default function MessageScreen() {
           title="Here are your messages,"
         />
       </View>
-      <Text style={{ color: colors.patternFont }}>{userName}</Text>
+      <Text style={styles.FontUserName}>{userName}</Text>
       <View style={styles.iconContainer}>
         <Image
           source={require('../../../globals/icons/under_construction.png')}
