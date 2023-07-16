@@ -12,16 +12,10 @@ With FoundLink, the process is a breeze. Whether you misplaced your keys, left y
 We prioritize your security and peace of mind. FoundLink ensures a secure environment where your personal information remains confidential.
 Our advanced verification system guarantees trustworthy interactions, allowing you to connect with fellow users who genuinely want to help you find what's lost.
 
-But that's not all! FoundLink is an app on demand, available at your fingertips whenever needed. Our user-friendly interface ensures effortless navigation and quick results, whether at home, in the office, or on the go. Browse through the database of found items, receive real-time notifications, and directly communicate with finders to swiftly reclaim what's rightfully yours.
+But that's not all! FoundLink is an app on demand, available at your fingertips whenever needed. Our user-friendly interface ensures effortless navigation and quick results, whether at home, in the office, or on the go. In the near future you can browse through the database of found items, receive real-time notifications, and directly communicate with finders to swiftly reclaim what's rightfully yours.
 
 So, why wait? Experience the joy of rediscovery with FoundLink. It's the epitome of simplicity, security, and immediate connection.
 Our app makes the journey from lost to found an exhilarating adventure filled with smiles, gratitude, and the restoration of precious memories.
-
-## Description
-
-FoundLink is a Smartphone Application which allows users to connect with others who have found your lost items.
-The User can store favorite Items as well as add and delete profile information.
-The Application uses React Native and Expo in the Frontend and Next.js with PostgreSQL in the Backend.
 
 ## Demo Video
 
@@ -89,7 +83,7 @@ https://github.com/tattoomozi/lost-and-found-final
 
 ![FoundSomethingAlert](./expo-app/globals/MobileAppScreenshots/6_FoundSomething_Alert.png)
 
-#### Found Something Empty Screen
+#### Found Something Screen
 
 ![FoundSomething](./expo-app/globals/MobileAppScreenshots/6_Found_Something.png)
 
@@ -101,9 +95,13 @@ https://github.com/tattoomozi/lost-and-found-final
 
 ![ItemList](./expo-app/globals/MobileAppScreenshots/8_ItemList.png)
 
-#### Item List Screen
+#### Item List Filled Screen
 
 ![ItemList_Entry](./expo-app/globals/MobileAppScreenshots/8_ItemList_Entry.png)
+
+#### Item List Alert
+
+![Items_Alert](./expo-app/globals/MobileAppScreenshots/8_Items_Alert.png)
 
 #### Messages Screen 'under construction'
 

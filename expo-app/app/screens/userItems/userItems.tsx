@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
+import { Alert, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../../../globals/globalData';
 import Header from '../../components/header';
 import { apiBaseUrl } from '../../index';
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 
   roundedSquareButton: {
-    width: 200,
+    width: 250,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
@@ -151,9 +151,27 @@ export default function UserItemsScreen() {
       }
       console.log(itemList);
     }
-
     getItemData().catch((error) => console.error(error));
   }, []);
+
+  function informationAlert(
+    itemCategory: string,
+    itemName: string,
+    itemDescription: string,
+    itemState: string,
+    itemPickup: string,
+  ) {
+    Alert.alert(
+      `${itemCategory}: ${itemName}`,
+      `Description: ${itemDescription}\nState: ${itemState}\nPickup: ${itemPickup}`,
+      [
+        {
+          text: 'back to Items',
+          onPress: () => router.push('../userItems/userItems'),
+        },
+      ],
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -186,7 +204,13 @@ export default function UserItemsScreen() {
                 key={`Hola${item.itemName}-${item.itemCategory}`}
                 style={styles.roundedSquareButton}
                 onPress={() => {
-                  router.replace('../userItems/theItem');
+                  informationAlert(
+                    item.itemCategory,
+                    item.itemName,
+                    item.itemDescription,
+                    item.itemState,
+                    item.itemPickup,
+                  );
                 }}
               >
                 <Text style={styles.squareButtonText}>
