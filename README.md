@@ -19,7 +19,7 @@ Our app makes the journey from lost to found an exhilarating adventure filled wi
 
 ## Demo Video
 
-https://github.com/tattoomozi/lost-and-found-final
+https://github.com/itsmozable/lost-and-found-mobile-application
 
 ## Features Frontend
 
